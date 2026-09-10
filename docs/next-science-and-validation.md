@@ -1,6 +1,6 @@
 # Scientific study and semantic validation proposal
 
-Status: active goal on 2026-09-10; no new scientific experiment has been run. The existing eleven-family checks establish bounded native execution fidelity, not perfect integration, clinical validity, or universal sensor/time/feature semantics.
+Status: historical proposal, retained to explain the initial design and BENDR defect discovery. The three-model study and eleven-family semantic audit have since completed within their recorded scope. Start with the [current scientific reports](../research/mi/README.md) and [public-readiness ledger](public-readiness.md). Future-tense statements below describe the proposal at the time, not outstanding work or current findings. The checks establish bounded native execution fidelity, not perfect integration, clinical validity, or universal sensor/time/feature semantics.
 
 ## Current goal and ordering
 
