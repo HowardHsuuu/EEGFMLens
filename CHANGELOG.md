@@ -1,5 +1,17 @@
 # Changelog
 
+## Repository scope
+
+Scientific experiment code, results and planning documents are maintained separately. Native tool validation lives in `validation/`; its runners use standalone fixtures. Runtime APIs and package Python bytes are unchanged by this separation.
+
+## 0.1.0a9 — public source alpha
+
+Retains acknowledged BEiT v2, timm, DeiT and DINO licenses and notices. Six GitHub hosted OS/Python installed-wheel jobs passed with 87 non-integration tests per job; native checkpoint conformance remains separately scoped. No PyPI release is claimed.
+
+## 0.1.0a8 — local alpha
+
+Retains the PyTorch notice for bundled upstream transformer helpers without changing model computation.
+
 ## 0.1.0a7 — local alpha, not published
 
 Run export normalizes tuple/list subclasses to plain schema-supported containers. Previously a native namedtuple output could be saved successfully with its class name as the tree kind, then fail to load because the v1 reader only recognizes `tuple` and `list`. Values/order round-trip without importing custom classes; namedtuple field names and subclass identity are not retained. This change is included in a7 and absent from a6.
@@ -22,7 +34,7 @@ EEGPT now reports unknown native channel names as `ValidationError` and rejects 
 
 Intervention return values must preserve exposed tensor shape, dtype and device and contain finite values. Previously, a custom intervention could return a different shape with the same element count and be silently reshaped by the adapter. Invalid results now raise `ValidationError`; scoped cleanup preserves existing hooks and permits the next run. Invalid batch objects, string cache-site collections and malformed intervention objects also produce explicit errors. Non-tensor subspace basis/center inputs are rejected deliberately.
 
-Eleven-family dense native validation and the three-model MI study are documented under `research/model_validation/DENSE_VALIDATION.md` and `research/mi/REPORT.md`. Those retained numerical studies predate the new runtime return-value guard; the guard does not change valid intervention arithmetic. The source checkpoint suite covers the changed runtime, while historical artifacts are not relabeled as new-version runs.
+Eleven-family dense native validation is documented under `validation/DENSE_VALIDATION.md`. Those retained validation records predate the new runtime return-value guard; the guard does not change valid intervention arithmetic. The source checkpoint suite covers the changed runtime, while historical artifacts are not relabeled as new-version runs.
 
 ## 0.1.0a2 — local alpha, not published
 
@@ -32,11 +44,7 @@ Adds checkpoint-backed adapters for eleven EEG model families, invocation-specif
 
 ## Unreleased public patching sweeps
 
-Added `patching_sweep`, `SweepTarget`, `SweepResult`, `patch_grid` and per-trial `MatchedReplacement`. Sweeps provide identity/cleanup checks, stable trial-ID random controls, explicit invalid and excessive-multiplier diagnostics, JSON output and grouped descriptive summaries. The phase experiment now consumes the public API; the known-answer example validates exact causal coordinates and effects. Full reproduction evidence is recorded in `docs/sweep-validation.md`.
-
-## Unreleased research workflow
-
-Added a reproducible DREAMS spindle/N2 study: subject-held-out frozen readouts, human event probes, spectral/amplitude adjustment, matched native interventions, signal-defined slow-wave controls and subject-level summaries. Includes explicit EDF uppercase-UV correction verified against physical-value text exports. Results and limitations are in `research/spindle/RESULTS.md`.
+Added `patching_sweep`, `SweepTarget`, `SweepResult`, `patch_grid` and per-trial `MatchedReplacement`. Sweeps provide identity/cleanup checks, stable trial-ID random controls, explicit invalid and excessive-multiplier diagnostics, JSON output and grouped descriptive summaries. The known-answer example validates exact causal coordinates and effects. Validation evidence is recorded in `docs/sweep-validation.md`.
 
 ## 0.1.0a1 — local alpha
 

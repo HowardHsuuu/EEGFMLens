@@ -69,17 +69,14 @@ The table above describes the original two adapters with sensor/patch semantics.
 
 All supported sites are module **outputs**. QKV, attention probabilities, individual heads, gradients, compiled execution, mixed precision, GPU execution, learned steering and cross-model transport are not validated capabilities. Unsupported sites raise errors. See [API contracts](docs/api.md).
 
-## Research use
+## Repository scope
 
-A three-model [motor-imagery study](research/mi/REPORT.md) compares physiological decodability with native intervention effects under subject-disjoint evaluation, rank/energy controls and off-target readouts. It does not establish a common μ/β mechanism. The [recoverability follow-up](research/mi/RECOVERABILITY.md) shows why disabling a fixed probe is insufficient evidence of information removal, with reproducible subject-wise figures and explicit exploratory limits.
+This repository contains the reusable tool, adapters, examples, tests and native
+integration validation. Dataset-specific studies, scientific results and response
+replay archives are maintained separately and are not release requirements.
 
-A complete [spindle/N2 experiment](research/spindle/README.md) now links human event annotations to subject-held-out readouts and native interventions. Its [results](research/spindle/RESULTS.md) do not establish a shared spindle-specific mechanism; the matched controls and spectral comparisons are part of the finding.
-
-A [phase-surrogate follow-up](research/phase/README.md) adds spectrum-constrained signals, per-patch tracking and equal-norm location controls. Its [results](research/phase/RESULTS.md) show sensitivity beyond the whole-window spectrum but do not establish spindle-specific temporal morphology.
-
-EEGLens helps test whether a model uses a representation, beyond whether a probe can decode it. A possible study asks whether cross-model correspondence fitted on training data predicts held-out intervention responses. The [research protocol](docs/research.md) is proposed, not a shipped alignment pipeline or reported discovery.
-
-A changed output alone does not establish a physiological mechanism. Use identity, random and matched perturbation controls, held-out subjects and task metrics. Full final-block replacement recovering clean output validates plumbing; it is not evidence of a meaningful circuit.
+Use [validation/](validation/README.md) for native-hook conformance checks and
+[the acceptance ledger](docs/public-readiness.md) for verified platform and model scope.
 
 ## Documentation
 

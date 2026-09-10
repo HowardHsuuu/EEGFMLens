@@ -2,7 +2,7 @@
 
 `SignalBatch` uses `[batch, sensor, patch, sample]` containers, but the required sampling rate, sample count and channel convention depend on the adapter and checkpoint. The two bundled loaders documented here use float32 `[B,C,P,200]` patches at 200 Hz. Other integrations include 128, 256 and 500 Hz models and continuous-input models; use the [per-model input contracts](input-contracts.md), not the bundled-loader recipe, for those models. The caller owns filtering, referencing, scaling, channel order and epoch definitions. Matching tensor shapes do not establish matching preprocessing.
 
-EEGLens supplies local checkpoint loaders for CBraMod and LaBraM only. For the other nine verified families, construct and strictly load the native upstream model, then pass it to its exported adapter and `EEGLens`. The adapters do not download or bundle those upstream implementations or checkpoints. [Model coverage](model-coverage.md) identifies each verified component; [validation runners](../research/model_validation/README.md) document the tested construction and loading paths. The generic adapter interface is not a universal checkpoint loader.
+EEGLens supplies local checkpoint loaders for CBraMod and LaBraM only. For the other nine verified families, construct and strictly load the native upstream model, then pass it to its exported adapter and `EEGLens`. The adapters do not download or bundle those upstream implementations or checkpoints. [Model coverage](model-coverage.md) identifies each verified component; [validation runners](../validation/README.md) document the tested construction and loading paths. The generic adapter interface is not a universal checkpoint loader.
 
 ## CBraMod
 

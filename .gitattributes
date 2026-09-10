@@ -4,5 +4,5 @@
 # These files carry upstream or recorded-evidence byte digests. Preserve bytes,
 # including intentional upstream whitespace and CSV writer CRLF line endings.
 src/eeglens/_vendor/** -text -whitespace
-research/**/results/** -text -whitespace
+validation/results/** -text -whitespace
 docs/validation-results/** -text -whitespace

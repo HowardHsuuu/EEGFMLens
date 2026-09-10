@@ -4,13 +4,13 @@ The archives contain native model code from CBraMod and LaBraM. Other EEG model 
 
 ## PyTorch helper correspondence and notice
 
-CBraMod's bundled `criss_cross_transformer.py` contains three helpers with exact AST matches to installed PyTorch 2.6.0 `torch/nn/modules/transformer.py`: `_get_activation_fn`, `_get_seq_len`, and `_detect_is_causal_mask`. The reference file matches its installed wheel RECORD checksum. This establishes correspondence, not the original upstream derivation revision or equivalence of the full modified transformer. Evidence: `research/model_validation/results/pytorch-helper-provenance.json`.
+CBraMod's bundled `criss_cross_transformer.py` contains three helpers with exact AST matches to installed PyTorch 2.6.0 `torch/nn/modules/transformer.py`: `_get_activation_fn`, `_get_seq_len`, and `_detect_is_causal_mask`. The reference file matches its installed wheel RECORD checksum. This establishes correspondence, not the original upstream derivation revision or equivalence of the full modified transformer. Evidence: `validation/results/pytorch-helper-provenance.json`.
 
-a8 retains the complete [PyTorch v2.6.0 LICENSE](https://github.com/pytorch/pytorch/blob/v2.6.0/LICENSE) as `src/eeglens/_vendor/PYTORCH_LICENSE`. The auditor verifies its recorded upstream SHA256 and exact inclusion in wheel and sdist. No model Python code was changed. `research/model_validation/results/vendor-audit-a8.json` records seven source/license checks and both archive inventories. This notice improves attribution; it does not resolve the remaining LaBraM derivation-chain review.
+a8 retains the complete [PyTorch v2.6.0 LICENSE](https://github.com/pytorch/pytorch/blob/v2.6.0/LICENSE) as `src/eeglens/_vendor/PYTORCH_LICENSE`. The auditor verifies its recorded upstream SHA256 and exact inclusion in wheel and sdist. No model Python code was changed. `validation/results/vendor-audit-a8.json` records seven source/license checks and both archive inventories. This notice improves attribution; it does not resolve the remaining LaBraM derivation-chain review.
 
 ## Original pinned-source checks
 
-a9 additionally retains `BEIT2_LICENSE`, `TIMM_LICENSE`, `DEIT_LICENSE` and `DINO_LICENSE` for the projects explicitly acknowledged by LaBraM. Their inspected reference revisions, URLs and hashes are in `research/model_validation/results/labram-upstream-provenance.json`; both archives pass all eleven source/license checks. The reference BEiT v2 file is now under `beit2/modeling_finetune.py`, while LaBraM's historical `beitv2` link returns 404. `_cfg`, `DropPath`, `Mlp`, `Block.forward` and `PatchEmbed.forward` have exact AST matches to the reference. Nested class/method matches are not independent evidence counts.
+a9 additionally retains `BEIT2_LICENSE`, `TIMM_LICENSE`, `DEIT_LICENSE` and `DINO_LICENSE` for the projects explicitly acknowledged by LaBraM. Their inspected reference revisions, URLs and hashes are in `validation/results/labram-upstream-provenance.json`; both archives pass all eleven source/license checks. The reference BEiT v2 file is now under `beit2/modeling_finetune.py`, while LaBraM's historical `beitv2` link returns 404. `_cfg`, `DropPath`, `Mlp`, `Block.forward` and `PatchEmbed.forward` have exact AST matches to the reference. Nested class/method matches are not independent evidence counts.
 
 The references retain Microsoft, Ross Wightman and Facebook source credits in THIRD_PARTY_NOTICES. Root NOTICE requests returned 404 at the four recorded reference revisions; `beit2/NOTICE` also returned 404. This is a check of those paths, not proof that no other notice exists anywhere in each project. The exact historical derivation commits remain unknown, and reference snapshots are not relabeled as them. No model computation changed.
 
@@ -39,7 +39,7 @@ python eeglens/tools/audit_vendor.py \
   --output vendor-audit.json
 ```
 
-Evidence: `research/model_validation/results/vendor-audit-a4.json`, including revisions, upstream/bundled hashes, archive digests and auditor hash. Rebuilding an archive requires rerunning the audit against the new artifact.
+Evidence: `validation/results/vendor-audit-a4.json`, including revisions, upstream/bundled hashes, archive digests and auditor hash. Rebuilding an archive requires rerunning the audit against the new artifact.
 
 ## Limits
 
