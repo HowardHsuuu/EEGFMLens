@@ -1,6 +1,6 @@
 # Public readiness audit
 
-Status: active, incomplete. Current local package: **0.1.0a9**, unpublished. TransformerLens-level quality is a quality ambition, not verified feature parity. This ledger states tested scope rather than declaring integrations perfect.
+Status: active, incomplete. Current package: **0.1.0a9**, source published on GitHub; no PyPI release. TransformerLens-level quality is a quality ambition, not verified feature parity. This ledger states tested scope rather than declaring integrations perfect.
 
 a9 retains the BEiT v2/Microsoft, timm, DeiT and DINO license texts acknowledged by LaBraM. Recorded reference snapshots show exact AST correspondence for several LaBraM/BEiT v2 components; they are not asserted to be original derivation commits. Eleven source/license checks pass for both archives. Two installed environments pass all 87 non-integration tests, 33-file byte verification, quickstart and the 24-effect analytic sweep. The modern environment was freshly created for a8 and upgraded to a9; it is not a fresh a9 dependency resolution. Production model Python code is unchanged. Evidence: `vendor-audit-a9.json`, `installed-modern-a9.json`, `installed-minimum-a9.json`, and `labram-upstream-provenance.json` under `research/model_validation/results/`.
 
@@ -22,7 +22,7 @@ a7 includes the tuple/list-subclass export fix. Both installed dependency enviro
 | Insightful follow-up | Training-subject cross-fitting shows linear information can remain after original-probe erasure; pooled scores conceal subject heterogeneity | Exploratory, not independent confirmation or downstream causal evidence |
 | Installed artifact | a9 wheel bytes checked against installed files; isolated import, dependency check, 87 non-integration tests, quickstart and analytic sweep | macOS ARM Python 3.12 CPU; a9 upgrades, with fresh dependency-resolution evidence from a8 |
 | Release provenance | a9 direct source and acknowledged upstream notice retention, with recorded hashes and archive inclusion | Original derivation commits and every transitive upstream file are not established; checkpoints/datasets have separate terms |
-| Platform coverage | Six OS/Python CI jobs configured | Remote CI unexecuted; Linux, Windows, Python 3.10 and GPU not validated |
+| Platform coverage | Six fresh GitHub hosted Ubuntu/macOS/Windows × Python 3.10/3.12 installed-wheel jobs passed at `76f52c4`; reports checked | Non-integration CPU suite; no remote checkpoint study or GPU validation |
 
 ## Authoritative evidence
 
@@ -59,7 +59,7 @@ The [main report](../research/mi/REPORT.md) does not establish that the models r
 
 The [recoverability report](../research/mi/RECOVERABILITY.md) identifies a concrete interpretive problem: erasing a probe's coefficient span does not establish information removal. LaBraM's recovered beta pooled R² is 0.453, but only 8/18 individual subjects have positive recovered R². Follow-up should distinguish surviving linear information, subject heterogeneity and downstream dependence with controlled interventions; see [next goal](next-goal.md).
 
-Remaining release work includes systematic API error coverage, an externally reproducible scientific example, executed platform coverage and complete release/provenance review. No public upload has been performed. Earlier milestones and superseded pending lists are preserved in [history](public-readiness-history.md).
+Source publication and six-platform-job verification are complete for `76f52c4`. The existing API boundary, real-EEG example, response replay and provenance checks retain their recorded scope; they do not establish exhaustive API correctness, full remote scientific reproduction or complete historical derivation provenance. Earlier milestones and superseded pending lists are preserved in [history](public-readiness-history.md).
 
 A [portable three-model response replay](../research/mi/REPLAY.md) now reconstructs the completed contrast-task summaries, clean-readout evaluations and plots without checkpoints. The actual archive passed after extraction outside the checkout; corrupt files and rehashed incorrect expected numbers were rejected without successful output. This improves analysis portability but does not satisfy fresh-machine native-inference or cross-platform validation.
 
@@ -68,3 +68,7 @@ The real-EEG instrumentation example now has an independent native C3/patch abla
 The current installed gate additionally executes `examples/patching_sweep.py` from outside the checkout. Both dependency environments reproduce all 24 analytically specified effects, including zero-effect coordinates; the example now requires the expected record count. Example source digests are retained in the `installed-*-a6-sweep.json` reports. These source tooling/example changes postdate the a6 sdist; package Python bytes are unchanged. This is intervention calibration with synthetic data, not new physiological evidence.
 
 Science update: the [contrast-task report](../research/mi/CONTRAST_TASK_RESULTS.md) contains completed CBraMod/LaBraM/CSBrain results (each 18 subjects, 810 trials, 71 conditions). Clean final physiological readouts fail subject-wise generalization; loss increases alone therefore cannot establish information removal. The [pooling diagnostic](../research/mi/FINAL_POOLING_DIAGNOSTIC.md) shows that this failure also does not establish absence of final-layer information. Both analyses remain exploratory. The completed comparison does not establish selective shared μ/β dependence and does not support advancing to cross-model steering on that premise.
+
+## Executed GitHub Actions evidence
+
+[Run 34435514982](https://github.com/HowardHsuuu/EEGFMLens/actions/runs/34435514982) passed lint and all six installed-wheel jobs for commit `76f52c48926035454852be7386f6d2833d616ee5`. Downloaded JSON/JUnit pairs were checked for 87 tests, zero failures/errors/skips, matching JUnit digests, 33 package Python files, current verifier/example source hashes, dependency consistency, quickstart and the analytic sweep. Two checkpoint tests were deliberately deselected, not silently counted as passed. Retained reports, job metadata and the scope summary are in [`research/model_validation/results/ci-76f52c4/`](../research/model_validation/results/ci-76f52c4/summary.json). These are repeated executions of the same suite, not 522 distinct tests.

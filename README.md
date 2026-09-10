@@ -4,7 +4,7 @@
 
 EEGLens runs native PyTorch models, caches intermediate activations, and applies paired replacements or ablations. It provides a common interface for eleven EEG model families: CBraMod, LaBraM, EEGPT, BIOT, BENDR (encoder and contextualizer), BrainOmni (tiny encode), CSBrain, NeuroRVQ, SignalJEPA, DIVER-1 (EEG) and ST-EEGFormer (small). Each adapter declares its native tensor layouts and supported output paths.
 
-**Status: 0.1.0a9, local alpha.** Installable from this source tree; no PyPI release is claimed. Official checkpoints and a small real EEG example have been exercised on CPU in float32. Inspired by TransformerLens; public readiness remains under [explicit audit](docs/public-readiness.md).
+**Status: 0.1.0a9, public source alpha.** Installable from this source tree; no PyPI release is claimed. Official checkpoints and a small real EEG example have been exercised on CPU in float32. Inspired by TransformerLens; public readiness remains under [explicit audit](docs/public-readiness.md).
 
 ## Install
 

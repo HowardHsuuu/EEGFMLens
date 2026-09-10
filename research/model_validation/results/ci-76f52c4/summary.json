@@ -1,0 +1,105 @@
+{
+  "commit": "76f52c48926035454852be7386f6d2833d616ee5",
+  "url": "https://github.com/HowardHsuuu/EEGFMLens/actions/runs/34435514982",
+  "conclusion": "success",
+  "lint": "passed",
+  "installed_jobs": [
+    {
+      "job": "installed-wheel-macos-latest-py3.10",
+      "tests": {
+        "tests": 87,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "report_sha256": "272812fe5ff0a212f6ea1231a4bf86e21af470bb7cc1ea777b66816021bafd60",
+      "junit_sha256": "ec1f7d655f1067533948c8595e3a6067bdc6facf9540eeb9b6fa02ae50aa7743",
+      "wheel_sha256": "d3c3d4f713bf0356be2608096c683d89b9ea6bac6829178498d4514d942de0ae",
+      "python": "3.10.11 (v3.10.11:7d4cc5aa85, Apr  4 2023, 19:05:19) [Clang 13.0.0 (clang-1300.0.29.30)]",
+      "platform": "macOS-26.6.2-arm64-arm-64bit",
+      "torch": "2.14.0",
+      "numpy": "2.2.6"
+    },
+    {
+      "job": "installed-wheel-macos-latest-py3.12",
+      "tests": {
+        "tests": 87,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "report_sha256": "b5a2b2c621ecd299520201af6641abe12a62d1c4eeb8f3acc7bc75fdd2f0f7d0",
+      "junit_sha256": "a9d8be8563de8cfc09e683658317809c4c9404fe261f054ca0a54eb77c6989fd",
+      "wheel_sha256": "d3c3d4f713bf0356be2608096c683d89b9ea6bac6829178498d4514d942de0ae",
+      "python": "3.12.10 (v3.12.10:0cc81280367, Apr  8 2025, 08:46:59) [Clang 13.0.0 (clang-1300.0.29.30)]",
+      "platform": "macOS-26.6.2-arm64-arm-64bit",
+      "torch": "2.14.0",
+      "numpy": "2.5.3"
+    },
+    {
+      "job": "installed-wheel-ubuntu-latest-py3.10",
+      "tests": {
+        "tests": 87,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "report_sha256": "648747aec929b8b3d83a4d8e8bcb93c4085763a7c61c47b1d11428ad10b90011",
+      "junit_sha256": "61e3354014e0c42b29b774fb664e059cbf6a66a43f53f487a53174a4939a41c7",
+      "wheel_sha256": "d3c3d4f713bf0356be2608096c683d89b9ea6bac6829178498d4514d942de0ae",
+      "python": "3.10.21 (main, Aug 13 2026, 02:42:48) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "torch": "2.14.0+cpu",
+      "numpy": "2.2.6"
+    },
+    {
+      "job": "installed-wheel-ubuntu-latest-py3.12",
+      "tests": {
+        "tests": 87,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "report_sha256": "55f7fc489a292398d1461dd634fe6ce3df35afe3ea302dce08eb4c9c2a3c5950",
+      "junit_sha256": "5cd22ad5aac6a1bf9f0fca6f7f3a2b49a1f483b09e8d7f18d37efa417e45d885",
+      "wheel_sha256": "d3c3d4f713bf0356be2608096c683d89b9ea6bac6829178498d4514d942de0ae",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "torch": "2.14.0+cpu",
+      "numpy": "2.5.2"
+    },
+    {
+      "job": "installed-wheel-windows-latest-py3.10",
+      "tests": {
+        "tests": 87,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "report_sha256": "5fc71e8272792e2ccd7c5a3c9461105aeda9d8ff9896d7d24eafbd0486dce7e5",
+      "junit_sha256": "dcc1cd2fb0e84b8409d90c48c4d17f216c2e8fba2e41fcd9be3c4a458fab2fe7",
+      "wheel_sha256": "e1d37983adb4ef3a14737ec7a9a2b39daf29f8e6408661a257e48bf7b4da03b3",
+      "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+      "platform": "Windows-10-10.0.26100-SP0",
+      "torch": "2.14.0+cpu",
+      "numpy": "2.2.6"
+    },
+    {
+      "job": "installed-wheel-windows-latest-py3.12",
+      "tests": {
+        "tests": 87,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "report_sha256": "82ad1f45951e05a2fea6684416b2b85bca95e00992efdf66edd287d454ac229a",
+      "junit_sha256": "e1a7ba885c695fa99c8d630789d7e753b358b1a3a7a4f489f946230ac1ee28ba",
+      "wheel_sha256": "e1d37983adb4ef3a14737ec7a9a2b39daf29f8e6408661a257e48bf7b4da03b3",
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "platform": "Windows-2025Server-10.0.26100-SP0",
+      "torch": "2.14.0+cpu",
+      "numpy": "2.5.2"
+    }
+  ],
+  "scope": "Six fresh GitHub hosted OS/Python jobs: installed wheel, 87 non-integration tests each, 33 package Python files, dependency check, quickstart, 24-effect analytic sweep. Two checkpoint tests deselected by protocol. No new checkpoint, real EEG, GPU or full native scientific execution."
+}
