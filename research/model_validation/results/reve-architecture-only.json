@@ -1,0 +1,374 @@
+{
+  "pretrained": false,
+  "scope": "random initialized official base architecture only; gated weights unavailable",
+  "records": [
+    {
+      "batch": 1,
+      "site": "embedding.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.0.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.0.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.1.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.1.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.2.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.2.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.3.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.3.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.4.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.4.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.5.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.5.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.6.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.6.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.7.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.7.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.8.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.8.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.9.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.9.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.10.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.10.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.11.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.11.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.12.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.12.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.13.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.13.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.14.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.14.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.15.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.15.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.16.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.16.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.17.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.17.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.18.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.18.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.19.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.19.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.20.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.20.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.21.attention.output"
+    },
+    {
+      "batch": 1,
+      "site": "blocks.21.feedforward.output"
+    },
+    {
+      "batch": 1,
+      "site": "encoder.output"
+    },
+    {
+      "batch": 2,
+      "site": "embedding.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.0.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.0.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.1.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.1.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.2.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.2.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.3.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.3.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.4.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.4.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.5.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.5.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.6.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.6.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.7.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.7.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.8.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.8.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.9.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.9.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.10.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.10.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.11.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.11.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.12.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.12.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.13.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.13.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.14.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.14.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.15.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.15.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.16.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.16.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.17.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.17.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.18.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.18.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.19.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.19.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.20.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.20.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.21.attention.output"
+    },
+    {
+      "batch": 2,
+      "site": "blocks.21.feedforward.output"
+    },
+    {
+      "batch": 2,
+      "site": "encoder.output"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "model": "bendr",
+  "source_sha256": "8fb8583ad623144ea55b30f3ff8d13906b1fcab7f8db9434ad5e517a0e3c0712",
+  "checkpoint_sha256": "32c913b1778d8bdf7f08bbe8ef5e6bef2954087b482851816deefc4d0fcf84cb",
+  "checkpoint": "/Users/howardhsu/Desktop/bcilab/research/eeglens_model_validation/checkpoints/bendr-mirror-encoder.pt",
+  "strict_load": true,
+  "reordered_trial_recovery": true,
+  "runner_sha256": "39687d50509263fc7a1e8f5cefc1ed38e7d4e259de0fa65d094928492fad7176",
+  "runtime_sha256": "5d40c3aa9d730b801254667239f2757c9d46f9b4fc9e89be24a13e1bf0de0530",
+  "output_shape": [
+    2,
+    512,
+    11
+  ],
+  "torch_version": "2.14.0",
+  "records": [
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_0.output",
+      "cache_shape": [
+        1,
+        342,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        342
+      ],
+      "output_change": 41.371315002441406
+    },
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_1.output",
+      "cache_shape": [
+        1,
+        171,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        171
+      ],
+      "output_change": 36.88656997680664
+    },
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_2.output",
+      "cache_shape": [
+        1,
+        86,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        86
+      ],
+      "output_change": 30.545564651489258
+    },
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_3.output",
+      "cache_shape": [
+        1,
+        43,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        43
+      ],
+      "output_change": 26.77240753173828
+    },
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_4.output",
+      "cache_shape": [
+        1,
+        22,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        22
+      ],
+      "output_change": 22.823410034179688
+    },
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_5.output",
+      "cache_shape": [
+        1,
+        11,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        11
+      ],
+      "output_change": 13.778632164001465
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_0.output",
+      "cache_shape": [
+        2,
+        342,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        342
+      ],
+      "output_change": 58.40964126586914
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_1.output",
+      "cache_shape": [
+        2,
+        171,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        171
+      ],
+      "output_change": 52.093353271484375
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_2.output",
+      "cache_shape": [
+        2,
+        86,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        86
+      ],
+      "output_change": 42.962154388427734
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_3.output",
+      "cache_shape": [
+        2,
+        43,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        43
+      ],
+      "output_change": 37.730194091796875
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_4.output",
+      "cache_shape": [
+        2,
+        22,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        22
+      ],
+      "output_change": 32.31045150756836
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_5.output",
+      "cache_shape": [
+        2,
+        11,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        11
+      ],
+      "output_change": 19.21917152404785
+    }
+  ],
+  "feature_subspace_verified": true,
+  "scope": "Synthetic input runtime validation; not task accuracy, physiological validity or full-model pretraining verification. BENDR covers the pretrained convolutional encoder only."
+}

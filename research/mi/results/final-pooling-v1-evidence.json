@@ -1,0 +1,25 @@
+{
+  "scope": "Exploratory clean final pooling only; no changed native task readouts",
+  "files": [
+    {
+      "path": "eeglens/research/mi/FINAL_POOLING_DIAGNOSTIC.md",
+      "sha256": "f96fc2b68d8f617e633389765cafede40647e08a40f8eb3bec91a1daccb51598"
+    },
+    {
+      "path": "eeglens/research/mi/diagnose_final_pooling.py",
+      "sha256": "042649426ebe1c59b5e3f1d24145b6c368e0676116c34c7bd7188aa0246e3d95"
+    },
+    {
+      "path": "eeglens/research/mi/results/final-pooling-v1/cbramod.json",
+      "sha256": "1bd8ceef46fbd83ea1527efeab7698a3e8828c341e0d1b9a58fbc77d473b61bc"
+    },
+    {
+      "path": "eeglens/research/mi/results/final-pooling-v1/labram.json",
+      "sha256": "1d402d2ac30ef350ae155ec5d216d5f7fb1a7add44bec2258c12c34762180ce6"
+    },
+    {
+      "path": "eeglens/research/mi/results/final-pooling-v1/csbrain.json",
+      "sha256": "170a9bf7e230368c85071022ebf12c0b549aa42018c53067de980ae2364c4f94"
+    }
+  ]
+}

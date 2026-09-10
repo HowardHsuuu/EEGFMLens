@@ -1,0 +1,52 @@
+{
+  "model": "csbrain",
+  "records": [
+    {
+      "rank": 2,
+      "native_output_exact": true,
+      "untouched_sensor_values_exact": true,
+      "common_mode_and_temporal_deviations_preserved": true,
+      "contrast_max_absolute_error": 8.940696716308594e-08
+    },
+    {
+      "rank": 4,
+      "native_output_exact": true,
+      "untouched_sensor_values_exact": true,
+      "common_mode_and_temporal_deviations_preserved": true,
+      "contrast_max_absolute_error": 5.960464477539063e-08
+    },
+    {
+      "rank": 8,
+      "native_output_exact": true,
+      "untouched_sensor_values_exact": true,
+      "common_mode_and_temporal_deviations_preserved": true,
+      "contrast_max_absolute_error": 5.960464477539063e-08
+    },
+    {
+      "rank": 16,
+      "native_output_exact": true,
+      "untouched_sensor_values_exact": true,
+      "common_mode_and_temporal_deviations_preserved": true,
+      "contrast_max_absolute_error": 5.960464477539063e-08
+    },
+    {
+      "rank": 32,
+      "native_output_exact": true,
+      "untouched_sensor_values_exact": true,
+      "common_mode_and_temporal_deviations_preserved": true,
+      "contrast_max_absolute_error": 8.940696716308594e-08
+    }
+  ],
+  "trial_ids": [
+    "S006R04:annotation-1",
+    "S006R04:annotation-3"
+  ],
+  "checkpoint_sha256": "cfcdf9dcb069905e5e02e92fe3d59bd3574e779bf554cc02cb701994a79e99cc",
+  "runner_sha256": "986ab8f98ba73d030627678d84f94d3fe41773442e112ffb553f9f530df27630",
+  "builder_sha256": "bd67420b9158068d9ff6cbf40bf9f4e82df54052f33b87dcd365b06a02583325",
+  "intervention_sha256": "1ee2f6924ae98ccb02e9e74f35c8ef97cc68983613d525b10eb129f0f4ad3092",
+  "basis_sha256": "fd369aaa5d9309be2ad8d35afca2e58438e53818fbeea933c7bd04a144ef8723",
+  "feature_sha256": "83a9257c3e0c328f7a634425756774a8b918c5195acdb2b703144879dcd93bc3",
+  "prepared_sha256": "313e3bba4213c3358af300d126534f09b85c7842835ef12504d4e8738ebcd368",
+  "scope": "Two real training trials from outer fold 0; native output exact, pooled contrast float32 tolerance 5e-5; minimum-norm mean contrast edit, preserves common mode and patch deviations within float32 tolerance. No task inference."
+}

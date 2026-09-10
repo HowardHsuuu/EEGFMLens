@@ -1,0 +1,26 @@
+{
+  "status": "First cbramod fold running; no complete response or scientific result asserted",
+  "scope": "Exploratory task comparison, two methods, five ranks, three random seeds, 71 conditions; summary rejects missing folds",
+  "files": [
+    {
+      "path": "eeglens/research/mi/contrast_task_protocol.json",
+      "sha256": "8bf5a17457d535d5b647bdec74f69511eb46f6009ed0480870920079b6488884"
+    },
+    {
+      "path": "eeglens/research/mi/contrast_task.py",
+      "sha256": "625ad04c6ef6e6806d9a7500e5404fa1ddaefbeaa854d49c9a146affb2f556af"
+    },
+    {
+      "path": "eeglens/research/mi/summarize_contrast_task.py",
+      "sha256": "28e96321bdf6c64b4a9d796af560545086dd366f64a8cfb6e4e0f88bf36ee508"
+    },
+    {
+      "path": "eeglens/research/mi/contrast_intervention.py",
+      "sha256": "1ee2f6924ae98ccb02e9e74f35c8ef97cc68983613d525b10eb129f0f4ad3092"
+    },
+    {
+      "path": "eeglens/research/mi/CONTRAST_INTERVENTION.md",
+      "sha256": "e394bbbdcb4d67fde885c2eab2b972bdddc688691ee7a1e369e372fba4b6905d"
+    }
+  ]
+}

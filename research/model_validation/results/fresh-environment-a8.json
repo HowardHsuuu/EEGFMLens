@@ -1,0 +1,34 @@
+{
+  "scope": "Fresh local Python 3.12 venv with declared wheel extras; same macOS ARM host. Installed tests, two-checkpoint real EEG demo and three-model retained-response replay passed. Not a full native scientific rerun.",
+  "install_requirement": "eeglens-0.1.0a8-py3-none-any.whl[eeg,labram,dev]",
+  "files": [
+    {
+      "path": "eeglens/research/model_validation/results/installed-fresh-a8.json",
+      "sha256": "c8c8bd051977118beb2f4337635c679306de2ed701a2117a8659519d3288d1c0"
+    },
+    {
+      "path": "eeglens/research/model_validation/results/installed-fresh-a8.xml",
+      "sha256": "be848aa2c3e49daa255da4789e9d0c83ea4dc1526ed362f7bfb7aa309b399eed"
+    },
+    {
+      "path": "eeglens/research/model_validation/results/real-eeg-fresh-a8.json",
+      "sha256": "f19f69f8b5970906324041474072d42967ebfcfde9a41f5040624800aa156e44"
+    },
+    {
+      "path": "eeglens/research/model_validation/results/real-eeg-fresh-cbramod-a8.json",
+      "sha256": "1947d9a082f7fd464e6d82f74b95546592119dd8854d7bb88e551f41da79291c"
+    },
+    {
+      "path": "eeglens/research/model_validation/results/real-eeg-fresh-labram-a8.json",
+      "sha256": "be2bdc412d4a85e27ef214dda8049a743176dc727cd6a539aa5f3d863eb846c2"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-replay-fresh-a8/replay.json",
+      "sha256": "3c0d5a4b0fc67c0b23aad846f0afc4326505c98587318ec903659399187d1373"
+    },
+    {
+      "path": "research/eeglens_model_validation/fresh-a8/pyvenv.cfg",
+      "sha256": "52dab0e1f7905d2b981b313090dca2a59470eae462da9354161d6da613b395be"
+    }
+  ]
+}

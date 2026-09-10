@@ -1,0 +1,46 @@
+{
+  "model": "cbramod",
+  "records": [
+    {
+      "rank": 2,
+      "native_output_exact": true,
+      "untouched_sensor_means_exact": true,
+      "contrast_max_absolute_error": 2.9802322387695312e-08
+    },
+    {
+      "rank": 4,
+      "native_output_exact": true,
+      "untouched_sensor_means_exact": true,
+      "contrast_max_absolute_error": 2.9802322387695312e-08
+    },
+    {
+      "rank": 8,
+      "native_output_exact": true,
+      "untouched_sensor_means_exact": true,
+      "contrast_max_absolute_error": 2.9802322387695312e-08
+    },
+    {
+      "rank": 16,
+      "native_output_exact": true,
+      "untouched_sensor_means_exact": true,
+      "contrast_max_absolute_error": 4.0978193283081055e-08
+    },
+    {
+      "rank": 32,
+      "native_output_exact": true,
+      "untouched_sensor_means_exact": true,
+      "contrast_max_absolute_error": 5.122274160385132e-08
+    }
+  ],
+  "trial_ids": [
+    "S006R04:annotation-1",
+    "S006R04:annotation-3"
+  ],
+  "checkpoint_sha256": "0792cb808c14e6b7a2bb2ce1dff379bc47bc54c49a779825bdfeb33bf8157178",
+  "runner_sha256": "96062a43f53db84580ef90435ccff02ba5dcb9f200f29f29736184fbc53d384e",
+  "builder_sha256": "bd67420b9158068d9ff6cbf40bf9f4e82df54052f33b87dcd365b06a02583325",
+  "basis_sha256": "4c51cfe02e09c4d1053fe43c8a4b9909df6b3450ecb8cccbfafb3afa166752f5",
+  "feature_sha256": "dc95c0a02f48e481d8fa08c791f1fd9460521a87ace6bc18d036245a324bcf3e",
+  "prepared_sha256": "313e3bba4213c3358af300d126534f09b85c7842835ef12504d4e8738ebcd368",
+  "scope": "Two real training trials from outer fold 0; native output exact, pooled contrast float32 tolerance 5e-5; per-sensor fitting means required. No task inference."
+}

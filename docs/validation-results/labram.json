@@ -1,0 +1,43 @@
+{
+  "model": "labram",
+  "manifest": {
+    "architecture": "LaBraM-base",
+    "source_revision": "c431221e6cfd23dbfa9950e0180682fb322b0548",
+    "checkpoint_sha256": "7c50583826afac76c4ab18f43d958df40496c8229accc09ed6a227c9bb57c37c",
+    "output": "patch_tokens",
+    "normalization": "pretrained student.norm; no new fc_norm",
+    "discarded_pretraining_keys": [
+      "lm_head.bias",
+      "lm_head.weight",
+      "logit_scale",
+      "projection_head.0.bias",
+      "projection_head.0.weight",
+      "student.lm_head.bias",
+      "student.lm_head.weight",
+      "student.mask_token"
+    ],
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "dtype": "float32"
+  },
+  "edf_sha256": "4743b736131a7e147c150e8b37711029b6cda5e356c4b3e8261a03cdcaaf8b0c",
+  "preprocessing": "eegmmidb-demo:v1:19ch:0.5-75Hz:200Hz:uV/100:no-rereference:4s",
+  "torch": "2.14.0",
+  "device": "cpu",
+  "dtype": "float32",
+  "output_shape": [
+    2,
+    76,
+    200
+  ],
+  "calls": {
+    "blocks.0.output": 1,
+    "blocks.11.output": 1
+  },
+  "native_cache_max_diff": 0.0,
+  "identity_max_diff": 0.0,
+  "last_block_restore_max_diff": 0.0,
+  "selected_ablation_max_diff": 19.141525268554688,
+  "cleanup_max_diff": 0.0,
+  "scope": "2 EEG windows; pretrained feature outputs, no task accuracy or mechanism claim"
+}

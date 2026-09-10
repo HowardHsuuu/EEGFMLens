@@ -1,0 +1,33 @@
+{
+  "model": "cbramod",
+  "manifest": {
+    "architecture": "CBraMod",
+    "source_revision": "b9e961003214326972c567eff390e75b0287e32a",
+    "checkpoint_sha256": "0792cb808c14e6b7a2bb2ce1dff379bc47bc54c49a779825bdfeb33bf8157178",
+    "output": "features",
+    "missing_keys": [],
+    "unexpected_keys": [],
+    "dtype": "float32"
+  },
+  "edf_sha256": "4743b736131a7e147c150e8b37711029b6cda5e356c4b3e8261a03cdcaaf8b0c",
+  "preprocessing": "eegmmidb-demo:v1:19ch:0.5-75Hz:200Hz:uV/100:no-rereference:4s",
+  "torch": "2.14.0",
+  "device": "cpu",
+  "dtype": "float32",
+  "output_shape": [
+    2,
+    19,
+    4,
+    200
+  ],
+  "calls": {
+    "blocks.0.output": 1,
+    "blocks.11.output": 1
+  },
+  "native_cache_max_diff": 0.0,
+  "identity_max_diff": 0.0,
+  "last_block_restore_max_diff": 0.0,
+  "selected_ablation_max_diff": 1.2155662775039673,
+  "cleanup_max_diff": 0.0,
+  "scope": "2 EEG windows; pretrained feature outputs, no task accuracy or mechanism claim"
+}

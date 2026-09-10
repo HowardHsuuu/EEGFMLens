@@ -1,0 +1,139 @@
+{
+  "scope": "Inventory consistency, not rerun verification or scientific validity. Historical snapshots retain original hashes and are not silently relabeled as current runs.",
+  "active_native_job": null,
+  "inventories": [
+    {
+      "manifest": "eeglens/research/mi/results/contrast-native-v1-evidence.json",
+      "sha256": "c104a7fb23c72276d9aa82c5d972e152bf336742a2549d043715ae5c58f2e4f2",
+      "status": "historical_snapshot",
+      "note": "First bridge run predates removal of an unused import; v2 contains the rerun against current helper code. Its documentation was subsequently extended.",
+      "changed_files": [
+        {
+          "path": "eeglens/research/mi/CONTRAST_INTERVENTION.md",
+          "recorded_sha256": "aae053bad8702dd29c74d05837aba341f4210b1f69dbd625cd47c61484b5614c",
+          "current_sha256": "bcbf308be29d388a51ebba2c9688808c51e272b27c17bffe30bcf34333f81b75"
+        },
+        {
+          "path": "eeglens/research/mi/contrast_intervention.py",
+          "recorded_sha256": "174436f7a935a4a8219bcdc125b7c9a58f1a2c5d02f205f8e691509d1a6b0be2",
+          "current_sha256": "1ee2f6924ae98ccb02e9e74f35c8ef97cc68983613d525b10eb129f0f4ad3092"
+        }
+      ]
+    },
+    {
+      "manifest": "eeglens/research/mi/results/contrast-native-v2-evidence.json",
+      "sha256": "9b7d1094a12bcce5c89e2643deff7b1d5d2b3988a9a0d0eb06943eb2d38c0fa3",
+      "status": "historical_snapshot",
+      "note": "Native numerical evidence remains valid for its stated two-trial scope; the explanatory document was subsequently extended.",
+      "changed_files": [
+        {
+          "path": "eeglens/research/mi/CONTRAST_INTERVENTION.md",
+          "recorded_sha256": "c5b53d73739fef3327cccff80e8fc02d1273f6d43e46443b8a348405bb94db42",
+          "current_sha256": "bcbf308be29d388a51ebba2c9688808c51e272b27c17bffe30bcf34333f81b75"
+        }
+      ]
+    },
+    {
+      "manifest": "eeglens/research/mi/results/contrast-task-cbramod-evidence.json",
+      "sha256": "a628100e23f55c6098d89b857597d15c02b464574b1e8481bb28c8b8c0901aff",
+      "status": "historical_snapshot",
+      "note": "Superseded by the two-model report after adding the clean-readout audit. The prior report hash is retained as history.",
+      "changed_files": [
+        {
+          "path": "eeglens/research/mi/CONTRAST_TASK_RESULTS.md",
+          "recorded_sha256": "05740a6e196c5230df505dfa1fcef3d54e6bd264c542b79096a7b3648a13e807",
+          "current_sha256": "2ed0d73d9108d02287511eecb63b923d66a982a4e6c28cb93dae834b3bfe0aba"
+        }
+      ]
+    },
+    {
+      "manifest": "eeglens/research/mi/results/contrast-task-two-model-evidence.json",
+      "sha256": "441e7e8a0a2d2b6ea2e522391b2646050107652c6c0693e8021f0de95db43402",
+      "status": "historical_snapshot",
+      "note": "Historical partial report, superseded by the completed three-model report. Original hashes retained.",
+      "changed_files": [
+        {
+          "path": "eeglens/research/mi/CONTRAST_TASK_RESULTS.md",
+          "recorded_sha256": "8aa5b87ea67a5fa56a169883481b82450630b1eecb7dcdb65922876ef6d421c5",
+          "current_sha256": "2ed0d73d9108d02287511eecb63b923d66a982a4e6c28cb93dae834b3bfe0aba"
+        }
+      ]
+    },
+    {
+      "manifest": "eeglens/research/mi/results/exploratory-recovery-v1-evidence.json",
+      "sha256": "ab66c62de6c3193deb0f8c6004be0d7e72efe39d389077c3680cbf4d9f3a7fa8",
+      "status": "current_files_match",
+      "note": "Every referenced file matches this inventory at catalog generation.",
+      "changed_files": []
+    },
+    {
+      "manifest": "eeglens/research/mi/results/final-pooling-v1-evidence.json",
+      "sha256": "4dc905c50d5468bd84de9c7b1620a3d50270649176ee78effc9f9ad7ddaf1fe3",
+      "status": "current_files_match",
+      "note": "Every referenced file matches this inventory at catalog generation.",
+      "changed_files": []
+    },
+    {
+      "manifest": "eeglens/research/mi/results/iterative-recovery-v1-evidence.json",
+      "sha256": "1f8e29317619a91df330b33ba3951508013419a88b29ce8056d9e27ccc431342",
+      "status": "current_files_match",
+      "note": "Every referenced file matches this inventory at catalog generation.",
+      "changed_files": []
+    },
+    {
+      "manifest": "eeglens/research/mi/results/study-v1-evidence.json",
+      "sha256": "55c1406136cabebb6d0332a617f61f76e5984a8ab9e53ff37fb6981349048b77",
+      "status": "current_files_match",
+      "note": "Every referenced file matches this inventory at catalog generation.",
+      "changed_files": []
+    },
+    {
+      "manifest": "eeglens/research/mi/results/contrast-task-three-model-evidence.json",
+      "sha256": "0b8a90af8db2c317e23d856c9ad90eb076745b7a5563b2f8f3c7bb96b53b0655",
+      "changed_files": [],
+      "status": "current_files_match",
+      "note": "Every referenced file matches this inventory at catalog generation."
+    },
+    {
+      "manifest": "eeglens/research/mi/results/contrast-replay-evidence.json",
+      "sha256": "e09f137068d9cb7d683bfd296ddff33b11071bd5287967544ef077ff12799666",
+      "status": "current_files_match",
+      "note": "Every referenced file matches this inventory at catalog generation.",
+      "changed_files": []
+    }
+  ],
+  "current_reports": [
+    {
+      "path": "eeglens/research/mi/REPORT.md",
+      "sha256": "bcf016487e6bbd217d31c2ce0f950f7c9b90242063e7daaba1a21b4008654a3d"
+    },
+    {
+      "path": "eeglens/research/mi/RECOVERABILITY.md",
+      "sha256": "3c5e4fb464efd6d4ab2643d87ea1710f30563536079298ec52c3b9f952aa7b7f"
+    },
+    {
+      "path": "eeglens/research/mi/ITERATIVE_RECOVERY.md",
+      "sha256": "91469f22ff51933bd9e2baacbb65cc387799e2a3cba8687621b9c1efe6e151f3"
+    },
+    {
+      "path": "eeglens/research/mi/CONTRAST_INTERVENTION.md",
+      "sha256": "bcbf308be29d388a51ebba2c9688808c51e272b27c17bffe30bcf34333f81b75"
+    },
+    {
+      "path": "eeglens/research/mi/CONTRAST_TASK_RESULTS.md",
+      "sha256": "2ed0d73d9108d02287511eecb63b923d66a982a4e6c28cb93dae834b3bfe0aba"
+    },
+    {
+      "path": "eeglens/research/mi/FINAL_POOLING_DIAGNOSTIC.md",
+      "sha256": "f96fc2b68d8f617e633389765cafede40647e08a40f8eb3bec91a1daccb51598"
+    },
+    {
+      "path": "eeglens/research/mi/PRETRAINING_AUDIT.md",
+      "sha256": "cf94236f4910f580f45c59464a89c1e51ac1128026bdb01c956aa83b4a4c93b8"
+    },
+    {
+      "path": "eeglens/research/mi/REPLAY.md",
+      "sha256": "720ed1707dcb612e9b842daa6cc8fe579175efca901f827555c38f28da2e4eb8"
+    }
+  ]
+}

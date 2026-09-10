@@ -1,0 +1,16 @@
+{
+  "status": "Exploratory follow-up defined after observing the main test results; never confirmatory",
+  "data": "Only original training partition, 18 subjects; no original validation or test arrays",
+  "seed": 2041,
+  "outer_folds": 3,
+  "outer_test_subjects": 6,
+  "inner_validation_subjects": 3,
+  "inner_fit_subjects": 9,
+  "models": ["cbramod", "labram", "csbrain"],
+  "representation": "Time-averaged middle-block C4 minus C3, 200 features",
+  "targets": ["mu_asymmetry", "beta_asymmetry"],
+  "regularization": [0.001, 0.01, 0.1, 1.0, 10.0],
+  "conditions": ["clean probe", "frozen probe after coefficient-span erasure", "refitted probe after coefficient-span erasure", "refitted probe after random rank-two erasure"],
+  "random_seeds": [31, 71, 113],
+  "interpretation": "Diagnostic of linearly recoverable information at the middle representation, not downstream native intervention, task causality, complete information erasure, or new held-out confirmation. Random erasure controls rank, not perturbation energy."
+}

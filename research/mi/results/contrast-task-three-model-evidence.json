@@ -1,0 +1,181 @@
+{
+  "scope": "Completed three-model exploratory contrast-task comparison; artifact consistency is not evidence of a shared mechanism or fresh-machine reproduction.",
+  "files": [
+    {
+      "path": "eeglens/research/mi/CONTRAST_TASK_RESULTS.md",
+      "sha256": "2ed0d73d9108d02287511eecb63b923d66a982a4e6c28cb93dae834b3bfe0aba"
+    },
+    {
+      "path": "eeglens/research/mi/CONTRAST_INTERVENTION.md",
+      "sha256": "bcbf308be29d388a51ebba2c9688808c51e272b27c17bffe30bcf34333f81b75"
+    },
+    {
+      "path": "eeglens/research/mi/contrast_task.py",
+      "sha256": "625ad04c6ef6e6806d9a7500e5404fa1ddaefbeaa854d49c9a146affb2f556af"
+    },
+    {
+      "path": "eeglens/research/mi/contrast_task_protocol.json",
+      "sha256": "8bf5a17457d535d5b647bdec74f69511eb46f6009ed0480870920079b6488884"
+    },
+    {
+      "path": "eeglens/research/mi/contrast_intervention.py",
+      "sha256": "1ee2f6924ae98ccb02e9e74f35c8ef97cc68983613d525b10eb129f0f4ad3092"
+    },
+    {
+      "path": "eeglens/research/mi/summarize_contrast_task.py",
+      "sha256": "f07b7f1376f6b13f5afb6de603e61882a6c98c93ef71df919c04efc857cd82bd"
+    },
+    {
+      "path": "eeglens/research/mi/audit_clean_readouts.py",
+      "sha256": "131752a910e60163acfac28e50778ae3f1a90ce9445285a3a1eba25e81872f3c"
+    },
+    {
+      "path": "eeglens/research/mi/plot_contrast_task.py",
+      "sha256": "d30a3895978b52d1ae2ffb0d468dcb1b84d14ab14ea658fd6730b91b052a000e"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/cbramod/summary.json",
+      "sha256": "139404d806709e06f78d4443e4d938b85e31af1c120a672aecba69f4d3a87164"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/cbramod/fold0/manifest.json",
+      "sha256": "222d5882a6f29989ba46a30fbbe0a59c3fc05095a6bd740cddfeb0b69dd164c7"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/cbramod/fold0/responses.npz",
+      "sha256": "bf486c82ed007f9a470a923fc1bbc83324f6923b4b6b538ef253973879ce03db"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/cbramod/fold1/manifest.json",
+      "sha256": "7d44ae85dc604fec503487b0dd03c72c522db6fa83abe4c8369a3921d4e32c84"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/cbramod/fold1/responses.npz",
+      "sha256": "2470a0ef138c69da5191634f5f82fba5d1b8030dbedae4404d6c2495c3af7eb3"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/cbramod/fold2/manifest.json",
+      "sha256": "ae209787299d7e51f692a4e167fcbf9790eadcfa5b08b496fd23dbe9473477b5"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/cbramod/fold2/responses.npz",
+      "sha256": "043380a253c205c2a9a6cd0fb05c9d3825460766357bc502271d54d140d94329"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-cbramod-clean-v2.json",
+      "sha256": "2ca0a407c75bf7dfceb80f5829f0896b791cb672c1a12ba7b4bf27abd4e5e312"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-cbramod-gains.json",
+      "sha256": "4c83789dddd095580b45d9b6896130a699e81ed172c297d3dc726c8df5ee0678"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-cbramod-v1/contrast_task.pdf",
+      "sha256": "3750aee4f93c78aa2cf72d08474bcaddf6b339adb7242d5b20026ec6bb63858f"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-cbramod-v1/contrast_task.png",
+      "sha256": "3aaf7f0ae1ecb97df3c5d187bf445bc7772dad00b19c35311cb7ce78b1e79b5a"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-cbramod-v1/manifest.json",
+      "sha256": "c52faef75ecf5c60b7882da36cbb854132c088d3011ec05788324023654979b7"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/labram/summary.json",
+      "sha256": "9e404db091f9ab8e987f690db167a37e5d7cd40340eff4cf064c52db65331bc8"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/labram/fold0/manifest.json",
+      "sha256": "294b423375d1b994cdc387b24f98ec02882578ab1d6b3b8cfe8429f8fe4ef2df"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/labram/fold0/responses.npz",
+      "sha256": "3939699af3e739c19efe01822f23ee3c3b9da542a388c212d1a73ad6a578672e"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/labram/fold1/manifest.json",
+      "sha256": "f7ed37727b9eb60ea740074135f7a089934dbb09c8c885077151b694c4c92f97"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/labram/fold1/responses.npz",
+      "sha256": "8ce358440a939e933b6d9a09551cbf92e61aa17ba32b74b352bebdf781baf4f6"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/labram/fold2/manifest.json",
+      "sha256": "57f20ec11022fc606ed68ce423ee100997078455c9539155aa79217c199481e4"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/labram/fold2/responses.npz",
+      "sha256": "26d62311d0dbbb4752b41c7e38d68878d637311f0a8a684a202117a48e158d8f"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-labram-clean.json",
+      "sha256": "bb02c461724e0bae3a7d969371e3aaf70a9dd9fa0cbdf9ca77cf4e288a0af2e3"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-labram-gains.json",
+      "sha256": "185824a5974406bbfe2c5602d580410769e8054dd84bca7545c264ba4be03fa1"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-labram-v1/contrast_task.pdf",
+      "sha256": "b26e118f65dcb24d4282edad6c45e36dd82471931a187e18007ece1a57d7029c"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-labram-v1/contrast_task.png",
+      "sha256": "0a6f956784d34b7a9e6923a23790542f542bc263c5efd307d5a4158f658c1252"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-labram-v1/manifest.json",
+      "sha256": "cdf88fc605ff6bae6eda4d33c35e8515192740d2782da0edd2439bbc806a2086"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/csbrain/summary.json",
+      "sha256": "ac936704c20f4611df2011503d2f1eaf71b737aadc23dcc05f1151d0ea6b059e"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/csbrain/fold0/manifest.json",
+      "sha256": "5b5f31fb849917a1bd4ba415de85de102a3c79b2a80265d1a302aebb838bdc40"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/csbrain/fold0/responses.npz",
+      "sha256": "7d5ef61a1bdba97653a460f927fb32e6ea15d4d33b38a04b6856089db5d35b45"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/csbrain/fold1/manifest.json",
+      "sha256": "b63837ca507ffae4fa52e9e5b6102df2a0a900605915193a7d86d6313a115094"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/csbrain/fold1/responses.npz",
+      "sha256": "e508e47c689388e91c425c3e4172028d816e0b1e8ca2f9e30ea4613736b86a65"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/csbrain/fold2/manifest.json",
+      "sha256": "812ba7c43d0d460b02729681ae434bd4792f17990552f5eb0249c41ac7cbbb8d"
+    },
+    {
+      "path": "research/eeglens_mi/contrast-task-v1/csbrain/fold2/responses.npz",
+      "sha256": "b593a898bd38730d93c52c2d4a257bda0b3bbac5ad5120bf38e50716059c0f0c"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-csbrain-clean.json",
+      "sha256": "51dcc05ccbe3a4f18289636e6de67e3ec4fb916a473c19f081993c87e365f25a"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-csbrain-gains.json",
+      "sha256": "0a8aa17337e71864a4ae393a7995b68e4abfd01a5d6fbda1535075349198665a"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-csbrain-v1/contrast_task.pdf",
+      "sha256": "a6d94e1ff6da8b346dfad8b93e70f8f8e72cc09c01877049a3df9d3e467e48fb"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-csbrain-v1/contrast_task.png",
+      "sha256": "e5a9d397d0225128e3ac409663507261449cd6dc7bad0f35439c3cb5ef01025e"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-task-csbrain-v1/manifest.json",
+      "sha256": "76fa5be1574acc8a2a70508afe5fa16dcf02d60336b148041505c461ebc3cb63"
+    }
+  ]
+}

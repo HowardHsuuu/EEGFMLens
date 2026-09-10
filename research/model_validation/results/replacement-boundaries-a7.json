@@ -1,0 +1,22 @@
+{
+  "scope": "Twelve donor-boundary cases, each followed by successful trial-ID-reordered local replacement and clean recovery; installed a7, macOS ARM CPU only.",
+  "test_sha256": "08aaa44e27e667d5f0e4f947cfb7d38bbf0dddc712eaa527c235f2482dbeef8c",
+  "environments": [
+    {
+      "environment": "modern",
+      "origin": "/Users/howardhsu/Desktop/bcilab/research/eeglens_model_validation/clean-a3/lib/python3.12/site-packages/eeglens/__init__.py",
+      "eeglens": "0.1.0a7",
+      "torch": "2.14.0",
+      "junit_path": "eeglens/research/model_validation/results/replacement-boundaries-modern-a7.xml",
+      "junit_sha256": "9b7b0b78b59745833639a9add3c66443c55db665d55bd2c6d9106c31ff93280f"
+    },
+    {
+      "environment": "older",
+      "origin": "/Users/howardhsu/Desktop/bcilab/research/eeglens_model_validation/minimum-a3/lib/python3.12/site-packages/eeglens/__init__.py",
+      "eeglens": "0.1.0a7",
+      "torch": "2.6.0",
+      "junit_path": "eeglens/research/model_validation/results/replacement-boundaries-older-a7.xml",
+      "junit_sha256": "f3e3d56428da9a763b80cce37b874a077958c86584210b063a7cf6c414959c2d"
+    }
+  ]
+}

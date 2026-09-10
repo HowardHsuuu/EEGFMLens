@@ -1,0 +1,18 @@
+{
+  "exit_code": 0,
+  "wheel_sha256": "0e8b1f1c36d80c0311238f84b88e6ad5e5fe9ca4ae665e0c034e144ec53b9090",
+  "public_adapters": [
+    "CBraModAdapter",
+    "LaBraMAdapter",
+    "EEGPTAdapter",
+    "BIOTAdapter",
+    "BENDREncoderAdapter",
+    "BENDRAdapter",
+    "BrainOmniAdapter",
+    "CSBrainAdapter",
+    "NeuroRVQAdapter",
+    "SignalJEPAAdapter"
+  ],
+  "verified_families": 9,
+  "imported_from": "/Users/howardhsu/Desktop/bcilab/research/eeglens_model_validation/expansion/wheel-final"
+}

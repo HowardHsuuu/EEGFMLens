@@ -1,0 +1,46 @@
+{
+  "model": "labram",
+  "records": [
+    {
+      "rank": 2,
+      "native_output_exact": true,
+      "untouched_sensor_means_exact": true,
+      "contrast_max_absolute_error": 1.341104507446289e-07
+    },
+    {
+      "rank": 4,
+      "native_output_exact": true,
+      "untouched_sensor_means_exact": true,
+      "contrast_max_absolute_error": 1.3969838619232178e-07
+    },
+    {
+      "rank": 8,
+      "native_output_exact": true,
+      "untouched_sensor_means_exact": true,
+      "contrast_max_absolute_error": 1.2665987014770508e-07
+    },
+    {
+      "rank": 16,
+      "native_output_exact": true,
+      "untouched_sensor_means_exact": true,
+      "contrast_max_absolute_error": 1.4528632164001465e-07
+    },
+    {
+      "rank": 32,
+      "native_output_exact": true,
+      "untouched_sensor_means_exact": true,
+      "contrast_max_absolute_error": 1.6670674085617065e-07
+    }
+  ],
+  "trial_ids": [
+    "S006R04:annotation-1",
+    "S006R04:annotation-3"
+  ],
+  "checkpoint_sha256": "7c50583826afac76c4ab18f43d958df40496c8229accc09ed6a227c9bb57c37c",
+  "runner_sha256": "96062a43f53db84580ef90435ccff02ba5dcb9f200f29f29736184fbc53d384e",
+  "builder_sha256": "bd67420b9158068d9ff6cbf40bf9f4e82df54052f33b87dcd365b06a02583325",
+  "basis_sha256": "06240ef221bb251ea925398c452b7fbd3b4bad5ee435f4cb598ff4e719c83a93",
+  "feature_sha256": "aba32acea386a1a5c78a0790369495b9735e335222f048ad41ad7dd3ca56569b",
+  "prepared_sha256": "313e3bba4213c3358af300d126534f09b85c7842835ef12504d4e8738ebcd368",
+  "scope": "Two real training trials from outer fold 0; native output exact, pooled contrast float32 tolerance 5e-5; per-sensor fitting means required. No task inference."
+}

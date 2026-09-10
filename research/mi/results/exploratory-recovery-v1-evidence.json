@@ -1,0 +1,50 @@
+{
+  "scope": "Exploratory follow-up and additional dense-check inventory; not replacement for fixed main test protocol",
+  "files": [
+    {
+      "path": "eeglens/research/mi/RECOVERABILITY.md",
+      "sha256": "3c5e4fb464efd6d4ab2643d87ea1710f30563536079298ec52c3b9f952aa7b7f"
+    },
+    {
+      "path": "eeglens/research/mi/recovery_protocol.json",
+      "sha256": "a8b81a1d692cdfaa55db60a394a15f9cab118201cee5c6188b2fa5608cf6aa6c"
+    },
+    {
+      "path": "eeglens/research/mi/test_recoverability.py",
+      "sha256": "bbe7b5a4e3cfd8f9856d848a97a7a4e29d5ff39db4d9c87cea62b49bba49fada"
+    },
+    {
+      "path": "research/eeglens_mi/recovery-v1/cbramod/summary.json",
+      "sha256": "663d8897e7aa1457a5c8455c26f4bed32c3bfd91d3e5f13ae90daa89a02c0a03"
+    },
+    {
+      "path": "research/eeglens_mi/recovery-v1/labram/summary.json",
+      "sha256": "bc6515065647e4cb6f489ac0c6d62038475ba1e56e001a817b69b62e9c6885dd"
+    },
+    {
+      "path": "research/eeglens_mi/recovery-v1/csbrain/summary.json",
+      "sha256": "ae93c56b2abfc58c498ed1ec22d286fb62553b5d0ea21e55f7d043d48b7ed9bf"
+    },
+    {
+      "path": "eeglens/research/model_validation/results/dense-encoders-v1/eegpt.json",
+      "sha256": "65cbd47b600c38a29ebaf9e233a7f7db4e47e5dd529874460478717ad890d2a4"
+    },
+    {
+      "path": "eeglens/research/model_validation/results/dense-encoders-v1/biot.json",
+      "sha256": "946dedc58acfef1b2d06960b0767e698dd1c3f144bd9c901b0ce1701c160c75f"
+    },
+    {
+      "path": "eeglens/research/model_validation/results/dense-encoders-v1/biot-prest.json",
+      "sha256": "4cb7427c6bd18bdfe2ec6dbc9ddf5d34c869e6276b4baddfcf68b746cdd1c02a"
+    },
+    {
+      "path": "eeglens/research/model_validation/results/dense-encoders-v1/bendr.json",
+      "sha256": "63585b2b40464e9014709c1cb133f93193014b50545a0c907b7a1a999146e2a5"
+    }
+  ],
+  "figure_extension": {
+    "scope": "Prediction-based score consistency audit and visualization; original analysis unchanged",
+    "audit": "eeglens/research/mi/results/recovery-figures-v1/audit.json",
+    "sha256": "532b0998ad0699676625183fabe4c228cd6fc918463d6965d08b5c1cc378be23"
+  }
+}

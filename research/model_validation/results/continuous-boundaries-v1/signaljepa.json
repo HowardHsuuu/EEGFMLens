@@ -1,0 +1,34 @@
+{
+  "model": "signaljepa",
+  "records": [
+    {
+      "patches": 3,
+      "samples": 384,
+      "native_output_exact": true,
+      "container_resegmentation_output_and_all_caches_exact": true,
+      "invalid_inputs_rejected_before_native": 4,
+      "recovery_exact": true,
+      "native_hooks_preserved": true,
+      "convolution_minimum_samples": 152
+    },
+    {
+      "patches": 6,
+      "samples": 768,
+      "native_output_exact": true,
+      "container_resegmentation_output_and_all_caches_exact": true,
+      "invalid_inputs_rejected_before_native": 4,
+      "recovery_exact": true,
+      "native_hooks_preserved": true,
+      "convolution_minimum_samples": 152
+    }
+  ],
+  "runner_sha256": "10bd47e25a5470bae0e25751849125ea7ad58771f6ab8e021a42393ec82715e3",
+  "builder_sha256": "d790caf63061f21aa5e672491bbe7d3b6fb7eb5d5822eba3021e8e7ed05e64cf",
+  "checkpoint_sha256": [
+    "7d30b0dd781f08de72bfbd59ac93100da6615b36f2d9d522dd4a3220078c34c2"
+  ],
+  "source_sha256": "2518347f19ec22fa8d5965706e55685f48d2257e58f9bc5268ad53b358d781db",
+  "adapter_sha256": "5075a9c127105fdf1f298098221495d37a6251a93f1bfeb09f17b1f9c1d64cf2",
+  "runtime_sha256": "7cf25aef4177c582881f64a42df49fe1089541a7a984ed9fe3e0b188952b8869",
+  "scope": "Synthetic CPU float32; two sampled lengths, not an exhaustive length domain; same continuous samples repartitioned into container patches must preserve every cache and output."
+}

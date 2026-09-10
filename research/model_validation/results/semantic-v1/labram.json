@@ -1,0 +1,973 @@
+{
+  "model": "labram",
+  "records": [
+    {
+      "batch": 1,
+      "site": "embedding.output",
+      "cache_shape": [
+        1,
+        6,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.0.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.0.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.1.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.1.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.2.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.2.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.3.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.3.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.4.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.4.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.5.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.5.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.6.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.6.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.7.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.7.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.8.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.8.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.8.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.9.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.9.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.9.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.10.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.10.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.10.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.11.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.11.attention.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.11.mlp.output",
+      "cache_shape": [
+        1,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "embedding.output",
+      "cache_shape": [
+        2,
+        6,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.0.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.0.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.1.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.1.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.2.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.2.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.3.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.3.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.4.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.4.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.5.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.5.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.6.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.6.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.7.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.7.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.8.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.8.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.8.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.9.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.9.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.9.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.10.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.10.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.10.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.11.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.11.attention.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.11.mlp.output",
+      "cache_shape": [
+        2,
+        7,
+        200
+      ],
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "physical_sensor_patch_verified": true
+    }
+  ],
+  "checkpoint_sha256": "7c50583826afac76c4ab18f43d958df40496c8229accc09ed6a227c9bb57c37c",
+  "runner_sha256": "a580350ff7776daf8ff7f51b7f3a4af0edd0f85d5abb0f5f4ae5545d403399ca",
+  "adapter_sha256": "00aa9ed8001e718b70518151db1db2aed9aa122d332df2e26bc60e83295e2972",
+  "native_source_sha256": "7b3514c9a661ebd417a2dd9834a9f2fab0a2e518c8212c73ebebaaa165c29d88",
+  "torch_version": "2.14.0",
+  "scope": "Local native checkpoint CPU float32 synthetic checks; not physiological validation."
+}

@@ -1,0 +1,20 @@
+{
+  "valid_cases": 4,
+  "invalid_input_cases": 18,
+  "configuration_rejection_cases": 4,
+  "results": [
+    {
+      "model": "diver",
+      "result_sha256": "1587b723199a90bbff09f1bfea2cd21a2e3fe42d527c7976cc0a80dcd9237d32",
+      "cases": 2,
+      "invalid_inputs": 8
+    },
+    {
+      "model": "steegformer",
+      "result_sha256": "78efc116c00c1f44cebd8a13d6b6ffe0744e148cbd8a9ac714862851bdf3fbb9",
+      "cases": 2,
+      "invalid_inputs": 10
+    }
+  ],
+  "scope": "Fixed synthetic sensor geometry, sampled 1/8 native patches, CPU float32; not universal geometry coverage"
+}

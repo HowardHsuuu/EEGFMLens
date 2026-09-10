@@ -1,0 +1,60 @@
+{
+  "version": "mi-test-v1",
+  "status": "locked before test preparation/evaluation",
+  "split_sha256": "2a76b55eb6a5d5e5a76c8d1c5fb7eeeddda64a0eb5cf5de34a560935f5b14969",
+  "models": {
+    "cbramod": {
+      "probe_manifest_sha256": "b12c25c2e2afe58fd3c64022787cfa5a30db39d04224845847b70e19b73aa036",
+      "probe_artifact_sha256": "ba33975031cd1c63a8db31d261f303d9deb2a93806d63b2140236c87252deb50",
+      "checkpoint_sha256": "0792cb808c14e6b7a2bb2ce1dff379bc47bc54c49a779825bdfeb33bf8157178"
+    },
+    "labram": {
+      "probe_manifest_sha256": "f21d085490cc4c310cbeddb8e35fe2125499cdcfa6125a4d516507f5db01fd81",
+      "probe_artifact_sha256": "3dc501dcd885f29cc91b18b28e4fbdf8987d93a8e63e1f017b62e82ef86b86ef",
+      "checkpoint_sha256": "7c50583826afac76c4ab18f43d958df40496c8229accc09ed6a227c9bb57c37c"
+    },
+    "csbrain": {
+      "probe_manifest_sha256": "f882d23c8e6c339b90bf3f371a32e87c72bbcfdf2b21cf38b96a067d0df47695",
+      "probe_artifact_sha256": "a699b88d3febafc55556e375fe435362c384137999d8d89cb91a27802510da38",
+      "checkpoint_sha256": "cfcdf9dcb069905e5e02e92fe3d59bd3574e779bf554cc02cb701994a79e99cc"
+    }
+  },
+  "input_recipe": "mi-shared-v1:original-reference:19ch:polyphase160to200:4s:uV/100:no-bandpass",
+  "middle_site": "blocks.5.output",
+  "final_site": "blocks.11.output",
+  "sensors": [
+    "C3",
+    "C4"
+  ],
+  "rank": 2,
+  "doses": [
+    0.5,
+    1.0
+  ],
+  "random_seeds": [
+    31,
+    71,
+    113
+  ],
+  "primary_dose": 1.0,
+  "primary_contrast": "concept minus mean of the three per-trial norm-matched random controls",
+  "primary_endpoint": "mu/beta descriptor MSE change normalized by training variance, averaged over descriptors and then equally over subjects",
+  "task_endpoint": "subject balanced accuracy change, paired concept minus matched random",
+  "off_target_endpoint": "occipital alpha/global RMS normalized MSE change",
+  "uncertainty": "10000 subject bootstrap samples, seed 193; intervals descriptive, no equivalence claim from nonsignificance",
+  "testing": "If inferential p-values are reported: enumerate all subject sign flips for directional paired effects, Holm correction across three models times two endpoints (target-loss increase and task-accuracy decrease).",
+  "refitting": "None; training parameters and validation-selected alpha remain frozen.",
+  "exposure": {
+    "cbramod": "reported TUEG pretraining",
+    "csbrain": "reported TUEG pretraining",
+    "labram": "documented EEGMMIDB pretraining exposure; downstream-held-out only"
+  },
+  "interpretation": "Selective descriptor degradation alone is not proof of task dependence; lack of accuracy loss is not proof of independence. Pretraining advantages require random-initialization controls.",
+  "source_hashes": {
+    "extract.py": "bd67420b9158068d9ff6cbf40bf9f4e82df54052f33b87dcd365b06a02583325",
+    "intervene.py": "28ad4dd1fdef363f7ccf4233b47a572b8ea6d3b38deb0d54253a376639e2169e",
+    "summarize.py": "598f373396a54e52e3bb311d5bf887b61e9c337ae6c68c9cc91fd7b5704673b9",
+    "prepare.py": "9b0bd4288faa3fcffa24d2af8a3d39f63969994913621c8dd2dbe899e2df55b4",
+    "prepare_split.py": "333e2fe48b9faa231fe7005727768278919f1202e784fb3397dc1d6a3d99bd0c"
+  }
+}

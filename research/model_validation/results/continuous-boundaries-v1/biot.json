@@ -1,0 +1,34 @@
+{
+  "model": "biot",
+  "records": [
+    {
+      "patches": 1,
+      "samples": 200,
+      "native_output_exact": true,
+      "container_resegmentation_output_and_all_caches_exact": true,
+      "invalid_inputs_rejected_before_native": 4,
+      "recovery_exact": true,
+      "native_hooks_preserved": true,
+      "convolution_minimum_samples": null
+    },
+    {
+      "patches": 6,
+      "samples": 1200,
+      "native_output_exact": true,
+      "container_resegmentation_output_and_all_caches_exact": true,
+      "invalid_inputs_rejected_before_native": 4,
+      "recovery_exact": true,
+      "native_hooks_preserved": true,
+      "convolution_minimum_samples": null
+    }
+  ],
+  "runner_sha256": "10bd47e25a5470bae0e25751849125ea7ad58771f6ab8e021a42393ec82715e3",
+  "builder_sha256": "fc96bd9161f8a8e4713910bafd68bd7bd889045a14c6799c8dc1b2eba67a42ad",
+  "checkpoint_sha256": [
+    "78ff15a1782f194286a97b1abe68b2bf100a39803325e2917337d0a77a228542"
+  ],
+  "source_sha256": "2bba53052a93a005033b27ef89f20037fd7894780ce9da130b823c7c73029e01",
+  "adapter_sha256": "4b46c15775de47947dca53d1920e6d36f64305d6ecf84c7e712c38af5389c4cb",
+  "runtime_sha256": "7cf25aef4177c582881f64a42df49fe1089541a7a984ed9fe3e0b188952b8869",
+  "scope": "Synthetic CPU float32; two sampled lengths, not an exhaustive length domain; same continuous samples repartitioned into container patches must preserve every cache and output."
+}

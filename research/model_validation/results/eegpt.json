@@ -1,0 +1,342 @@
+{
+  "model": "eegpt",
+  "source_sha256": "0371411f4c2bfc0d1d0999432c8cea82e1d0f76d2e89ac95089adfeb59ed2233",
+  "checkpoint_sha256": "fb34c20609983324679b9534f9d17a2289a232d0276dd2b8b7d5b088f876f621",
+  "checkpoint": "/Users/howardhsu/Desktop/bcilab/research/eeglens_model_validation/checkpoints/eegpt-braindecode.safetensors",
+  "strict_load": true,
+  "reordered_trial_recovery": true,
+  "runner_sha256": "76fc3b3284165d5c61f6b53d161934c16861e28478e58123629e91570b0c9e00",
+  "runtime_sha256": "5d40c3aa9d730b801254667239f2757c9d46f9b4fc9e89be24a13e1bf0de0530",
+  "output_shape": [
+    2,
+    16,
+    4,
+    512
+  ],
+  "torch_version": "2.14.0",
+  "records": [
+    {
+      "batch_size": 1,
+      "site": "embedding.output",
+      "cache_shape": [
+        1,
+        16,
+        4,
+        512
+      ],
+      "native_shape": [
+        1,
+        16,
+        4,
+        512
+      ],
+      "output_change": 245.41372680664062
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 318.46575927734375
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 360.38531494140625
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 377.2548522949219
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 383.35760498046875
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 388.90093994140625
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 380.1290588378906
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 377.91754150390625
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 239.6180419921875
+    },
+    {
+      "batch_size": 1,
+      "site": "norm.output",
+      "cache_shape": [
+        1,
+        16,
+        4,
+        512
+      ],
+      "native_shape": [
+        16,
+        4,
+        512
+      ],
+      "output_change": 241.1815185546875
+    },
+    {
+      "batch_size": 2,
+      "site": "embedding.output",
+      "cache_shape": [
+        2,
+        16,
+        4,
+        512
+      ],
+      "native_shape": [
+        2,
+        16,
+        4,
+        512
+      ],
+      "output_change": 350.5609130859375
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 450.1482849121094
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 510.16680908203125
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 534.0408935546875
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 541.9070434570312
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 548.6265869140625
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 534.2459106445312
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 533.8532104492188
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 339.21624755859375
+    },
+    {
+      "batch_size": 2,
+      "site": "norm.output",
+      "cache_shape": [
+        2,
+        16,
+        4,
+        512
+      ],
+      "native_shape": [
+        32,
+        4,
+        512
+      ],
+      "output_change": 341.4588317871094
+    }
+  ],
+  "scope": "Synthetic input runtime validation; not task accuracy, physiological validity or full-model pretraining verification. BENDR covers the pretrained convolutional encoder only."
+}

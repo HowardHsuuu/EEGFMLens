@@ -1,0 +1,64 @@
+{
+  "vendor_files": [
+    {
+      "project": "CBraMod",
+      "revision": "b9e961003214326972c567eff390e75b0287e32a",
+      "upstream_path": "LICENSE",
+      "local_path": "cbramod/LICENSE",
+      "upstream_sha256": "eb839b706e4d7219842e96d7dc33285844abc794292602deb3498be7b699537c",
+      "bundled_sha256": "eb839b706e4d7219842e96d7dc33285844abc794292602deb3498be7b699537c",
+      "comparison": "exact bytes"
+    },
+    {
+      "project": "CBraMod",
+      "revision": "b9e961003214326972c567eff390e75b0287e32a",
+      "upstream_path": "models/criss_cross_transformer.py",
+      "local_path": "cbramod/criss_cross_transformer.py",
+      "upstream_sha256": "90e90b8c98ca7eb543c44e32afc29674d3f71cb090692ad9f82db3a43edf334c",
+      "bundled_sha256": "90e90b8c98ca7eb543c44e32afc29674d3f71cb090692ad9f82db3a43edf334c",
+      "comparison": "exact bytes"
+    },
+    {
+      "project": "LaBraM",
+      "revision": "c431221e6cfd23dbfa9950e0180682fb322b0548",
+      "upstream_path": "LICENSE",
+      "local_path": "LABRAM_LICENSE",
+      "upstream_sha256": "bc3f03e2c9071fb40507f5c575d95eeaa98d07c54c54fb2855942b2a729adc71",
+      "bundled_sha256": "bc3f03e2c9071fb40507f5c575d95eeaa98d07c54c54fb2855942b2a729adc71",
+      "comparison": "exact bytes"
+    },
+    {
+      "project": "LaBraM",
+      "revision": "c431221e6cfd23dbfa9950e0180682fb322b0548",
+      "upstream_path": "modeling_finetune.py",
+      "local_path": "labram.py",
+      "upstream_sha256": "7b3514c9a661ebd417a2dd9834a9f2fab0a2e518c8212c73ebebaaa165c29d88",
+      "bundled_sha256": "7b3514c9a661ebd417a2dd9834a9f2fab0a2e518c8212c73ebebaaa165c29d88",
+      "comparison": "exact bytes"
+    },
+    {
+      "project": "CBraMod",
+      "revision": "b9e961003214326972c567eff390e75b0287e32a",
+      "upstream_path": "models/cbramod.py",
+      "local_path": "cbramod/model.py",
+      "upstream_sha256": "caa7c5a0e4acd488a6f625b56f7b54dc4e7190d6b68ef5b76dff2cef86874a14",
+      "bundled_sha256": "b061a00336acde04cb2a82fa3f52d57d5c1056148c85508629b642067455a354",
+      "comparison": "AST exact after two explicitly allowed packaging changes"
+    },
+    {
+      "project": "LaBraM",
+      "revision": "c431221e6cfd23dbfa9950e0180682fb322b0548",
+      "upstream_path": "utils.py:standard_1020",
+      "local_path": "labram_channels.py",
+      "upstream_sha256": "c5ad729bd57ab31e04572f426d94f7fb164ef0fbfd1f7076da6bf8dfbd833e32",
+      "bundled_sha256": "7736d74ee70fc0eb57738865d54e80974099d977f05ff31cbef7c6b49b78ee55",
+      "comparison": "literal channel order exact; upstream module never executed"
+    }
+  ],
+  "wheel_sha256": "9d33b0fee1fb66b2ba6414f1f2abadae3e31f248461f5b11f7c4425a32e980d5",
+  "sdist_sha256": "455ddf0dbc414a71fd24f712a656dac8b6657a61d87f7fb580f56e5647369e20",
+  "wheel_members": 40,
+  "sdist_members": 280,
+  "runner_sha256": "3d101f3559a629e92b726032089b1262c14fc527dec0ba8be70644c0d42f34d2",
+  "scope": "Pinned-source equivalence and bundled notice inventory; external checkpoints/datasets and transitive upstream provenance require their own terms. No remote access or upstream module execution."
+}

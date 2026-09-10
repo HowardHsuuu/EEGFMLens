@@ -1,0 +1,48 @@
+{
+  "version": "mi-dependence-v1",
+  "dataset": "EEGMMIDB 1.0.0",
+  "runs": [
+    4,
+    8,
+    12
+  ],
+  "seed": 20260910,
+  "train": [
+    1,
+    3,
+    6,
+    8,
+    9,
+    11,
+    12,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    21,
+    22,
+    25,
+    26,
+    29
+  ],
+  "validation": [
+    2,
+    13,
+    20,
+    24,
+    27,
+    28
+  ],
+  "test": [
+    4,
+    5,
+    7,
+    10,
+    23,
+    30
+  ],
+  "selection": "First 30 subjects by identifier, split without examining their recordings or labels; S001 forced to train because of development use.",
+  "scope": "Downstream subject-disjoint split; pretraining exposure unresolved."
+}

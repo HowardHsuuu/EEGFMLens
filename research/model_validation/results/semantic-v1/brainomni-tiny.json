@@ -1,0 +1,404 @@
+{
+  "records": [
+    {
+      "batch": 1,
+      "site": "projection.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.71588897705078,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.969768524169922,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.830673217773438,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.271459579467773,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 30.279571533203125,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 30.484365463256836,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.541526794433594,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 30.098007202148438,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.946659088134766,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.8.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 33.39776611328125,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.9.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 30.603893280029297,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "blocks.10.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 22.62737274169922,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "projection.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 41.733489990234375,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 41.46442794799805,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 40.660404205322266,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 40.93829345703125,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 42.71148681640625,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 43.513885498046875,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 41.829795837402344,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 42.72844696044922,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 41.17213439941406,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.8.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 46.73495101928711,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.9.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 42.992156982421875,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "blocks.10.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 31.999897003173828,
+      "native_feature_axis": -1,
+      "centered_feature_erasure": true,
+      "partial_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    }
+  ],
+  "runner_sha256": "e9f346c4a8e88422ea49d3c820f0de0edd5db006c6e0e11f774615a8aa884a13",
+  "semantic_helper_sha256": "8e487de94df2f2c812f5ebef8ca1d61f72d0545d91bf17a4e862b8cc619b9971",
+  "adapter_sha256": "6e073d4e865a0659e4f672571d31d47a3bcbaa04efcf7f8ef6522dd1066750a9",
+  "native_source_sha256": "9e5f536104ead1887efa6c248e092d68c8a25be1cab39db9c63ff11309717d3b",
+  "torch_version": "2.14.0",
+  "checkpoint_sha256": "62c67ba6a84ea0625e67a3b5e7463fe3930bfee88a612a225e9062a052542ffc",
+  "adapter_metadata": {
+    "native_method": "encode",
+    "position_sha256": "83001c0bf077b9f63bcef6182a1f5cfc816a89cf9b9991468be7b38c1d351adc",
+    "sensor_types_sha256": "7cff8c53f50b6937929f91a2ae5f4d2beaa6cf946f8b4e98f437fb70fa5779e2"
+  },
+  "strict_load": true,
+  "paired_rng_seed": 9137,
+  "native_eval_dropout": true,
+  "scope": "BrainOmni tiny encode with synthetic input/geometry, batch 1/2; not EEG/MEG task performance",
+  "compatibility": "local vq.py import deepspeed.comm replaced by torch.distributed for non-distributed CPU inference"
+}

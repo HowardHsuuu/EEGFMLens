@@ -1,0 +1,9 @@
+{
+  "version": "0.1.0a2",
+  "wheel_sha256": "3cc9c95e8f8c2883bf8f22abe3204fc6904b07d0d2074d28479b30930f72445d",
+  "source_python_files_exact": 33,
+  "installed_wheel_tests_passed": 46,
+  "quickstart_passed": true,
+  "license_files_present": true,
+  "scope": "macOS CPU, existing dependency environment with isolated wheel target; not a clean dependency-resolution or GPU test"
+}

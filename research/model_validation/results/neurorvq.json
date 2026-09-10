@@ -1,0 +1,704 @@
+{
+  "records": [
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.0.output",
+      "call_index": 0,
+      "delta": 0.24661213159561157
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.1.output",
+      "call_index": 0,
+      "delta": 0.2520691752433777
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.2.output",
+      "call_index": 0,
+      "delta": 0.23759299516677856
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.3.output",
+      "call_index": 0,
+      "delta": 0.24983546137809753
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.4.output",
+      "call_index": 0,
+      "delta": 0.24484743177890778
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.5.output",
+      "call_index": 0,
+      "delta": 0.2534792423248291
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.6.output",
+      "call_index": 0,
+      "delta": 0.2576386034488678
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.7.output",
+      "call_index": 0,
+      "delta": 0.249917134642601
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.8.output",
+      "call_index": 0,
+      "delta": 0.27240803837776184
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.9.output",
+      "call_index": 0,
+      "delta": 0.3075152635574341
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.10.output",
+      "call_index": 0,
+      "delta": 0.306317538022995
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.blocks.11.output",
+      "call_index": 0,
+      "delta": 0.30651429295539856
+    },
+    {
+      "batch": 1,
+      "site": "branches.0.output",
+      "call_index": 0,
+      "delta": 0.30651429295539856
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.0.output",
+      "call_index": 1,
+      "delta": 0.22646792232990265
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.1.output",
+      "call_index": 1,
+      "delta": 0.2318214476108551
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.2.output",
+      "call_index": 1,
+      "delta": 0.21771156787872314
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.3.output",
+      "call_index": 1,
+      "delta": 0.22957581281661987
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.4.output",
+      "call_index": 1,
+      "delta": 0.22378838062286377
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.5.output",
+      "call_index": 1,
+      "delta": 0.23253442347049713
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.6.output",
+      "call_index": 1,
+      "delta": 0.23754006624221802
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.7.output",
+      "call_index": 1,
+      "delta": 0.23053081333637238
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.8.output",
+      "call_index": 1,
+      "delta": 0.2510337829589844
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.9.output",
+      "call_index": 1,
+      "delta": 0.29105737805366516
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.10.output",
+      "call_index": 1,
+      "delta": 0.28873196244239807
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.blocks.11.output",
+      "call_index": 1,
+      "delta": 0.29058942198753357
+    },
+    {
+      "batch": 1,
+      "site": "branches.1.output",
+      "call_index": 1,
+      "delta": 0.29058942198753357
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.0.output",
+      "call_index": 2,
+      "delta": 0.3295838534832001
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.1.output",
+      "call_index": 2,
+      "delta": 0.3350234031677246
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.2.output",
+      "call_index": 2,
+      "delta": 0.32052841782569885
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.3.output",
+      "call_index": 2,
+      "delta": 0.3326245844364166
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.4.output",
+      "call_index": 2,
+      "delta": 0.32655084133148193
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.5.output",
+      "call_index": 2,
+      "delta": 0.3357406556606293
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.6.output",
+      "call_index": 2,
+      "delta": 0.33965396881103516
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.7.output",
+      "call_index": 2,
+      "delta": 0.33243098855018616
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.8.output",
+      "call_index": 2,
+      "delta": 0.3547171950340271
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.9.output",
+      "call_index": 2,
+      "delta": 0.3878493309020996
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.10.output",
+      "call_index": 2,
+      "delta": 0.3863138258457184
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.blocks.11.output",
+      "call_index": 2,
+      "delta": 0.38226374983787537
+    },
+    {
+      "batch": 1,
+      "site": "branches.2.output",
+      "call_index": 2,
+      "delta": 0.38226374983787537
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.0.output",
+      "call_index": 3,
+      "delta": 0.19608359038829803
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.1.output",
+      "call_index": 3,
+      "delta": 0.20106790959835052
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.2.output",
+      "call_index": 3,
+      "delta": 0.18738803267478943
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.3.output",
+      "call_index": 3,
+      "delta": 0.1986880749464035
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.4.output",
+      "call_index": 3,
+      "delta": 0.19380442798137665
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.5.output",
+      "call_index": 3,
+      "delta": 0.20192675292491913
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.6.output",
+      "call_index": 3,
+      "delta": 0.20645952224731445
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.7.output",
+      "call_index": 3,
+      "delta": 0.2004556655883789
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.8.output",
+      "call_index": 3,
+      "delta": 0.22030681371688843
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.9.output",
+      "call_index": 3,
+      "delta": 0.26022404432296753
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.10.output",
+      "call_index": 3,
+      "delta": 0.2602982223033905
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.blocks.11.output",
+      "call_index": 3,
+      "delta": 0.25935301184654236
+    },
+    {
+      "batch": 1,
+      "site": "branches.3.output",
+      "call_index": 3,
+      "delta": 0.25935301184654236
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.0.output",
+      "call_index": 0,
+      "delta": 0.3441404700279236
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.1.output",
+      "call_index": 0,
+      "delta": 0.3520223796367645
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.2.output",
+      "call_index": 0,
+      "delta": 0.33195385336875916
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.3.output",
+      "call_index": 0,
+      "delta": 0.3494645655155182
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.4.output",
+      "call_index": 0,
+      "delta": 0.34373071789741516
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.5.output",
+      "call_index": 0,
+      "delta": 0.3551240861415863
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.6.output",
+      "call_index": 0,
+      "delta": 0.36148110032081604
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.7.output",
+      "call_index": 0,
+      "delta": 0.3483883738517761
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.8.output",
+      "call_index": 0,
+      "delta": 0.38037732243537903
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.9.output",
+      "call_index": 0,
+      "delta": 0.42591142654418945
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.10.output",
+      "call_index": 0,
+      "delta": 0.4243355393409729
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.blocks.11.output",
+      "call_index": 0,
+      "delta": 0.42633193731307983
+    },
+    {
+      "batch": 2,
+      "site": "branches.0.output",
+      "call_index": 0,
+      "delta": 0.42633193731307983
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.0.output",
+      "call_index": 1,
+      "delta": 0.3278602361679077
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.1.output",
+      "call_index": 1,
+      "delta": 0.33519384264945984
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.2.output",
+      "call_index": 1,
+      "delta": 0.3151143789291382
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.3.output",
+      "call_index": 1,
+      "delta": 0.331574410200119
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.4.output",
+      "call_index": 1,
+      "delta": 0.3218996226787567
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.5.output",
+      "call_index": 1,
+      "delta": 0.3350318372249603
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.6.output",
+      "call_index": 1,
+      "delta": 0.34244999289512634
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.7.output",
+      "call_index": 1,
+      "delta": 0.33410608768463135
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.8.output",
+      "call_index": 1,
+      "delta": 0.3617020547389984
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.9.output",
+      "call_index": 1,
+      "delta": 0.4216865599155426
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.10.output",
+      "call_index": 1,
+      "delta": 0.41852694749832153
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.blocks.11.output",
+      "call_index": 1,
+      "delta": 0.4192347824573517
+    },
+    {
+      "batch": 2,
+      "site": "branches.1.output",
+      "call_index": 1,
+      "delta": 0.4192347824573517
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.0.output",
+      "call_index": 2,
+      "delta": 0.4650131165981293
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.1.output",
+      "call_index": 2,
+      "delta": 0.47291645407676697
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.2.output",
+      "call_index": 2,
+      "delta": 0.452562153339386
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.3.output",
+      "call_index": 2,
+      "delta": 0.4701108932495117
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.4.output",
+      "call_index": 2,
+      "delta": 0.4634035527706146
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.5.output",
+      "call_index": 2,
+      "delta": 0.4755207896232605
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.6.output",
+      "call_index": 2,
+      "delta": 0.48108574748039246
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.7.output",
+      "call_index": 2,
+      "delta": 0.46810436248779297
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.8.output",
+      "call_index": 2,
+      "delta": 0.5014753937721252
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.9.output",
+      "call_index": 2,
+      "delta": 0.5414751768112183
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.10.output",
+      "call_index": 2,
+      "delta": 0.5401490330696106
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.blocks.11.output",
+      "call_index": 2,
+      "delta": 0.5368143916130066
+    },
+    {
+      "batch": 2,
+      "site": "branches.2.output",
+      "call_index": 2,
+      "delta": 0.5368143916130066
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.0.output",
+      "call_index": 3,
+      "delta": 0.27680402994155884
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.1.output",
+      "call_index": 3,
+      "delta": 0.28438451886177063
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.2.output",
+      "call_index": 3,
+      "delta": 0.2656067907810211
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.3.output",
+      "call_index": 3,
+      "delta": 0.2823556363582611
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.4.output",
+      "call_index": 3,
+      "delta": 0.27828097343444824
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.5.output",
+      "call_index": 3,
+      "delta": 0.2881975471973419
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.6.output",
+      "call_index": 3,
+      "delta": 0.29534298181533813
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.7.output",
+      "call_index": 3,
+      "delta": 0.28141269087791443
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.8.output",
+      "call_index": 3,
+      "delta": 0.31148561835289
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.9.output",
+      "call_index": 3,
+      "delta": 0.36006757616996765
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.10.output",
+      "call_index": 3,
+      "delta": 0.35886669158935547
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.blocks.11.output",
+      "call_index": 3,
+      "delta": 0.3641330897808075
+    },
+    {
+      "batch": 2,
+      "site": "branches.3.output",
+      "call_index": 3,
+      "delta": 0.3641330897808075
+    }
+  ],
+  "runner_sha256": "374232966bbc24634db01316fef79da8577505e1e052c02fcce26013ec60e068",
+  "native_source_sha256": "39f0dcf6bc2f7d626b73c75ed256e00e513e8e44362581c290386ec91a5dfbd4",
+  "torch_version": "2.14.0",
+  "strict_backbone_load": true,
+  "reordered_donor_recovery": true,
+  "excluded_pretraining_keys": [
+    "head_pre_1.bias",
+    "head_pre_1.weight",
+    "head_pre_10.bias",
+    "head_pre_10.weight",
+    "head_pre_11.bias",
+    "head_pre_11.weight",
+    "head_pre_12.bias",
+    "head_pre_12.weight",
+    "head_pre_13.bias",
+    "head_pre_13.weight",
+    "head_pre_14.bias",
+    "head_pre_14.weight",
+    "head_pre_15.bias",
+    "head_pre_15.weight",
+    "head_pre_16.bias",
+    "head_pre_16.weight",
+    "head_pre_17.bias",
+    "head_pre_17.weight",
+    "head_pre_18.bias",
+    "head_pre_18.weight",
+    "head_pre_19.bias",
+    "head_pre_19.weight",
+    "head_pre_2.bias",
+    "head_pre_2.weight",
+    "head_pre_20.bias",
+    "head_pre_20.weight",
+    "head_pre_21.bias",
+    "head_pre_21.weight",
+    "head_pre_22.bias",
+    "head_pre_22.weight",
+    "head_pre_23.bias",
+    "head_pre_23.weight",
+    "head_pre_24.bias",
+    "head_pre_24.weight",
+    "head_pre_25.bias",
+    "head_pre_25.weight",
+    "head_pre_26.bias",
+    "head_pre_26.weight",
+    "head_pre_27.bias",
+    "head_pre_27.weight",
+    "head_pre_28.bias",
+    "head_pre_28.weight",
+    "head_pre_29.bias",
+    "head_pre_29.weight",
+    "head_pre_3.bias",
+    "head_pre_3.weight",
+    "head_pre_30.bias",
+    "head_pre_30.weight",
+    "head_pre_31.bias",
+    "head_pre_31.weight",
+    "head_pre_32.bias",
+    "head_pre_32.weight",
+    "head_pre_4.bias",
+    "head_pre_4.weight",
+    "head_pre_5.bias",
+    "head_pre_5.weight",
+    "head_pre_6.bias",
+    "head_pre_6.weight",
+    "head_pre_7.bias",
+    "head_pre_7.weight",
+    "head_pre_8.bias",
+    "head_pre_8.weight",
+    "head_pre_9.bias",
+    "head_pre_9.weight",
+    "mask_token",
+    "norm_pre.bias",
+    "norm_pre.weight"
+  ],
+  "downstream_norms": "replaced by parameter-free identity; raw branch features",
+  "checkpoint_sha256": "d14ef4eae2d4594d5f1f709226a3bb5f362afd84b68050d5da0fa0586aea886a"
+}

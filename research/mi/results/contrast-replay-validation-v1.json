@@ -1,0 +1,41 @@
+{
+  "scope": "Archive extracted outside checkout, all three models replayed with installed NumPy/Matplotlib. This is response reanalysis, not native inference or cross-platform verification.",
+  "archive_sha256": "08e8ad4291964440127ffc17844936edc153be48d7329caeb5fe77a6030a1290",
+  "archive_bytes": 8826805,
+  "runner_sha256": "4c6f7d768ccd934d29214c527f476a0f5cad03ce4663ec71ab60ebb2aee5e926",
+  "successful_replay": {
+    "scope": "Retained response reanalysis, not model inference or independent scientific replication",
+    "models": [
+      "cbramod",
+      "labram",
+      "csbrain"
+    ],
+    "numerical_atol": 1e-10,
+    "numerical_rtol": 1e-10,
+    "bundle_manifest_sha256": "133420ebe3345b68934a54734972cc2100772de3dc1e37eee664b3615668b0a3",
+    "versions": {
+      "numpy": "2.5.3",
+      "matplotlib": "3.11.1"
+    },
+    "outputs": {
+      "labram/summary.json": "10cbbd9f44f6c9b01455290cb2356647876aa40ef6336bcb7d346ee6e45eb81f",
+      "labram/clean.json": "087c3cca595dcf0a228516a9a4a9563f2a35e171fa84d0ba101c0e2a77e89417",
+      "csbrain/summary.json": "a1efc30d22c6a6095fd557766f8594f9f4e8fdb18a2aa8db33eb9bed623728d5",
+      "csbrain/clean.json": "03f263db35823362ce695bb63bc2e13b05346aef3c38c10ca7bc7532aa385132",
+      "cbramod/summary.json": "6eb98cc5eaf076912596d9813634df77b669693ad832a46362734cff38edcfc7",
+      "cbramod/clean.json": "04dd937fb188f26962c3b835fdd9dbb330f85261e2fbe70ce0810ca82b835173",
+      "labram/figures/manifest.json": "396ef2df297ed2a5c79a251c65ab1e29029cb94e1afe72a851a498afb4395861",
+      "labram/figures/contrast_task.png": "0a6f956784d34b7a9e6923a23790542f542bc263c5efd307d5a4158f658c1252",
+      "labram/figures/contrast_task.pdf": "dc336784a6fd8593e23f1948593f45bf118aeb3a9eb2e0f4d5dd1bf49085e346",
+      "csbrain/figures/manifest.json": "72aabb37acf2c820d01dae486e3ddcbe4dd49485039e76255a2d514d3fb4e822",
+      "csbrain/figures/contrast_task.png": "e5a9d397d0225128e3ac409663507261449cd6dc7bad0f35439c3cb5ef01025e",
+      "csbrain/figures/contrast_task.pdf": "d310e949e2d0b82787161b5fb3552ff87651ac89c15e0b83c4343d472bfe98fc",
+      "cbramod/figures/manifest.json": "25543eee1bda750ba68faa8918c695442c52ae2de5da8ad0b3105feedbee36e7",
+      "cbramod/figures/contrast_task.png": "3aaf7f0ae1ecb97df3c5d187bf445bc7772dad00b19c35311cb7ce78b1e79b5a",
+      "cbramod/figures/contrast_task.pdf": "8c276a8137182595ba38b1f660d35c3af7f9d5d66514cf1c5b89c5feeb45e632"
+    }
+  },
+  "checksum_corruption_rejected": true,
+  "rehash_of_wrong_expected_numbers_rejected": true,
+  "failed_outputs_absent": true
+}

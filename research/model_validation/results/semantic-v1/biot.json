@@ -1,0 +1,380 @@
+{
+  "model": "biot",
+  "source_sha256": "2bba53052a93a005033b27ef89f20037fd7894780ce9da130b823c7c73029e01",
+  "checkpoint_sha256": "78ff15a1782f194286a97b1abe68b2bf100a39803325e2917337d0a77a228542",
+  "checkpoint": "/Users/howardhsu/Desktop/bcilab/research/eeglens_model_validation/checkpoints/biot-six-mirror.ckpt",
+  "strict_load": true,
+  "reordered_trial_recovery": true,
+  "runner_sha256": "fc96bd9161f8a8e4713910bafd68bd7bd889045a14c6799c8dc1b2eba67a42ad",
+  "runtime_sha256": "5d40c3aa9d730b801254667239f2757c9d46f9b4fc9e89be24a13e1bf0de0530",
+  "output_shape": [
+    2,
+    256
+  ],
+  "torch_version": "2.14.0",
+  "records": [
+    {
+      "batch_size": 1,
+      "site": "transformer.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 31.91854476928711,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.0.attention.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 2.2445995807647705,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.0.feedforward.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 13.239409446716309,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.1.attention.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 3.94821834564209,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.1.feedforward.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 9.238930702209473,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.2.attention.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 4.591873645782471,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.2.feedforward.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 7.9236955642700195,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.3.attention.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 4.298205375671387,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.3.feedforward.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 14.111661911010742,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "transformer.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 45.01597213745117,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.0.attention.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 3.0881757736206055,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.0.feedforward.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 18.744203567504883,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.1.attention.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 5.534841060638428,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.1.feedforward.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 12.829991340637207,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.2.attention.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 6.397028923034668,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.2.feedforward.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 11.142221450805664,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.3.attention.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 6.092166423797607,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.3.feedforward.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 20.07834815979004,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    }
+  ],
+  "feature_subspace_verified": true,
+  "adapter_sha256": "4b46c15775de47947dca53d1920e6d36f64305d6ecf84c7e712c38af5389c4cb",
+  "scope": "Synthetic input runtime validation; not task accuracy, physiological validity or full-model pretraining verification. BENDR covers the pretrained convolutional encoder only."
+}

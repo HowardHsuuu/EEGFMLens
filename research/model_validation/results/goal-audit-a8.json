@@ -1,0 +1,51 @@
+{
+  "scope": "Current evidence inventory; not a rerun of model-native checks or proof of unsupported platforms.",
+  "checks": [
+    {
+      "manifest": "eeglens/research/model_validation/results/dense-summary.json",
+      "sha256": "6d46b3b95dd46345c54922c0234e18eef9fdc4b915bf09e922cf2944ea7a30cd",
+      "verified_results": 13
+    },
+    {
+      "manifest": "eeglens/research/model_validation/results/input-boundaries-summary.json",
+      "sha256": "12b8a4c4e74936b6e121250c6033a7858eec76e2c894f433ab4d613ee4b276e2",
+      "verified_results": 13
+    },
+    {
+      "summary": "research/eeglens_mi/contrast-task-v1/cbramod/summary.json",
+      "sha256": "139404d806709e06f78d4443e4d938b85e31af1c120a672aecba69f4d3a87164",
+      "subjects": 18,
+      "trials": 810,
+      "conditions": 71
+    },
+    {
+      "summary": "research/eeglens_mi/contrast-task-v1/labram/summary.json",
+      "sha256": "9e404db091f9ab8e987f690db167a37e5d7cd40340eff4cf064c52db65331bc8",
+      "subjects": 18,
+      "trials": 810,
+      "conditions": 71
+    },
+    {
+      "summary": "research/eeglens_mi/contrast-task-v1/csbrain/summary.json",
+      "sha256": "ac936704c20f4611df2011503d2f1eaf71b737aadc23dcc05f1151d0ea6b059e",
+      "subjects": 18,
+      "trials": 810,
+      "conditions": 71
+    },
+    {
+      "report": "eeglens/research/model_validation/results/installed-clean-a8.json",
+      "sha256": "80168e7bbe8ea954feef01a88e951b3f55f58ba917ac94c48542738af656f820",
+      "tests": 87
+    },
+    {
+      "report": "eeglens/research/model_validation/results/installed-minimum-a8.json",
+      "sha256": "5ff0999cb0a0ca0d14c11d2448cc524e09a996a16f776917767232d74e16afc4",
+      "tests": 87
+    },
+    {
+      "report": "eeglens/research/model_validation/results/installed-fresh-a8.json",
+      "sha256": "c8c8bd051977118beb2f4337635c679306de2ed701a2117a8659519d3288d1c0",
+      "tests": 87
+    }
+  ]
+}

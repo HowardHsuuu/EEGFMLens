@@ -1,0 +1,213 @@
+{
+  "model": "bendr-context",
+  "records": [
+    {
+      "batch": 1,
+      "site": "encoder.output",
+      "rank": 3,
+      "native_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 8.351131303333743e-08,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "context.input",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 3.6081496546103153e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "context.blocks.0.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 1.5610996715177988e-06,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "context.blocks.1.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 5.269793643221188e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "context.blocks.2.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 6.568257765044003e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "context.blocks.3.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 1.078834189725464e-06,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "context.blocks.4.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 8.945485454831823e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "context.blocks.5.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 8.470514507300979e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "context.blocks.6.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 1.2217351072238196e-06,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "context.blocks.7.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 9.40661729961677e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "context.output",
+      "rank": 3,
+      "native_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 5.218242614907203e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "encoder.output",
+      "rank": 3,
+      "native_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 2.1894859677703216e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "context.input",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 3.5544110232876847e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "context.blocks.0.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 1.5992062616235306e-06,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "context.blocks.1.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 1.605568750586448e-06,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "context.blocks.2.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 2.0960159565110503e-06,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "context.blocks.3.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 2.032402987045586e-06,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "context.blocks.4.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 7.347200380493935e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "context.blocks.5.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 2.7937306816334136e-06,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "context.blocks.6.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 1.526478180352508e-06,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "context.blocks.7.output",
+      "rank": 3,
+      "native_axis": -1,
+      "native_output_exact": true,
+      "relative_projection_residual": 1.3764629519642401e-06,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "context.output",
+      "rank": 3,
+      "native_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 1.7356872444429008e-07,
+      "unsupported_sensor_patch_rejected": true
+    }
+  ],
+  "runner_sha256": "d790caf63061f21aa5e672491bbe7d3b6fb7eb5d5822eba3021e8e7ed05e64cf",
+  "checkpoint_sha256": [
+    "32c913b1778d8bdf7f08bbe8ef5e6bef2954087b482851816deefc4d0fcf84cb",
+    "b8ee0c8c8403809d65114ae88485cdf841dd1860a88ebebb4cdee2bf26f91526"
+  ],
+  "adapter_sha256": "180ac8351967652d7bd9cc0990b60ebce510f8fdd3ffa885fe3501a278effb03",
+  "native_source_sha256": "8fb8583ad623144ea55b30f3ff8d13906b1fcab7f8db9434ad5e517a0e3c0712",
+  "rejection_helper_sha256": "8e487de94df2f2c812f5ebef8ca1d61f72d0545d91bf17a4e862b8cc619b9971",
+  "torch_version": "2.14.0",
+  "scope": "CPU float32 synthetic fixed geometry; all-site centered dense rank-three native intervention parity, native strides preserved, physical selectors rejected."
+}

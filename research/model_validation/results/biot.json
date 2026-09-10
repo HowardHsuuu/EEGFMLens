@@ -1,0 +1,288 @@
+{
+  "model": "biot",
+  "source_sha256": "2bba53052a93a005033b27ef89f20037fd7894780ce9da130b823c7c73029e01",
+  "checkpoint_sha256": "78ff15a1782f194286a97b1abe68b2bf100a39803325e2917337d0a77a228542",
+  "checkpoint": "/Users/howardhsu/Desktop/bcilab/research/eeglens_model_validation/checkpoints/biot-six-mirror.ckpt",
+  "strict_load": true,
+  "reordered_trial_recovery": true,
+  "runner_sha256": "76fc3b3284165d5c61f6b53d161934c16861e28478e58123629e91570b0c9e00",
+  "runtime_sha256": "5d40c3aa9d730b801254667239f2757c9d46f9b4fc9e89be24a13e1bf0de0530",
+  "output_shape": [
+    2,
+    256
+  ],
+  "torch_version": "2.14.0",
+  "records": [
+    {
+      "batch_size": 1,
+      "site": "transformer.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 31.91854476928711
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.0.attention.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 2.2445995807647705
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.0.feedforward.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 13.239409446716309
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.1.attention.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 3.94821834564209
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.1.feedforward.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 9.238930702209473
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.2.attention.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 4.591873645782471
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.2.feedforward.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 7.9236955642700195
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.3.attention.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 4.298205375671387
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.3.feedforward.output",
+      "cache_shape": [
+        1,
+        342,
+        256
+      ],
+      "native_shape": [
+        1,
+        342,
+        256
+      ],
+      "output_change": 14.111661911010742
+    },
+    {
+      "batch_size": 2,
+      "site": "transformer.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 45.01597213745117
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.0.attention.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 3.0881757736206055
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.0.feedforward.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 18.744203567504883
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.1.attention.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 5.534841060638428
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.1.feedforward.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 12.829991340637207
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.2.attention.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 6.397028923034668
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.2.feedforward.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 11.142221450805664
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.3.attention.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 6.092166423797607
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.3.feedforward.output",
+      "cache_shape": [
+        2,
+        342,
+        256
+      ],
+      "native_shape": [
+        2,
+        342,
+        256
+      ],
+      "output_change": 20.07834815979004
+    }
+  ],
+  "scope": "Synthetic input runtime validation; not task accuracy, physiological validity or full-model pretraining verification. BENDR covers the pretrained convolutional encoder only."
+}

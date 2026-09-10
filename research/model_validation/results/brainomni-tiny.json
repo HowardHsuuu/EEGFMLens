@@ -1,0 +1,282 @@
+{
+  "records": [
+    {
+      "batch": 1,
+      "site": "projection.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.71588897705078
+    },
+    {
+      "batch": 1,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.969768524169922
+    },
+    {
+      "batch": 1,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.830673217773438
+    },
+    {
+      "batch": 1,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.271459579467773
+    },
+    {
+      "batch": 1,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 30.279571533203125
+    },
+    {
+      "batch": 1,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 30.484365463256836
+    },
+    {
+      "batch": 1,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.541526794433594
+    },
+    {
+      "batch": 1,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 30.098007202148438
+    },
+    {
+      "batch": 1,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 29.946659088134766
+    },
+    {
+      "batch": 1,
+      "site": "blocks.8.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 33.39776611328125
+    },
+    {
+      "batch": 1,
+      "site": "blocks.9.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 30.603893280029297
+    },
+    {
+      "batch": 1,
+      "site": "blocks.10.output",
+      "cache_shape": [
+        1,
+        16,
+        32,
+        256
+      ],
+      "delta": 22.62737274169922
+    },
+    {
+      "batch": 2,
+      "site": "projection.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 40.960838317871094
+    },
+    {
+      "batch": 2,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 41.36570358276367
+    },
+    {
+      "batch": 2,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 40.84073257446289
+    },
+    {
+      "batch": 2,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 40.5849494934082
+    },
+    {
+      "batch": 2,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 42.5914306640625
+    },
+    {
+      "batch": 2,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 42.81251525878906
+    },
+    {
+      "batch": 2,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 41.5317268371582
+    },
+    {
+      "batch": 2,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 42.46894073486328
+    },
+    {
+      "batch": 2,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 41.67061996459961
+    },
+    {
+      "batch": 2,
+      "site": "blocks.8.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 47.073524475097656
+    },
+    {
+      "batch": 2,
+      "site": "blocks.9.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 43.18545913696289
+    },
+    {
+      "batch": 2,
+      "site": "blocks.10.output",
+      "cache_shape": [
+        2,
+        16,
+        32,
+        256
+      ],
+      "delta": 31.999893188476562
+    }
+  ],
+  "runner_sha256": "6602905782446031941ae5363636ab3de634dcd0c72495729e27bed694877574",
+  "native_source_sha256": "9e5f536104ead1887efa6c248e092d68c8a25be1cab39db9c63ff11309717d3b",
+  "torch_version": "2.14.0",
+  "checkpoint_sha256": "62c67ba6a84ea0625e67a3b5e7463fe3930bfee88a612a225e9062a052542ffc",
+  "adapter_metadata": {
+    "native_method": "encode",
+    "position_sha256": "83001c0bf077b9f63bcef6182a1f5cfc816a89cf9b9991468be7b38c1d351adc",
+    "sensor_types_sha256": "7cff8c53f50b6937929f91a2ae5f4d2beaa6cf946f8b4e98f437fb70fa5779e2"
+  },
+  "strict_load": true,
+  "paired_rng_seed": 9137,
+  "native_eval_dropout": true,
+  "scope": "BrainOmni tiny encode with synthetic input/geometry, batch 1/2; not EEG/MEG task performance",
+  "compatibility": "local vq.py import deepspeed.comm replaced by torch.distributed for non-distributed CPU inference"
+}

@@ -1,0 +1,10 @@
+{
+  "summary_sha256": "139404d806709e06f78d4443e4d938b85e31af1c120a672aecba69f4d3a87164",
+  "runner_sha256": "d30a3895978b52d1ae2ffb0d468dcb1b84d14ab14ea658fd6730b91b052a000e",
+  "matplotlib": "3.11.1",
+  "numpy": "2.5.3",
+  "outputs": {
+    "contrast_task.png": "3aaf7f0ae1ecb97df3c5d187bf445bc7772dad00b19c35311cb7ce78b1e79b5a",
+    "contrast_task.pdf": "3750aee4f93c78aa2cf72d08474bcaddf6b339adb7242d5b20026ec6bb63858f"
+  }
+}

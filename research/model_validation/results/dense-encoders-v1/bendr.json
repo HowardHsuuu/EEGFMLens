@@ -1,0 +1,121 @@
+{
+  "model": "bendr",
+  "records": [
+    {
+      "batch": 1,
+      "site": "encoder.Encoder_0.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 3.6586994935934574e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "encoder.Encoder_1.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 2.3023114260157956e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "encoder.Encoder_2.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 3.895168527135758e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "encoder.Encoder_3.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 2.704318337631337e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "encoder.Encoder_4.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 1.7003802723077023e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 1,
+      "site": "encoder.Encoder_5.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 3.283022328164552e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "encoder.Encoder_0.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 4.4301782093032105e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "encoder.Encoder_1.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 2.2191091968108162e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "encoder.Encoder_2.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 2.5910898875536056e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "encoder.Encoder_3.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 2.6735181102235164e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "encoder.Encoder_4.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 3.628641236576153e-07,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch": 2,
+      "site": "encoder.Encoder_5.output",
+      "rank": 3,
+      "native_feature_axis": 1,
+      "native_output_exact": true,
+      "relative_projection_residual": 2.0799607504664265e-07,
+      "unsupported_sensor_patch_rejected": true
+    }
+  ],
+  "runner_sha256": "8cfea24b0b8f666a95ad29da530172427753261b2e83277a51b019db140b6134",
+  "builder_sha256": "fc96bd9161f8a8e4713910bafd68bd7bd889045a14c6799c8dc1b2eba67a42ad",
+  "rejection_helper_sha256": "8e487de94df2f2c812f5ebef8ca1d61f72d0545d91bf17a4e862b8cc619b9971",
+  "checkpoint_sha256": "32c913b1778d8bdf7f08bbe8ef5e6bef2954087b482851816deefc4d0fcf84cb",
+  "native_source_sha256": "8fb8583ad623144ea55b30f3ff8d13906b1fcab7f8db9434ad5e517a0e3c0712",
+  "adapter_sha256": "4b46c15775de47947dca53d1920e6d36f64305d6ecf84c7e712c38af5389c4cb",
+  "torch_version": "2.14.0",
+  "scope": "Synthetic fixed geometry, CPU float32; all-site dense rank-three centered erasure with exact independent native output parity; physical selectors explicitly rejected."
+}

@@ -1,0 +1,11 @@
+{
+  "model": "cbramod",
+  "fold": 0,
+  "trials": 270,
+  "conditions": 71,
+  "matched_norm_comparisons": 8100,
+  "finite_predictions": true,
+  "prepared_labels_and_descriptors_exact": true,
+  "max_gain": 18.972688674926758,
+  "response_sha256": "bf486c82ed007f9a470a923fc1bbc83324f6923b4b6b538ef253973879ce03db"
+}

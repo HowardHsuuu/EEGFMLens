@@ -1,0 +1,282 @@
+{
+  "model": "steegformer",
+  "records": [
+    {
+      "batch": 1,
+      "site": "embedding.output",
+      "cache_shape": [
+        1,
+        48,
+        3,
+        512
+      ],
+      "delta": 9.275018692016602
+    },
+    {
+      "batch": 1,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        1,
+        145,
+        512
+      ],
+      "delta": 14.605498313903809
+    },
+    {
+      "batch": 1,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        1,
+        145,
+        512
+      ],
+      "delta": 15.830162048339844
+    },
+    {
+      "batch": 1,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        1,
+        145,
+        512
+      ],
+      "delta": 14.434996604919434
+    },
+    {
+      "batch": 1,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        1,
+        145,
+        512
+      ],
+      "delta": 15.053131103515625
+    },
+    {
+      "batch": 1,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        1,
+        145,
+        512
+      ],
+      "delta": 14.581368446350098
+    },
+    {
+      "batch": 1,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        1,
+        145,
+        512
+      ],
+      "delta": 13.95328426361084
+    },
+    {
+      "batch": 1,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        1,
+        145,
+        512
+      ],
+      "delta": 14.82290267944336
+    },
+    {
+      "batch": 1,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        1,
+        145,
+        512
+      ],
+      "delta": 14.881362915039062
+    },
+    {
+      "batch": 1,
+      "site": "norm.output",
+      "cache_shape": [
+        1,
+        145,
+        512
+      ],
+      "delta": 14.522908210754395
+    },
+    {
+      "batch": 2,
+      "site": "embedding.output",
+      "cache_shape": [
+        2,
+        48,
+        3,
+        512
+      ],
+      "delta": 13.068710327148438
+    },
+    {
+      "batch": 2,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        2,
+        145,
+        512
+      ],
+      "delta": 20.82994842529297
+    },
+    {
+      "batch": 2,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        2,
+        145,
+        512
+      ],
+      "delta": 22.450550079345703
+    },
+    {
+      "batch": 2,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        2,
+        145,
+        512
+      ],
+      "delta": 20.54419708251953
+    },
+    {
+      "batch": 2,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        2,
+        145,
+        512
+      ],
+      "delta": 21.419137954711914
+    },
+    {
+      "batch": 2,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        2,
+        145,
+        512
+      ],
+      "delta": 20.752412796020508
+    },
+    {
+      "batch": 2,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        2,
+        145,
+        512
+      ],
+      "delta": 19.866962432861328
+    },
+    {
+      "batch": 2,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        2,
+        145,
+        512
+      ],
+      "delta": 21.069746017456055
+    },
+    {
+      "batch": 2,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        2,
+        145,
+        512
+      ],
+      "delta": 21.057321548461914
+    },
+    {
+      "batch": 2,
+      "site": "norm.output",
+      "cache_shape": [
+        2,
+        145,
+        512
+      ],
+      "delta": 20.55927848815918
+    }
+  ],
+  "reordered_donor_recovery": true,
+  "paired_rng_seed": null,
+  "native_eval_dropout": false,
+  "checkpoint_sha256": "98d2848abdaea7a143d399c07f67f8782e07dd66e7c309ddb058c7158a8a8b02",
+  "native_source_sha256": "e647f74756d1354d7ca4c83e10d420ce140ca0d73f0758d1424f87a5381486eb",
+  "runner_sha256": "e873d9f84ae53881a2173ae1ed84aee400b066d240ba75ee6d2503e76b6b6b2c",
+  "runtime_sha256": "5d40c3aa9d730b801254667239f2757c9d46f9b4fc9e89be24a13e1bf0de0530",
+  "torch_version": "2.8.0",
+  "adapter_sha256": "e19ade4509c10763dc59664da14411105bf6ba6ccf9b6e91fc77675a0b5b5667",
+  "upstream_revision": "542ee17918c3c2c36ba1d4ea02bedff5eb149370",
+  "load": {
+    "strict_backbone_load": true,
+    "excluded_pretraining_keys": [
+      "dec_channel_emd.channel_transformation.weight",
+      "dec_temporal_emd.pe",
+      "decoder_blocks.0.attn.proj.bias",
+      "decoder_blocks.0.attn.proj.weight",
+      "decoder_blocks.0.attn.qkv.bias",
+      "decoder_blocks.0.attn.qkv.weight",
+      "decoder_blocks.0.mlp.fc1.bias",
+      "decoder_blocks.0.mlp.fc1.weight",
+      "decoder_blocks.0.mlp.fc2.bias",
+      "decoder_blocks.0.mlp.fc2.weight",
+      "decoder_blocks.0.norm1.bias",
+      "decoder_blocks.0.norm1.weight",
+      "decoder_blocks.0.norm2.bias",
+      "decoder_blocks.0.norm2.weight",
+      "decoder_blocks.1.attn.proj.bias",
+      "decoder_blocks.1.attn.proj.weight",
+      "decoder_blocks.1.attn.qkv.bias",
+      "decoder_blocks.1.attn.qkv.weight",
+      "decoder_blocks.1.mlp.fc1.bias",
+      "decoder_blocks.1.mlp.fc1.weight",
+      "decoder_blocks.1.mlp.fc2.bias",
+      "decoder_blocks.1.mlp.fc2.weight",
+      "decoder_blocks.1.norm1.bias",
+      "decoder_blocks.1.norm1.weight",
+      "decoder_blocks.1.norm2.bias",
+      "decoder_blocks.1.norm2.weight",
+      "decoder_blocks.2.attn.proj.bias",
+      "decoder_blocks.2.attn.proj.weight",
+      "decoder_blocks.2.attn.qkv.bias",
+      "decoder_blocks.2.attn.qkv.weight",
+      "decoder_blocks.2.mlp.fc1.bias",
+      "decoder_blocks.2.mlp.fc1.weight",
+      "decoder_blocks.2.mlp.fc2.bias",
+      "decoder_blocks.2.mlp.fc2.weight",
+      "decoder_blocks.2.norm1.bias",
+      "decoder_blocks.2.norm1.weight",
+      "decoder_blocks.2.norm2.bias",
+      "decoder_blocks.2.norm2.weight",
+      "decoder_blocks.3.attn.proj.bias",
+      "decoder_blocks.3.attn.proj.weight",
+      "decoder_blocks.3.attn.qkv.bias",
+      "decoder_blocks.3.attn.qkv.weight",
+      "decoder_blocks.3.mlp.fc1.bias",
+      "decoder_blocks.3.mlp.fc1.weight",
+      "decoder_blocks.3.mlp.fc2.bias",
+      "decoder_blocks.3.mlp.fc2.weight",
+      "decoder_blocks.3.norm1.bias",
+      "decoder_blocks.3.norm1.weight",
+      "decoder_blocks.3.norm2.bias",
+      "decoder_blocks.3.norm2.weight",
+      "decoder_embed.bias",
+      "decoder_embed.weight",
+      "decoder_norm.bias",
+      "decoder_norm.weight",
+      "decoder_pred.bias",
+      "decoder_pred.weight",
+      "mask_token"
+    ],
+    "unused_parent_parameter": "pos_embed removed; native EEG forward does not use it",
+    "channel_mapping_sha256": "2bd6821aba8360781d1c7023332974f688fc89a2df03c779c91e5b13bd1884b8"
+  },
+  "scope": "CPU synthetic input native encoder checks; not task performance or biological validation"
+}

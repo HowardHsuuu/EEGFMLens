@@ -1,0 +1,35 @@
+{
+  "records": [
+    {
+      "case": "unknown-channel",
+      "message": "EEGPT channel name is absent from the native vocabulary",
+      "rejected_before_native": true,
+      "recovery_exact": true
+    },
+    {
+      "case": "colliding-alias",
+      "message": "EEGPT channel lookup must return unique int64 IDs per sensor",
+      "rejected_before_native": true,
+      "recovery_exact": true
+    },
+    {
+      "case": "wrong-rate",
+      "message": "EEGPT requires 256 Hz and patches matching its patch embedder",
+      "rejected_before_native": true,
+      "recovery_exact": true
+    },
+    {
+      "case": "wrong-window-count",
+      "message": "EEGPT requires contiguous patches with configured channel/window counts",
+      "rejected_before_native": true,
+      "recovery_exact": true
+    }
+  ],
+  "normalized_aliases_native_parity_exact": true,
+  "runner_sha256": "301eaca3466857bface0bc5fdae2d63123df2277d3f67c586ef311e7d413c90a",
+  "builder_sha256": "fc96bd9161f8a8e4713910bafd68bd7bd889045a14c6799c8dc1b2eba67a42ad",
+  "adapter_sha256": "a66fc0f876d984580995a8f0fa970363026211afbc507f22a737f4403c6bd1ba",
+  "checkpoint_sha256": "fb34c20609983324679b9534f9d17a2289a232d0276dd2b8b7d5b088f876f621",
+  "native_source_sha256": "0371411f4c2bfc0d1d0999432c8cea82e1d0f76d2e89ac95089adfeb59ed2233",
+  "torch_version": "2.14.0"
+}

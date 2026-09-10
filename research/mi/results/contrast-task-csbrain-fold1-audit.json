@@ -1,0 +1,15 @@
+{
+  "model": "csbrain",
+  "fold": 1,
+  "trials": 270,
+  "conditions": 71,
+  "matched_norm_comparisons": 8100,
+  "finite_predictions": true,
+  "prepared_labels_and_descriptors_exact": true,
+  "current_runner_matches": true,
+  "current_helper_fitter_builder_protocol_match": true,
+  "roles_disjoint": true,
+  "max_gain": 17.063613891601562,
+  "response_sha256": "e508e47c689388e91c425c3e4172028d816e0b1e8ca2f9e30ea4613736b86a65",
+  "manifest_sha256": "b63837ca507ffae4fa52e9e5b6102df2a0a900605915193a7d86d6313a115094"
+}

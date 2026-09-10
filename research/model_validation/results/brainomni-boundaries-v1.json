@@ -1,0 +1,47 @@
+{
+  "model": "brainomni-tiny",
+  "records": [
+    {
+      "samples": 1,
+      "explicit_padding_samples": 512,
+      "native_padding_parity_exact": true,
+      "invalid_inputs": 3,
+      "mutable_configurations": 5,
+      "recovery_exact": true,
+      "resegmentation_all_caches_exact": false
+    },
+    {
+      "samples": 512,
+      "explicit_padding_samples": 512,
+      "native_padding_parity_exact": true,
+      "invalid_inputs": 3,
+      "mutable_configurations": 5,
+      "recovery_exact": true,
+      "resegmentation_all_caches_exact": true
+    },
+    {
+      "samples": 513,
+      "explicit_padding_samples": 896,
+      "native_padding_parity_exact": true,
+      "invalid_inputs": 3,
+      "mutable_configurations": 5,
+      "recovery_exact": true,
+      "resegmentation_all_caches_exact": false
+    },
+    {
+      "samples": 1536,
+      "explicit_padding_samples": 1664,
+      "native_padding_parity_exact": true,
+      "invalid_inputs": 3,
+      "mutable_configurations": 5,
+      "recovery_exact": true,
+      "resegmentation_all_caches_exact": true
+    }
+  ],
+  "runner_sha256": "524f72841ea2bcfa31fd00a04ce1a825768ac18c9ca7d3acec04633dd2cbe1d1",
+  "adapter_sha256": "84e0b2c10f276f14a7240c370b7ea1a78dbc44da14e1c783a2b832adbf6ea4b0",
+  "checkpoint_sha256": "62c67ba6a84ea0625e67a3b5e7463fe3930bfee88a612a225e9062a052542ffc",
+  "native_source_sha256": "9e5f536104ead1887efa6c248e092d68c8a25be1cab39db9c63ff11309717d3b",
+  "tokenizer_source_sha256": "deabece8e85109600f1c6ca9bef6ad8878e46bf1621acb9847d3973769808055",
+  "scope": "CPU float32, synthetic geometry; paired RNG for native eval dropout; 512-sample windows with 0.25 overlap. Single-sample acceptance is native padding behavior, not meaningful EEG evidence."
+}

@@ -1,0 +1,12 @@
+{
+  "model": "csbrain",
+  "fold": 0,
+  "trials": 270,
+  "conditions": 71,
+  "matched_norm_comparisons": 8100,
+  "finite_predictions": true,
+  "prepared_labels_and_descriptors_exact": true,
+  "current_runner_matches": true,
+  "max_gain": 50.389888763427734,
+  "response_sha256": "7d5ef61a1bdba97653a460f927fb32e6ea15d4d33b38a04b6856089db5d35b45"
+}

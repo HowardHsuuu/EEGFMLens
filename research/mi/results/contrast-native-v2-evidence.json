@@ -1,0 +1,33 @@
+{
+  "scope": "Research-only minimal mean-contrast edit; rerun after removing an unused import; three checkpoints, two trials each, five ranks; no task inference",
+  "files": [
+    {
+      "path": "eeglens/research/mi/CONTRAST_INTERVENTION.md",
+      "sha256": "c5b53d73739fef3327cccff80e8fc02d1273f6d43e46443b8a348405bb94db42"
+    },
+    {
+      "path": "eeglens/research/mi/contrast_intervention.py",
+      "sha256": "1ee2f6924ae98ccb02e9e74f35c8ef97cc68983613d525b10eb129f0f4ad3092"
+    },
+    {
+      "path": "eeglens/research/mi/test_contrast_intervention.py",
+      "sha256": "4a193ec0c90d802b60fd15918abc879293d1329db41c87f633e725db8fe07451"
+    },
+    {
+      "path": "eeglens/research/mi/validate_contrast_native.py",
+      "sha256": "986ab8f98ba73d030627678d84f94d3fe41773442e112ffb553f9f530df27630"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-native-v2/cbramod.json",
+      "sha256": "6779a040024779b20d58228b744de6d951b255899b3b621094e87c1041257e1a"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-native-v2/labram.json",
+      "sha256": "31904b9185bfa28a1e1cac707050e6d5ae6b5aaaa9f47be03727dfc23b5e134e"
+    },
+    {
+      "path": "eeglens/research/mi/results/contrast-native-v2/csbrain.json",
+      "sha256": "6d122920e73dbf20fffd52ef23b1a38e7975803e4a9b2de0ab0f8d44aa70dcd8"
+    }
+  ]
+}

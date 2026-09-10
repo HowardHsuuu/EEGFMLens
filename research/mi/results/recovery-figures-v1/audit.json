@@ -1,0 +1,32 @@
+{
+  "inputs": [
+    {
+      "model": "cbramod",
+      "summary_sha256": "663d8897e7aa1457a5c8455c26f4bed32c3bfd91d3e5f13ae90daa89a02c0a03",
+      "predictions_sha256": "515a0d8c9653c046d6adbe2ad7c4e5e1914206a8d43a810330dc329c74a940b6"
+    },
+    {
+      "model": "labram",
+      "summary_sha256": "bc6515065647e4cb6f489ac0c6d62038475ba1e56e001a817b69b62e9c6885dd",
+      "predictions_sha256": "123a2cd625e521b2abc68f16d49d3055b5ca7df13060d35716da97554f988378"
+    },
+    {
+      "model": "csbrain",
+      "summary_sha256": "ae93c56b2abfc58c498ed1ec22d286fb62553b5d0ea21e55f7d043d48b7ed9bf",
+      "predictions_sha256": "610fc46febe3f3124fefa5d2268ea6452572ab7417e0903e6368f8d33a2dc314"
+    }
+  ],
+  "runner_sha256": "8ed3a6572af43d9b4cedddb539c689fe0996f273b5bf974a4077de115223fc21",
+  "numpy": "2.5.3",
+  "matplotlib": "3.11.1",
+  "rows": 324,
+  "comparison_tolerance": {
+    "atol": 1e-12,
+    "rtol": 0
+  },
+  "outputs": {
+    "subject_scores.csv": "001a932de1bf15d1eac8474e643c5e34ad9b17475ada121988b460c884a46b9e",
+    "subject_recovery.png": "bc8d199fdebbc50a4a9c54d2ca670784018d2b4951bc18d171954b056e400702",
+    "subject_recovery.pdf": "7b10367e9598493374cf77baea26f384c9005678c554a36a6dae476b26c11187"
+  }
+}
