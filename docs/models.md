@@ -45,3 +45,40 @@ This legacy checkpoint includes training metadata. Only for this exact hash, loa
 ## EEG demonstration
 
 The real EEG example selects 19 EEGMMIDB sensors, filters 0.5–75 Hz, resamples to 200 Hz, scales microvolts by 1/100, and makes two four-second windows with one-second patches. It uses no rereferencing. This is an explicitly recorded demonstration recipe, not a claim to reproduce every upstream downstream-data pipeline. Sensor/time selectors describe activation coordinates, not exclusive physiological sources or receptive fields.
+
+## DIVER native reconstruction (unreleased source API)
+
+The same fully loaded native DIVER EEG model supports two distinct outputs.
+`DIVERAdapter(..., output="features")` is the existing default. Select
+`output="reconstruction"` for `y_org.time_head_output` with shape
+`[batch, sensor, patch, 500]`. Load the complete native checkpoint including its
+heads; an encoder-only checkpoint is insufficient.
+
+```python
+adapter = DIVERAdapter(model, channels=channels, positions=positions, output="reconstruction")
+lens = EEGLens(model.eval(), adapter)
+mask = torch.zeros(batch.data.shape[:-1], dtype=torch.bool)
+mask[:, channels.index("C3"), 1] = True
+with torch.inference_mode(), torch.random.fork_rng(devices=[]):
+    torch.manual_seed(9417)
+    result = lens.run_with_cache(batch, mask=mask.tolist())
+```
+
+`True` masks a complete native input patch before embedding. Numeric masks,
+wrong shapes and missing masks are rejected. Pair RNG when comparing runs:
+upstream attention dropout remains active in evaluation, and the native mask
+generator still consumes its ordinary RNG draw before the explicit override.
+The temporary override is removed even if a downstream hook fails.
+
+In reconstruction mode, `reconstruction.output` exposes the native time head
+and supports sensor/patch selection. Its last axis is waveform samples, not a
+latent feature basis. `features.output` is intentionally absent: the original
+encoder `head` output does not feed the native time head. Other internal sites
+retain their existing geometry restrictions. Output replacement at a final head
+is a tool control, not evidence of a mechanistic explanation.
+
+[Native validation](../validation/validate_diver_reconstruction.py) uses official
+weights, synthetic three-sensor inputs, batches1/2 and paired CPU float32 runs.
+Thirty site/batch identity and independent native-zero checks pass, with physical
+time-head selection and cleanup. See
+[retained evidence](../validation/results/diver-native-reconstruction-v2.json).

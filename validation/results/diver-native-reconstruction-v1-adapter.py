@@ -17,7 +17,7 @@ class DIVERAdapter(Adapter):
     """
 
     def __init__(self, model, *, channels, positions, output="features"):
-        if not isinstance(output, str) or output not in {"features", "reconstruction"}:
+        if output not in {"features", "reconstruction"}:
             raise ValidationError("DIVER output must be features or reconstruction")
         self.output = output
         self.channels = tuple(channels)

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+DIVERAdapter can select the native masked time-domain reconstruction output.
+It requires explicit boolean masks, preserves native RNG consumption, cleans up
+mask hooks after failures, and exposes only sites on the selected output path.
+The feature-only default remains unchanged. Official-checkpoint CPU validation
+covers 30 site/batch conditions; this is not a new scientific finding.
+
 ## Repository scope
 
 Scientific experiment code, results and planning documents are maintained separately. Native tool validation lives in `validation/`; its runners use standalone fixtures. Runtime APIs and package Python bytes are unchanged by this separation.
