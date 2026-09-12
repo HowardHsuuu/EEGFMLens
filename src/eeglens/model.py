@@ -9,7 +9,7 @@ import weakref
 import torch
 
 from .errors import HookExecutionError, ValidationError
-from .interventions import Selection
+from .interventions import AxisSelection, Selection, _selection_metadata
 from .provenance import tensor_digest
 from .types import Activation, RunResult, SignalBatch
 
@@ -91,11 +91,13 @@ class EEGLens:
             for intervention in interventions:
                 if (
                     not isinstance(getattr(intervention, "site", None), str)
-                    or not isinstance(getattr(intervention, "selection", None), Selection)
+                    or not isinstance(
+                        getattr(intervention, "selection", None), (Selection, AxisSelection)
+                    )
                     or not callable(getattr(intervention, "apply", None))
                 ):
                     raise ValidationError(
-                        "Interventions require a site, Selection and callable apply"
+                        "Interventions require a site, Selection or AxisSelection and callable apply"
                     )
                 site = self.adapter.require(intervention.site)
                 if not site.writable or site.name in patches:
@@ -213,8 +215,7 @@ class EEGLens:
                     "site": intervention.site,
                     "call_index": self.adapter.require(intervention.site).call_index,
                     "expected_calls": self.adapter.require(intervention.site).expected_calls,
-                    "sensors": intervention.selection.sensors,
-                    "patches": intervention.selection.patches,
+                    **_selection_metadata(intervention.selection),
                 }
                 for name in ("basis", "center"):
                     if hasattr(intervention, name):
@@ -232,9 +233,7 @@ class EEGLens:
                     )
                     reference = getattr(intervention, "reference_selection", None)
                     record["reference_selection"] = (
-                        None
-                        if reference is None
-                        else {"sensors": reference.sensors, "patches": reference.patches}
+                        None if reference is None else _selection_metadata(reference)
                     )
                     record["multiplier_warning"] = intervention.multiplier_warning
                 records.append(record)

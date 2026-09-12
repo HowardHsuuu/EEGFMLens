@@ -272,6 +272,11 @@ def patching_sweep(
         (1, len(recipient.channels), recipient.data.shape[2], 1), device=recipient.data.device
     )
     for target in targets:
+        if any(
+            selection is not None and not isinstance(selection, Selection)
+            for selection in (target.selection, target.off_event, target.random_position)
+        ):
+            raise ValidationError("patching_sweep requires physical Selection, not raw tensor axes")
         mask = target.selection.mask(grid, recipient, "bcpd")
         for control in [target.off_event, target.random_position]:
             if control is not None:

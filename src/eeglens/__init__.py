@@ -13,7 +13,7 @@ from .adapters.labram import LaBraMAdapter
 from .adapters.neurorvq import NeuroRVQAdapter
 from .adapters.signaljepa import SignalJEPAAdapter
 from .adapters.steegformer import STEEGFormerAdapter
-from .interventions import Ablation, Replacement, Selection, SubspaceAblation
+from .interventions import Ablation, AxisSelection, Replacement, Selection, SubspaceAblation
 from .io import load_run, save_run
 from .loading import load_cbramod, load_labram
 from .metrics import PairedEffect, paired_effect
@@ -50,6 +50,7 @@ __all__ = [
     "Replacement",
     "Ablation",
     "Selection",
+    "AxisSelection",
     "PairedEffect",
     "paired_effect",
     "LaBraMAdapter",

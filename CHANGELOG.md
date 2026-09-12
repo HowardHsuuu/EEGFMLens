@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+Add `AxisSelection` for explicit non-batch tensor-axis interventions, retaining
+trial alignment and donor provenance without assigning physical electrode labels.
+Physical patching sweeps reject raw-axis targets. Synthetic native-hook tests
+cover partial edits, tuple preservation, identity, metadata export and cleanup.
+
 DIVERAdapter can select the native masked time-domain reconstruction output.
 It requires explicit boolean masks, preserves native RNG consumption, cleans up
 mask hooks after failures, and exposes only sites on the selected output path.

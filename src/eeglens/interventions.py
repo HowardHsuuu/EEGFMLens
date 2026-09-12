@@ -52,12 +52,51 @@ class Selection:
 
 
 @dataclass(frozen=True)
+class AxisSelection:
+    """Select explicit indices of one exposed tensor axis, without physical labels.
+
+    Axis zero is reserved for trial identity and cannot be selected. Axes and
+    indices are nonnegative and checked against the activation at execution.
+    The caller must verify the model-specific meaning of the selected indices.
+    """
+
+    axis: int
+    indices: tuple[int, ...]
+
+    def __post_init__(self):
+        if type(self.axis) is not int or self.axis < 1:
+            raise ValidationError("AxisSelection requires a positive non-batch axis")
+        if (
+            not isinstance(self.indices, tuple)
+            or not self.indices
+            or any(type(i) is not int or i < 0 for i in self.indices)
+            or len(set(self.indices)) != len(self.indices)
+        ):
+            raise ValidationError("AxisSelection requires unique nonnegative integer indices")
+
+    def mask(self, tensor: torch.Tensor, batch: SignalBatch, layout: str):
+        if self.axis >= tensor.ndim or max(self.indices) >= tensor.shape[self.axis]:
+            raise ValidationError("AxisSelection axis or index is out of range")
+        axis_mask = torch.zeros(tensor.shape[self.axis], device=tensor.device, dtype=torch.bool)
+        axis_mask[list(self.indices)] = True
+        shape = [1] * tensor.ndim
+        shape[self.axis] = tensor.shape[self.axis]
+        return axis_mask.reshape(shape).expand_as(tensor)
+
+
+def _selection_metadata(selection):
+    if isinstance(selection, AxisSelection):
+        return {"axis": selection.axis, "indices": selection.indices}
+    return {"sensors": selection.sensors, "patches": selection.patches}
+
+
+@dataclass(frozen=True)
 class Replacement:
     """Replace selected recipient values, matching donor rows by unique trial IDs."""
 
     site: str
     donor: Activation
-    selection: Selection = Selection()
+    selection: Selection | AxisSelection = Selection()
 
     def apply(self, current, batch, layout, model_id):
         d = self.donor
@@ -91,7 +130,7 @@ class Ablation:
     """Zero a selected activation region; a perturbation, not a causal proof."""
 
     site: str
-    selection: Selection = Selection()
+    selection: Selection | AxisSelection = Selection()
 
     def apply(self, current, batch, layout, model_id):
         return current.masked_fill(self.selection.mask(current, batch, layout), 0)
@@ -108,7 +147,7 @@ class SubspaceAblation:
     site: str
     basis: torch.Tensor
     center: torch.Tensor
-    selection: Selection = Selection()
+    selection: Selection | AxisSelection = Selection()
 
     def apply(self, current, batch, layout, model_id):
         q, center = self.basis, self.center

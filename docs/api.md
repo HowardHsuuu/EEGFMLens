@@ -25,6 +25,24 @@ Generic kwargs must be JSON-serializable and match exactly between donor and rec
 
 ## Interventions
 
+`AxisSelection(axis=1, indices=(2, 5))` selects explicit indices of an exposed
+activation tensor axis. Use it for native summary tokens or other internal
+coordinates whose meaning you have verified in the model. Axis zero is reserved
+for trial identity; negative axes, duplicate indices and out-of-range indices
+are rejected. It does not infer electrode or time labels. With `Replacement`,
+unselected recipient values remain intact and donor rows still align by trial ID.
+The run records the axis, indices and real donor provenance. `Ablation` and
+`SubspaceAblation` also accept this selector; `patching_sweep` requires physical
+`Selection` targets and does not accept raw axis coordinates.
+
+```python
+from eeglens import AxisSelection, Replacement
+
+# For a verified [batch, native_token, feature] exposed site:
+patch = Replacement(site, donor.cache[site], AxisSelection(axis=1, indices=(2, 5)))
+result = lens.run_with_interventions(recipient, interventions=[patch])
+```
+
 ```python
 from eeglens import Ablation, Replacement, Selection, SubspaceAblation
 
