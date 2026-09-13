@@ -6,7 +6,7 @@
 
 `SignalBatch(data, trial_ids, channels, sampling_rate, preprocessing_id, unit="model_scaled", patch_stride_samples=None)` requires finite floating `[batch,sensor,patch,sample]` data. IDs/channels are tuples of nonempty unique strings. Omitted stride means nonoverlapping patches. This type does not filter, scale, rereference or reorder EEG. The preprocessing ID must identify the complete recipe, excluding experimental corruption so clean/recipient pairing remains possible. Trial IDs identify the same source epoch.
 
-`lens.sites()` returns declarations with name, native module path, layout, tuple-output index and writability. Custom adapters use `Adapter([ActivationSite(...)])`; override `validate` and `forward` as needed. The generic `batch` layout supports only whole-activation selection. Custom adapters are not automatically certified model support.
+`lens.sites()` returns declarations with name, native module path, layout, tuple-output index and writability. Custom adapters use `Adapter([ActivationSite(...)])`; override `validate` and `forward` as needed. The generic `batch` layout does not infer sensor or patch coordinates. Use whole-activation selection or `AxisSelection` for raw axes whose meaning you have verified. Custom adapters are not automatically certified model support.
 
 ## Execution
 
@@ -16,6 +16,23 @@ patched = lens.run_with_interventions(batch, interventions=[patch], sites=[])
 ```
 
 `sites=None` caches all declared sites; `[]` caches none. Intervened sites execute even if uncached. By default each selected/intervened site must fire exactly once. Reused modules can declare `expected_calls` and a zero-based `call_index` on `ActivationSite`; only that invocation is cached or edited, and the total invocation count is checked. Results contain native `output`, `cache`, actual `calls`, `model_id`, unique `run_id` and `metadata`. Cache tensors are detached clones on the original device, **after intervention**. They are owned snapshots, not read-only tensors: modifying one intentionally changes later donors.
+
+`run_with_cache` defaults to caching every declared site; `run_with_interventions`
+defaults to caching none. Request downstream sites explicitly when an intervened
+run will supply a donor for a later intervention:
+
+```python
+from eeglens import Replacement
+
+induced = lens.run_with_interventions(
+    batch, interventions=[patch], sites=["blocks.5.output"]
+)
+receiver_patch = Replacement("blocks.5.output", induced.cache["blocks.5.output"])
+```
+
+Executing an intervention at a site does not automatically put that site, or its
+downstream states, in the returned cache. The cached donor above includes the
+first intervention's effects.
 
 Observation preserves the native output object. Interventions replace only the declared tensor of a tuple output. Owned hooks are removed in `finally`; existing hooks survive and remain the caller's responsibility. Do not overlap direct native calls with wrapped execution. One live wrapper per native model and one active run per wrapper are enforced.
 
