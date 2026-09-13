@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import pytest
 import torch
@@ -22,6 +22,36 @@ class InvalidEdit:
         if self.kind == "nonfinite":
             return torch.full_like(current, float("nan"))
         return None
+
+
+@dataclass
+class DiagnosticEdit:
+    site: str = "hidden"
+    selection: Selection = Selection()
+    diagnostics: dict = field(default_factory=dict)
+
+    def apply(self, current, batch, layout, model_id):
+        self.diagnostics["changed_elements"] = current.numel()
+        return current + 1
+
+
+@pytest.mark.parametrize("warning", [None, "explicit warning"])
+def test_custom_diagnostics_do_not_require_subspace_specific_metadata(warning):
+    model = nn.Sequential(nn.Identity()).eval()
+    lens = EEGLens(model, Adapter([ActivationSite("hidden", "0")]))
+    batch = SignalBatch(torch.zeros(1, 1, 1, 4), ("a",), ("C3",), 200, "fixture")
+    edit = DiagnosticEdit()
+    if warning is not None:
+        edit.multiplier_warning = warning
+    result = lens.run_with_interventions(batch, interventions=[edit])
+    torch.testing.assert_close(result.output, torch.ones_like(batch.data), rtol=0, atol=0)
+    record = result.metadata["interventions"][0]
+    assert record["diagnostics"] == {"changed_elements": 4}
+    assert record["reference_selection"] is None
+    assert record["multiplier_warning"] == warning
+    edit.diagnostics["changed_elements"] = -1
+    assert record["diagnostics"]["changed_elements"] == 4
+    assert not model[0]._forward_hooks
 
 
 @pytest.mark.parametrize("kind", ["shape", "dtype", "nonfinite", "nontensor"])

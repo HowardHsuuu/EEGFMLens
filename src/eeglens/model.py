@@ -235,7 +235,7 @@ class EEGLens:
                     record["reference_selection"] = (
                         None if reference is None else _selection_metadata(reference)
                     )
-                    record["multiplier_warning"] = intervention.multiplier_warning
+                    record["multiplier_warning"] = getattr(intervention, "multiplier_warning", None)
                 records.append(record)
             return RunResult(
                 output,
