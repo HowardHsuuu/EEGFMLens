@@ -3,11 +3,12 @@
 This is an instrumentation demonstration, not a trained task classifier or
 evidence of a physiological mechanism. No implicit downloads.
 
-Run: python examples/real_eeg.py --model cbramod --checkpoint FILE --edf FILE
+Run: python examples/real_eeg.py --model cbramod --upstream DIRECTORY --checkpoint FILE --edf FILE
 """
 
 import argparse
 import json
+import sys
 from dataclasses import replace
 from pathlib import Path
 
@@ -21,7 +22,7 @@ def native_forward(model_name, model, batch):
     """Call the encoder directly, independently of the adapter's forward method."""
     if model_name == "cbramod":
         return model(batch.data)
-    from eeglens._vendor.labram_channels import CHANNELS
+    from eeglens.adapters.labram_channels import CHANNELS
 
     indices = [0, *(CHANNELS.index(channel) + 1 for channel in batch.channels)]
     return model.forward_features(batch.data, input_chans=indices, return_patch_tokens=True)
@@ -93,11 +94,16 @@ def prepare_edf(path):
     return SignalBatch(patches, ("recording:0-4s", "recording:4-8s"), channels, 200, recipe)
 
 
-def run(model_name, checkpoint, edf):
+def run(model_name, checkpoint, edf, upstream):
     torch.set_num_threads(2)
     batch = prepare_edf(edf)
     loader = load_cbramod if model_name == "cbramod" else load_labram
-    lens = loader(checkpoint)
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
+    from native_sources import REVISIONS, native_module
+
+    module = native_module(model_name, upstream)
+    factory = module.CBraMod if model_name == "cbramod" else module.labram_base_patch200_200
+    lens = loader(checkpoint, model_factory=factory, source_revision=REVISIONS[model_name])
     site = "blocks.0.output"
     last = "blocks.11.output"
     with torch.no_grad():
@@ -157,13 +163,14 @@ def run(model_name, checkpoint, edf):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", choices=["cbramod", "labram"], required=True)
+    parser.add_argument("--upstream", type=Path, required=True)
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--edf", required=True)
     parser.add_argument("--output", type=Path, help="Save JSON; refuses an existing path")
     args = parser.parse_args()
     if args.output is not None and args.output.exists():
         raise FileExistsError(args.output)
-    report = json.dumps(run(args.model, args.checkpoint, args.edf), indent=2) + "\n"
+    report = json.dumps(run(args.model, args.checkpoint, args.edf, args.upstream), indent=2) + "\n"
     if args.output is not None:
         with args.output.open("x") as destination:
             destination.write(report)

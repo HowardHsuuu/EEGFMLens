@@ -18,13 +18,13 @@ The runtime has checkpoint-backed checks for eleven EEG model families. Scope ma
 
 For the initial EEGPT, two BIOT checkpoints and BENDR encoder expansion, we tested batch sizes 1 and 2, exact equality with native observation, identity replacement, zero ablation against an independent manual native hook, finite outputs, hook cleanup and final-site clean recovery after trial reordering. All 68 site/batch conditions passed across the four new checkpoint configurations. Tests use deterministic synthetic model-ready inputs on CPU; no task labels or clinical claims are involved.
 
-The initial expansion suite passed 45 tests, including CBraMod and LaBraM checkpoint checks and invocation-specific hook tests. That count is historical: the a6 installed-package gate passes 74 non-integration tests and the known-answer sweep in two local dependency environments; checkpoint/native runs remain separate evidence. The 68 conditions above describe the initial EEGPT/BIOT/BENDR encoder expansion; subsequent additions are reported separately below. See [current acceptance evidence](public-readiness.md) and [reproducible validation sources and results](../validation/README.md).
+The initial expansion suite passed 45 tests, including CBraMod and LaBraM checkpoint checks and invocation-specific hook tests. That count is historical: the a6 installed-package gate passes 74 non-integration tests and the known-answer sweep in two local dependency environments; checkpoint/native runs remain separate evidence. The 68 conditions above describe the initial EEGPT/BIOT/BENDR encoder expansion; subsequent additions are reported separately below. See [historical a9 acceptance evidence](https://github.com/HowardHsuuu/EEGFMLens/blob/main/validation/archive/PUBLIC_READINESS_A9.md) and [reproducible validation sources and results](../validation/README.md).
 
 ## Dense intervention evidence
 
 Model-ready input constraints and independently checked boundaries are listed in [input contracts](input-contracts.md). Accepted metadata does not imply automatic preprocessing or universal checkpoint compatibility.
 
-All eleven families / thirteen component-checkpoint views now have fixed-geometry dense rank-three native intervention evidence, totaling 796 site/batch/global-or-local conditions. See [dense validation scope](../validation/DENSE_VALIDATION.md). Three study models use real development EEG; other views use synthetic model-ready input. CPU float32 and the listed configurations are the verified scope, not all devices or model variants. Physical selectors are checked only where the adapter exposes that mapping; all other sites explicitly reject them.
+All eleven families / thirteen component-checkpoint views now have fixed-geometry dense rank-three native intervention evidence, totaling 796 site/batch/global-or-local conditions. See [dense validation scope](https://github.com/HowardHsuuu/EEGFMLens/blob/main/validation/archive/DENSE_VALIDATION.md). Three study models use real development EEG; other views use synthetic model-ready input. CPU float32 and the listed configurations are the verified scope, not all devices or model variants. Physical selectors are checked only where the adapter exposes that mapping; all other sites explicitly reject them.
 
 ## Expansion validation
 
@@ -58,7 +58,7 @@ NeuroRVQ passed 104 site/batch conditions, including independent native-hook abl
 ## Experimental integrations, excluded from the verified count
 
 - `eeglens.adapters.reve.REVEAdapter`: 92 conditions passed on the official base architecture with random initialization. This checks native hooks/overlapping window execution only; official gated weights remain unavailable (403). It does not establish pretrained behavior. Not exported at package root.
-- `eeglens.adapters.eegmamba.EEGMambaAdapter`: source-derived hook declarations for hidden/residual outputs; native Mamba2/Triton execution is unavailable on this Mac. No checkpoint validation. Not exported at package root. See [execution evidence](../validation/EXPANSION.md).
+- `eeglens.adapters.eegmamba.EEGMambaAdapter`: source-derived hook declarations for hidden/residual outputs; native Mamba2/Triton execution is unavailable on this Mac. No checkpoint validation. Not exported at package root. See [execution evidence](https://github.com/HowardHsuuu/EEGFMLens/blob/main/validation/archive/EXPANSION.md).
 
 SignalJEPA loads every tensor of the full maintainer checkpoint strictly, including the pretrained 62-channel embedding table. Validation used unchanged Braindecode 1.8.1 source modules under Torch 2.14; package `__init__` imports were bypassed to avoid unrelated models requiring Torchaudio. This direct-source path is explicit and reproducible in the runner. Standard Braindecode 1.8.1 package import was also verified under Torch/Torchaudio 2.8.0 with the same checkpoint and all 20 conditions passing. The native forward uses the local encoder and transformer encoder; its decoder is loaded but not executed. No time-to-input-patch mapping is claimed.
 
@@ -70,7 +70,7 @@ DIVER-1 passed 30 site/batch conditions, reordered donor recovery, physical sens
 
 ST-EEGFormer-small passed 20 conditions and reordered donor recovery on six-second 128 Hz input. The official downstream `forward_features` path is retained with pretrained norm/CLS output and no classifier. Decoder-only checkpoint keys are explicitly excluded; the parent timm image `pos_embed` parameter is removed because the native EEG forward never uses it and it is absent from pretraining. All remaining model keys load strictly. Its time-major tokens are not given LaBraM's channel-major selectors.
 
-[Reproduction, versions and checkpoint provenance](../validation/DIVER_STEEGFORMER.md). These add two verified families to the previous nine; no iEEG cross-modal result, downstream accuracy or biological interpretation is claimed.
+[Reproduction, versions and checkpoint provenance](https://github.com/HowardHsuuu/EEGFMLens/blob/main/validation/archive/DIVER_STEEGFORMER.md). These add two verified families to the previous nine; no iEEG cross-modal result, downstream accuracy or biological interpretation is claimed.
 
 ## Feature-axis correction (2026-09-10)
 

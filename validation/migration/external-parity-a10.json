@@ -1,0 +1,14 @@
+[
+  {
+    "model": "cbramod",
+    "checkpoint": "0792cb808c14e6b7a2bb2ce1dff379bc47bc54c49a779825bdfeb33bf8157178",
+    "sites": 49,
+    "all_cache_and_selected_ablations_exact": true
+  },
+  {
+    "model": "labram",
+    "checkpoint": "7c50583826afac76c4ab18f43d958df40496c8229accc09ed6a227c9bb57c37c",
+    "sites": 37,
+    "all_cache_and_selected_ablations_exact": true
+  }
+]

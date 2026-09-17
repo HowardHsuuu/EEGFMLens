@@ -1,30 +1,46 @@
 # Contributing
 
-Use Python 3.10+ and a virtual environment:
+Use Python 3.10+ in a virtual environment:
 
 ```bash
-python -m pip install -e '.[dev,labram,eeg]'
+python -m pip install -e '.[dev]'
 ruff check .
 ruff format --check .
-pytest -m 'not integration'
+pytest -m 'not integration and not native'
 python examples/quickstart.py
 python -m build
 ```
 
-Default tests never download data/weights. Checkpoint tests skip unless local paths are supplied; see [validation](docs/validation.md). Report platform, PyTorch version, checkpoint hash and exact commands with failures.
+The core suite uses synthetic fixtures and never downloads models or data.
+[Native tests](validation/README.md) additionally use explicit pinned upstream
+checkouts; checkpoint tests also require local weights. These tests remain
+separate so the core package can be tested without upstream dependencies.
 
-CI builds the sdist/wheel, installs that wheel, and runs `tools/check_installed.py` with Python isolated mode. The checker verifies the installed distribution's wheel digest and every package Python file, then runs non-integration tests, quickstart and the 24-effect analytic patching-sweep example in a temporary directory outside the checkout. The report retains both example source hashes; the sweep checks every expected local effect and requires all 24 records. It writes a report only after all checks pass and refuses to overwrite an existing report. This prevents an editable/source import or stale artifact from masquerading as an installed-wheel success.
+CI checks formatting with the same pinned Ruff version as the dev extra, builds
+and tests an installed wheel on Linux/macOS/Windows with Python 3.10/3.12, and
+runs a separate pinned-source native job. Check the actual workflow result for a
+commit before attributing platform coverage to that commit. Weights are not
+silently downloaded in CI.
 
-To reproduce after installing a built wheel into a separate environment:
+To verify a built wheel in a separate environment with pytest installed:
 
 ```bash
-python -I tools/check_installed.py --dist dist --output installed-wheel-report.json
+python -m pip install /path/to/eeglens-0.1.0a10-py3-none-any.whl pytest
+python -I tools/check_installed.py --dist /path/to/dist --output /path/to/new-report.json
 ```
 
-The environment needs `pytest` and the `labram` extra. Add `--coverage` with `pytest-cov` installed to match CI. The dist directory must contain exactly one wheel. CI is configured for Linux/macOS/Windows and Python 3.10/3.12; configuration alone is not evidence that those jobs have passed. Remote execution has not been claimed by the local release audit.
+The checker validates installed package bytes and dependency consistency, then
+runs the core tests and both offline examples outside the checkout. The dist
+folder must contain exactly one wheel; output reports must not already exist.
 
-Each new writable site needs native/identity parity, actual hook hits, meaningful downstream effects, selection semantics and cleanup tests. Registering a module name is insufficient. Include negative tests for unsupported operations. Distinguish random fixtures, official weights and real EEG evidence.
+Each writable site needs native/identity parity, actual hook hits, meaningful
+intervention effects, selection semantics and cleanup tests. Include rejection
+cases for unsupported operations. Distinguish synthetic contracts from official
+checkpoint and real-data evidence.
 
-Keep research alignment and preprocessing outside the hook engine. Functional instrumentation requires separate parity evidence. Vendor changes must explain deviations, pin revisions and retain licenses; Ruff excludes vendor code to keep upstream diffs small.
-
-Do not commit weights, recordings, caches, credentials or machine-specific paths. Generate synthetic fixtures in tests. Respect public artifact licenses and avoid untested scientific claims.
+Keep native model implementations, dataset-specific analysis and preprocessing
+out of the runtime. Supply external constructors to checkpoint helpers. Do not
+commit weights, recordings, credentials, caches or personal machine paths.
+Historical evidence in `validation/archive/` is preserved; do not relabel it as a
+run of current code. New reports belong to CI artifacts or a clearly scoped
+integration result.

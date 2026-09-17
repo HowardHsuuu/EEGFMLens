@@ -1,9 +1,9 @@
 """LaBraM native encoder sites, preserving CLS and channel-major token order."""
 
-from .._vendor.labram_channels import CHANNELS
 from ..errors import ValidationError
 from ..types import ActivationSite, SignalBatch
 from .base import Adapter
+from .labram_channels import CHANNELS
 
 
 class LaBraMAdapter(Adapter):

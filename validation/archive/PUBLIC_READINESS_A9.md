@@ -6,12 +6,12 @@ the quality standard, not a claim of feature parity or perfect support for every
 
 | Requirement | Evidence | Verified scope |
 | --- | --- | --- |
-| Public API and contracts | [API](api.md), [input contracts](input-contracts.md), [custom adapters](custom-models.md) | Observe, replace, ablate, serialize and sweep module outputs with explicit tensor semantics |
-| Eleven model families | [Coverage](model-coverage.md), [native validation](../validation/README.md), [dense checks](../validation/DENSE_VALIDATION.md) | 13 model/component views; 488 coordinate and 796 dense conditions; sampled CPU float32 configurations |
+| Public API and contracts | [API](../../docs/api.md), [input contracts](../../docs/input-contracts.md), [custom adapters](../../docs/custom-models.md) | Observe, replace, ablate, serialize and sweep module outputs with explicit tensor semantics |
+| Eleven model families | [Coverage](../../docs/model-coverage.md), [native validation](../README.md), [dense checks](DENSE_VALIDATION.md) | 13 model/component views; 488 coordinate and 796 dense conditions; sampled CPU float32 configurations |
 | Local intervention correctness | Independent native hooks, unselected-coordinate preservation, invalid-selector rejection and cleanup | Physical sensor/time selectors only where their mapping is verified |
-| Installed distribution | [CI reports](../validation/results/ci-76f52c4/summary.json) | Ubuntu/macOS/Windows × Python 3.10/3.12; 87 non-integration tests each, 33 package Python files, dependency checks and examples |
-| Reusable examples | [Quickstart](../examples/quickstart.py), [analytic sweep](../examples/patching_sweep.py), [real EEG recipe](validation.md) | Offline synthetic examples; explicit local EEG/checkpoint paths for native checks |
-| Source and licensing | [Provenance](vendor-provenance.md), [third-party notices](../THIRD_PARTY_NOTICES.md) | Eleven source/license checks on a9 archives; recorded direct-source equivalence and acknowledged notices |
+| Installed distribution | [CI reports](results/ci-76f52c4/summary.json) | Ubuntu/macOS/Windows × Python 3.10/3.12; 87 non-integration tests each, 33 package Python files, dependency checks and examples |
+| Reusable examples | [Quickstart](../../examples/quickstart.py), [analytic sweep](../../examples/patching_sweep.py), [real EEG recipe](VALIDATION_A9.md) | Offline synthetic examples; explicit local EEG/checkpoint paths for native checks |
+| Source and licensing | [Provenance](VENDOR_PROVENANCE_A9.md), [third-party notices](THIRD_PARTY_NOTICES_A9.md) | Eleven source/license checks on a9 archives; recorded direct-source equivalence and acknowledged notices |
 
 [GitHub run 34435514982](https://github.com/HowardHsuuu/EEGFMLens/actions/runs/34435514982)
 validated source commit `76f52c4`. All six downloaded JSON/JUnit pairs were checked

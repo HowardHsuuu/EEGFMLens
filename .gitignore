@@ -18,3 +18,4 @@ runs/
 *.safetensors
 .coverage
 htmlcov/
+external/

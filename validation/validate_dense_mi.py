@@ -10,7 +10,7 @@ import torch
 from checkpoint_fixtures import CHANNELS, RECIPE, build, model_input, sha
 
 from eeglens import Selection, SignalBatch, SubspaceAblation
-from eeglens._vendor.labram_channels import CHANNELS as LABRAM_CHANNELS
+from eeglens.adapters.labram_channels import CHANNELS as LABRAM_CHANNELS
 
 
 def run(name, root, output):

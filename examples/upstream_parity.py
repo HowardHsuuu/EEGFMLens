@@ -1,4 +1,4 @@
-"""Compare the vendored encoder with an independently imported upstream checkout.
+"""Compare the external model behind the adapter with a direct native forward.
 
 Pass a checkout at the revision documented in docs/models.md. This intentionally
 imports that local source; use a trusted checkout. No network access is performed.
@@ -43,7 +43,7 @@ def main():
             torch.load(args.checkpoint, map_location="cpu", weights_only=True), strict=True
         )
         native.proj_out = nn.Identity()
-        lens = load_cbramod(args.checkpoint)
+        lens = load_cbramod(args.checkpoint, model_factory=CBraMod, source_revision=actual)
 
         def forward():
             return native(batch.data)
@@ -57,7 +57,9 @@ def main():
         native = module.labram_base_patch200_200(
             num_classes=0, init_values=0.1, use_mean_pooling=False
         )
-        lens = load_labram(args.checkpoint)
+        lens = load_labram(
+            args.checkpoint, model_factory=module.labram_base_patch200_200, source_revision=actual
+        )
         native.load_state_dict(lens.model.state_dict(), strict=True)
 
         def forward():

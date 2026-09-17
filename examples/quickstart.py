@@ -3,20 +3,20 @@
 from dataclasses import replace
 
 import torch
+from torch import nn
 
-from eeglens import CBraModAdapter, EEGLens, Replacement, SignalBatch
-from eeglens.models import CBraMod
+from eeglens import ActivationSite, Adapter, EEGLens, Replacement, SignalBatch
 
 
 def main():
     torch.manual_seed(7)
     torch.set_num_threads(2)
-    model = CBraMod(n_layer=2).eval()
-    lens = EEGLens(model, CBraModAdapter(model))
+    model = nn.Sequential(nn.Linear(200, 32), nn.GELU(), nn.Linear(32, 16)).eval()
+    lens = EEGLens(model, Adapter([ActivationSite("features", "2")]))
     batch = SignalBatch(
         torch.randn(2, 3, 4, 200), ("trial-1", "trial-2"), ("C3", "CZ", "C4"), 200, "synthetic-v1"
     )
-    site = "blocks.1.output"
+    site = "features"
     clean = lens.run_with_cache(batch, sites=[site])
     recipient = replace(batch, data=torch.zeros_like(batch.data))
     corrupt = lens.run_with_cache(recipient, sites=[])

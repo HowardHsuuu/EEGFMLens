@@ -1,95 +1,96 @@
-# EEGLens
+# EEGFMLens
 
-**Inspect and intervene on EEG foundation models, with explicit sensor and time axes.**
+[![Tests](https://github.com/HowardHsuuu/EEGFMLens/actions/workflows/tests.yml/badge.svg)](https://github.com/HowardHsuuu/EEGFMLens/actions/workflows/tests.yml)
 
-EEGLens runs native PyTorch models, caches intermediate activations, and applies paired replacements or ablations. It provides a common interface for eleven EEG model families: CBraMod, LaBraM, EEGPT, BIOT, BENDR (encoder and contextualizer), BrainOmni (tiny encode), CSBrain, NeuroRVQ, SignalJEPA, DIVER-1 (EEG) and ST-EEGFormer (small). Each adapter declares its native tensor layouts and supported output paths.
+Inspect and intervene on EEG foundation models with explicit sensor and time axes.
 
-**Status: 0.1.0a9, public source alpha.** Installable from this source tree; no PyPI release is claimed. Official checkpoints and a small real EEG example have been exercised on CPU in float32. Inspired by TransformerLens; public readiness remains under [explicit audit](docs/public-readiness.md).
+The Python package is **`eeglens`**. It runs native PyTorch models, caches module
+outputs, and applies trial-paired replacements, ablations and patching sweeps.
+Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
+Model implementations, checkpoints and data are supplied separately.
+
+**Status: 0.1.0a10, source alpha.** CPU/float32 is the validated execution target.
+This repository does not claim a PyPI release. See [migration from a9](docs/migration-a10.md).
 
 ## Install
 
-From this repository, with Python 3.10 or newer:
+Python 3.10+:
 
 ```bash
+git clone https://github.com/HowardHsuuu/EEGFMLens.git
+cd EEGFMLens
 python -m pip install .
-# Optional: LaBraM checkpoint loading and EDF examples
-python -m pip install '.[labram,eeg]'
 python examples/quickstart.py
 ```
 
-Core requires PyTorch and NumPy. LaBraM adds timm/einops; EDF preprocessing adds MNE. Nothing downloads on import or during execution. The quickstart uses random weights and synthetic input to demonstrate execution, not pretrained behavior.
+Core dependencies are PyTorch and NumPy. The quickstart is offline and uses a
+small synthetic model; no model code, weights or data are downloaded implicitly.
 
-## Patch a native model
+## Cache and patch
 
 ```python
 from dataclasses import replace
 import torch
-from eeglens import CBraModAdapter, EEGLens, Replacement, SignalBatch
-from eeglens.models import CBraMod
+from torch import nn
+from eeglens import ActivationSite, Adapter, EEGLens, Replacement, SignalBatch
 
-model = CBraMod(n_layer=2).eval()  # Offline example, random weights
-lens = EEGLens(model, CBraModAdapter(model))
+model = nn.Sequential(nn.Linear(200, 32), nn.GELU(), nn.Linear(32, 16)).eval()
+lens = EEGLens(model, Adapter([ActivationSite("features", "2")]))
 batch = SignalBatch(
-    data=torch.randn(2, 3, 4, 200),  # trial, sensor, patch, sample
-    trial_ids=("trial-1", "trial-2"),
-    channels=("C3", "CZ", "C4"),
-    sampling_rate=200,
-    preprocessing_id="synthetic-v1",
+    torch.randn(2, 3, 4, 200),
+    ("trial-1", "trial-2"),
+    ("C3", "CZ", "C4"),
+    200,
+    "synthetic-v1",
 )
-site = "blocks.1.output"
-clean = lens.run_with_cache(batch, sites=[site])
+clean = lens.run_with_cache(batch, sites=["features"])
 recipient = replace(batch, data=torch.zeros_like(batch.data))
 patched = lens.run_with_interventions(
-    recipient, interventions=[Replacement(site, clean.cache[site])]
+    recipient,
+    interventions=[Replacement("features", clean.cache["features"])],
 )
 torch.testing.assert_close(patched.output, clean.output)
 ```
 
-For pretrained execution, use `load_cbramod("checkpoint.pth")` or `load_labram("checkpoint.pth")`, imported from `eeglens`. Loaders use local files, record SHA256, and strictly check encoder keys. See [model loading](docs/models.md) and the [real EEG recipe](docs/validation.md).
+For real models, follow [model setup and checkpoint loading](docs/models.md).
+CBraMod and LaBraM have strict checkpoint helpers accepting external constructors.
+For the other families, wrap an already loaded native model with its adapter.
+All adapters declare supported output paths; they do not resample or normalize EEG.
 
-## Paired patching analysis
+## What you can do
 
-Use `patching_sweep(lens, clean, recipient, score)` to scan channel/time positions across native layers. The public API pairs donors by trial ID, executes trials independently, checks identity/cleanup, and records per-trial norm-matched location controls with explicit invalid/large-multiplier diagnostics. See the [sweep guide](docs/sweeps.md) and runnable [known-answer example](examples/patching_sweep.py).
+- Cache independent activation snapshots at declared module outputs.
+- Replace donors by trial ID; select verified sensor/patch coordinates or explicit raw axes.
+- Zero activations or erase a supplied feature subspace.
+- Run paired patching sweeps with identity, location and norm-matched controls.
+- Save outputs, activations and provenance in versioned local bundles.
+- Connect another PyTorch model using `GenericAdapter` and a native forward callback.
 
-## Available operations
+Supported families: **CBraMod, LaBraM, EEGPT, BIOT, BENDR, BrainOmni, CSBrain,
+NeuroRVQ, SignalJEPA, DIVER-1 and ST-EEGFormer**. Coverage is component-specific;
+some internal axes have no validated electrode/time mapping. BrainOmni and DIVER
+require paired RNG in the tested paths. [Coverage and limitations](docs/model-coverage.md).
 
-- Inspect supported sites; cache selected activations as independent detached snapshots.
-- Replace activations with donor rows matched by trial ID, validating model identity and preprocessing coordinates.
-- Zero selected sensors/patches or erase a supplied orthonormal feature subspace.
-- Preserve native computation and remove owned hooks after success or failure.
-- Save outputs, activations and provenance in a versioned JSON/tensor bundle.
-- Report raw paired effects; leave recovery undefined without meaningful baseline degradation.
+Individual heads, QKV editing, gradients, GPU/mixed precision, compiled execution
+and cross-model activation transport are not validated public capabilities.
 
-| Model | Writable and observable sites | Exposed shape |
-|---|---|---|
-| CBraMod | Embedding; block, spatial, temporal and MLP outputs | `[B,C,P,D]`; branches restore folded axes |
-| LaBraM base | Patch embedding; block, attention and MLP outputs | `[B,C*P,D]` at embedding; `[B,1+C*P,D]` after CLS insertion |
+## Learn more
 
-The table above describes the original two adapters with sensor/patch semantics. The [model coverage table](docs/model-coverage.md) records all eleven verified families, exact checkpoint/component scope and limitations. Other models expose conservative batch layouts where token-to-electrode/time mapping is not validated. BrainOmni and DIVER-1 comparisons require paired RNG because native attention applies dropout in eval mode.
-
-All supported sites are module **outputs**. QKV, attention probabilities, individual heads, gradients, compiled execution, mixed precision, GPU execution, learned steering and cross-model transport are not validated capabilities. Unsupported sites raise errors. See [API contracts](docs/api.md).
-
-## Repository scope
-
-This repository contains the reusable tool, adapters, examples, tests and native
-integration validation. Dataset-specific studies, scientific results and response
-replay archives are maintained separately and are not release requirements.
-
-Use [validation/](validation/README.md) for native-hook conformance checks and
-[the acceptance ledger](docs/public-readiness.md) for verified platform and model scope.
-
-## Documentation
-
-- [API and runtime guarantees](docs/api.md)
-- [Models and preprocessing](docs/models.md)
-- [Reproduce validation](docs/validation.md)
-- [Architecture](docs/architecture.md) · [Roadmap](docs/roadmap.md)
+- [Model setup](docs/models.md) · [Input contracts](docs/input-contracts.md)
+- [API](docs/api.md) · [Custom models](docs/custom-models.md)
+- [Patching sweeps](docs/sweeps.md) · [Known-answer example](examples/patching_sweep.py)
+- [Real EEG example](docs/validation.md) · [Integration testing](validation/README.md)
 - [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
-Inspired by [TransformerLens](https://github.com/TransformerLensOrg/TransformerLens) and [WorldModelLens](https://github.com/Bhavith-Chandra/WorldModelLens). Pinned EEG model sources and attribution are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Please use [GitHub issues](https://github.com/HowardHsuuu/EEGFMLens/issues) for bugs
+and questions. Include the package version, native source/checkpoint versions and
+an example that reproduces the issue.
 
-Code is MIT licensed. Weights and datasets retain their own terms; neither is included.
+Inspired by [TransformerLens](https://github.com/TransformerLensOrg/TransformerLens)
+and [WorldModelLens](https://github.com/Bhavith-Chandra/WorldModelLens).
+The tool and native conformance tests live here; dataset-specific scientific
+studies are maintained separately.
 
-## Bring your own model
-
-Use `GenericAdapter` with explicit hook sites and a native forward callback to connect other PyTorch models without editing the runtime. `inspect_modules` lists candidate paths. See [custom model integration](docs/custom-models.md) for input conversion, tensor layouts, structured outputs and validation. Checkpoint-backed checks cover eleven families, including the complete BENDR encoder/contextualizer composition. See [verified model coverage](docs/model-coverage.md) for exact weights, tested sites and limitations. Generic connectivity is not automatic architecture validation.
+EEGFMLens code is MIT licensed. The retained LaBraM channel metadata has its
+[own notice](THIRD_PARTY_NOTICES.md). External models, weights and datasets retain
+their respective licenses.

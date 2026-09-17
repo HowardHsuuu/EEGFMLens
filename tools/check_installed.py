@@ -72,7 +72,7 @@ def run(wheel, repository, output, *, coverage=False):
                 "-q",
                 str(repository / "tests"),
                 "-m",
-                "not integration",
+                "not integration and not native",
                 f"--junitxml={junit}",
             ],
             [sys.executable, "-I", str(repository / "examples/quickstart.py")],

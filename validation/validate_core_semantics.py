@@ -9,7 +9,7 @@ from pathlib import Path
 import torch
 
 from eeglens import Ablation, Selection, SignalBatch, SubspaceAblation, load_cbramod, load_labram
-from eeglens._vendor.labram_channels import CHANNELS
+from eeglens.adapters.labram_channels import CHANNELS
 
 
 def sha(path):

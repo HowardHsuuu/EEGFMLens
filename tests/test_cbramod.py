@@ -1,10 +1,13 @@
+import pytest
 import torch
 
 from eeglens import Ablation, CBraModAdapter, EEGLens, Replacement, Selection, SignalBatch
-from eeglens._vendor.cbramod.model import CBraMod
+
+pytestmark = pytest.mark.native
 
 
-def test_native_blocks_and_folded_branch_replacement():
+def test_native_blocks_and_folded_branch_replacement(native_cbramod):
+    CBraMod = native_cbramod.CBraMod
     torch.manual_seed(9)
     torch.set_num_threads(2)
     model = CBraMod(n_layer=2).eval()

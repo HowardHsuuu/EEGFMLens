@@ -4,10 +4,12 @@ import torch
 from eeglens import Ablation, EEGLens, LaBraMAdapter, Replacement, Selection, SignalBatch
 from eeglens.errors import UnsupportedSiteError, ValidationError
 
+pytestmark = pytest.mark.native
 
-def test_native_labram_tokens_cls_and_effective_selection():
+
+def test_native_labram_tokens_cls_and_effective_selection(native_labram):
     pytest.importorskip("timm")
-    from eeglens._vendor.labram import NeuralTransformer
+    NeuralTransformer = native_labram.NeuralTransformer
 
     torch.set_num_threads(2)
     torch.manual_seed(17)
@@ -52,9 +54,9 @@ def test_native_labram_tokens_cls_and_effective_selection():
 
 
 @pytest.mark.parametrize("output,shape", [("all_tokens", (1, 7, 200)), ("pooled", (1, 200))])
-def test_other_native_output_paths(output, shape):
+def test_other_native_output_paths(output, shape, native_labram):
     pytest.importorskip("timm")
-    from eeglens._vendor.labram import NeuralTransformer
+    NeuralTransformer = native_labram.NeuralTransformer
 
     model = NeuralTransformer(
         depth=1, num_classes=0, init_values=0.1, use_mean_pooling=False

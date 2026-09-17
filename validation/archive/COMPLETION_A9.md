@@ -4,9 +4,9 @@ The acceptance scope is the reusable EEGLens tool. Scientific experiments and
 results are maintained separately; an unpublished research replay archive does
 not block tool completion.
 
-The [acceptance ledger](public-readiness.md) maps requirements to API documentation,
+The [acceptance ledger](PUBLIC_READINESS_A9.md) maps requirements to API documentation,
 model conformance evidence, installed-distribution tests, examples and licensing.
-The [roadmap](roadmap.md) distinguishes implemented functionality from unsupported
+The [roadmap](../../docs/roadmap.md) distinguishes implemented functionality from unsupported
 future capabilities. No requirement is satisfied merely by an adapter forward
 pass or a count of registered model names.
 

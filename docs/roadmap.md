@@ -17,4 +17,4 @@
 
 Scientific studies and their publication schedules are maintained outside this
 repository. They are not prerequisites for releasing the reusable tool. Current
-supported scope and limitations are in the [acceptance ledger](public-readiness.md).
+supported scope and limitations are in the [acceptance ledger](https://github.com/HowardHsuuu/EEGFMLens/blob/main/validation/archive/PUBLIC_READINESS_A9.md).

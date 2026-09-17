@@ -24,9 +24,7 @@ run will supply a donor for a later intervention:
 ```python
 from eeglens import Replacement
 
-induced = lens.run_with_interventions(
-    batch, interventions=[patch], sites=["blocks.5.output"]
-)
+induced = lens.run_with_interventions(batch, interventions=[patch], sites=["blocks.5.output"])
 receiver_patch = Replacement("blocks.5.output", induced.cache["blocks.5.output"])
 ```
 

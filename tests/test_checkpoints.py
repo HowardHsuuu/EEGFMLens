@@ -12,13 +12,15 @@ from eeglens.errors import ValidationError
 
 @pytest.mark.integration
 @pytest.mark.parametrize("name,loader", [("cbramod", load_cbramod), ("labram", load_labram)])
-def test_official_checkpoint_strict_load_and_identity(name, loader):
+def test_official_checkpoint_strict_load_and_identity(name, loader, request):
     path = os.environ.get(f"EEGLENS_{name.upper()}_CHECKPOINT")
     if not path:
         pytest.skip(f"Set EEGLENS_{name.upper()}_CHECKPOINT for checkpoint integration")
     assert Path(path).is_file()
     torch.set_num_threads(2)
-    lens = loader(path)
+    factory = request.getfixturevalue("native_" + name)
+    factory = factory.CBraMod if name == "cbramod" else factory.labram_base_patch200_200
+    lens = loader(path, model_factory=factory)
     batch = SignalBatch(
         torch.randn(1, 3, 2, 200), ("trial",), ("C3", "CZ", "C4"), 200, "synthetic-checkpoint-test"
     )
@@ -34,4 +36,4 @@ def test_official_checkpoint_strict_load_and_identity(name, loader):
         assert not torch.equal(result.output, effect.output), site
     assert lens.manifest["missing_keys"] == lens.manifest["unexpected_keys"] == []
     with pytest.raises(ValidationError, match="SHA256"):
-        loader(path, expected_sha256="wrong-hash")
+        loader(path, model_factory=factory, expected_sha256="wrong-hash")

@@ -43,11 +43,17 @@ def sha(path):
 
 
 def build(name, root, random_seed=None):
+    if name in {"cbramod", "labram"}:
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
+        from native_sources import native_module
+
+        module = native_module(name, root / "upstreams" / name)
     if random_seed is not None:
         torch.manual_seed(random_seed)
         if name == "cbramod":
             from eeglens import CBraModAdapter
-            from eeglens._vendor.cbramod.model import CBraMod
+
+            CBraMod = module.CBraMod
 
             model = CBraMod()
             model.proj_out = torch.nn.Identity()
@@ -55,17 +61,18 @@ def build(name, root, random_seed=None):
             return EEGLens(model, CBraModAdapter(model)), None
         if name == "labram":
             from eeglens import LaBraMAdapter
-            from eeglens._vendor.labram import labram_base_patch200_200
+
+            labram_base_patch200_200 = module.labram_base_patch200_200
 
             model = labram_base_patch200_200(num_classes=0, init_values=0.1, use_mean_pooling=False)
             model.eval().requires_grad_(False)
             return EEGLens(model, LaBraMAdapter(model)), None
     if name == "cbramod":
         path = root / "eeglens_build_evidence/cbramod.pth"
-        return load_cbramod(path), path
+        return load_cbramod(path, model_factory=module.CBraMod), path
     if name == "labram":
         path = root / "eeglens_build_evidence/labram-base.pth"
-        return load_labram(path), path
+        return load_labram(path, model_factory=module.labram_base_patch200_200), path
     sys.path.insert(0, str(root / "eeglens_model_validation/repos/CSBrain"))
     from models.CSBrain import CSBrain
 

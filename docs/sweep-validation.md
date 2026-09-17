@@ -14,6 +14,6 @@ python examples/patching_sweep.py
 ```
 
 The installed-wheel CI executes the analytic example outside the source checkout;
-its source digest and success are retained in the [CI reports](../validation/results/ci-76f52c4/summary.json).
+its source digest and success are retained in the [CI reports](https://github.com/HowardHsuuu/EEGFMLens/blob/main/validation/archive/results/ci-76f52c4/summary.json).
 Native model conformance is documented separately in [validation](../validation/README.md).
 These checks establish intervention execution, not a physiological mechanism.

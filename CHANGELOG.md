@@ -1,6 +1,19 @@
 # Changelog
 
-## Unreleased
+## 0.1.0a10 — source alpha
+
+- Remove bundled CBraMod/LaBraM implementations; checkpoint helpers now require
+  an explicit `model_factory`. Strict keys, hashes and output modes are retained.
+- Preserve LaBraM channel metadata with its direct MIT notice.
+- Keep offline core examples/tests independent of external model code; add a
+  separate pinned-source native CI job.
+- Add package URLs, pin Ruff, and separate current user guides from archived evidence.
+- Include the previously unreleased AxisSelection and DIVER reconstruction APIs.
+
+See [migration instructions](docs/migration-a10.md). Historical entries below
+describe their original versions; no PyPI publication is claimed.
+
+## a9 post-release source changes
 
 Add `AxisSelection` for explicit non-batch tensor-axis interventions, retaining
 trial alignment and donor provenance without assigning physical electrode labels.
