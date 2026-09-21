@@ -62,6 +62,20 @@ class PowerSpectrum:
     detrended: bool
 
 
+@dataclass(frozen=True)
+class WelchPowerSpectrum:
+    """One-sided Welch PSD with explicit window and overlap geometry."""
+
+    frequencies: torch.Tensor
+    power: torch.Tensor
+    scope: SpectralScope
+    sampling_rate: float
+    segment_samples: int
+    overlap_samples: int
+    segments: int
+    detrended: bool
+
+
 def _validate_scope(batch: SignalBatch, scope: SpectralScope) -> tuple[torch.Tensor, int]:
     batch.__post_init__()
     if scope == "patch":
@@ -120,13 +134,69 @@ def power_spectrum(
     return PowerSpectrum(frequencies, power, scope, batch.sampling_rate, samples, detrend)
 
 
-def band_power(spectrum: PowerSpectrum, band: FrequencyBand) -> torch.Tensor:
+def welch_power_spectrum(
+    batch: SignalBatch,
+    *,
+    scope: SpectralScope = "trial",
+    segment_samples: int | None = None,
+    overlap_samples: int | None = None,
+    detrend: bool = True,
+) -> WelchPowerSpectrum:
+    """Estimate a one-sided PSD with Hann-windowed overlapping segments."""
+
+    series, samples = _validate_scope(batch, scope)
+    segment_samples = min(512, samples) if segment_samples is None else segment_samples
+    if type(segment_samples) is not int or not 2 <= segment_samples <= samples:
+        raise ValidationError("Welch segment_samples must be an integer in [2, signal samples]")
+    overlap_samples = segment_samples // 2 if overlap_samples is None else overlap_samples
+    if type(overlap_samples) is not int or not 0 <= overlap_samples < segment_samples:
+        raise ValidationError("Welch overlap_samples must be an integer in [0, segment_samples)")
+    step = segment_samples - overlap_samples
+    working = series.float() if series.dtype in {torch.float16, torch.bfloat16} else series
+    frames = working.unfold(-1, segment_samples, step)
+    if detrend:
+        frames = frames - frames.mean(dim=-1, keepdim=True)
+    window = torch.hann_window(
+        segment_samples,
+        periodic=True,
+        dtype=working.dtype,
+        device=working.device,
+    )
+    coefficients = torch.fft.rfft(frames * window, dim=-1)
+    power = coefficients.abs().square() / (batch.sampling_rate * window.square().sum())
+    if segment_samples > 1:
+        stop = -1 if segment_samples % 2 == 0 else None
+        power[..., 1:stop] *= 2
+    power = power.mean(dim=-2)
+    frequencies = torch.fft.rfftfreq(
+        segment_samples,
+        d=1.0 / batch.sampling_rate,
+        device=working.device,
+        dtype=working.dtype,
+    )
+    return WelchPowerSpectrum(
+        frequencies,
+        power,
+        scope,
+        batch.sampling_rate,
+        segment_samples,
+        overlap_samples,
+        frames.shape[-2],
+        detrend,
+    )
+
+
+def band_power(
+    spectrum: PowerSpectrum | WelchPowerSpectrum,
+    band: FrequencyBand,
+) -> torch.Tensor:
     """Integrate a periodogram over a declared frequency band."""
 
-    if not isinstance(spectrum, PowerSpectrum):
-        raise ValidationError("Expected a PowerSpectrum")
+    if not isinstance(spectrum, (PowerSpectrum, WelchPowerSpectrum)):
+        raise ValidationError("Expected a PowerSpectrum or WelchPowerSpectrum")
     mask = _band_mask(spectrum.frequencies, band)
-    bin_width = spectrum.sampling_rate / spectrum.samples
+    samples = spectrum.samples if isinstance(spectrum, PowerSpectrum) else spectrum.segment_samples
+    bin_width = spectrum.sampling_rate / samples
     return spectrum.power[..., mask].sum(dim=-1) * bin_width
 
 

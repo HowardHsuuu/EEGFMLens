@@ -1,7 +1,15 @@
 import pytest
 import torch
 
-from eegfmlens import Ablation, CBraModAdapter, EEGLens, Replacement, Selection, SignalBatch
+from eegfmlens import (
+    Ablation,
+    CBraModAdapter,
+    EEGLens,
+    Replacement,
+    Selection,
+    SignalBatch,
+    attribute,
+)
 
 pytestmark = pytest.mark.native
 
@@ -28,3 +36,15 @@ def test_native_blocks_and_folded_branch_replacement(native_cbramod):
         assert not torch.equal(ablated.output, baseline.output)
     restored = lens.run_with_cache(batch, sites=[])
     torch.testing.assert_close(restored.output, baseline.output, rtol=0, atol=0)
+    site = "blocks.0.output"
+    attributed = attribute(
+        lens,
+        batch,
+        lambda output, current: output.flatten(1)[:, 0],
+        method="input_x_gradient",
+        sites=(site,),
+    )
+    assert attributed.input_attribution.shape == batch.data.shape
+    assert attributed.site_attributions[site].shape == baseline.cache[site].tensor.shape
+    assert torch.isfinite(attributed.input_attribution).all()
+    assert all(parameter.grad is None for parameter in model.parameters())

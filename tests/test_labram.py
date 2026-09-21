@@ -1,7 +1,15 @@
 import pytest
 import torch
 
-from eegfmlens import Ablation, EEGLens, LaBraMAdapter, Replacement, Selection, SignalBatch
+from eegfmlens import (
+    Ablation,
+    EEGLens,
+    LaBraMAdapter,
+    Replacement,
+    Selection,
+    SignalBatch,
+    attribute,
+)
 from eegfmlens.errors import UnsupportedSiteError, ValidationError
 
 pytestmark = pytest.mark.native
@@ -51,6 +59,17 @@ def test_native_labram_tokens_cls_and_effective_selection(native_labram):
         lens.run_with_cache(batch, sites=["blocks.0.qkv"])
     with pytest.raises(ValidationError, match="options"):
         lens.run_with_cache(batch, sites=[], input_chans=[0, 1, 2, 3])
+    attributed = attribute(
+        lens,
+        batch,
+        lambda output, current: output.flatten(1)[:, 0],
+        method="input_x_gradient",
+        sites=(name,),
+    )
+    assert attributed.input_attribution.shape == batch.data.shape
+    assert attributed.site_attributions[name].shape == baseline.cache[name].tensor.shape
+    assert torch.isfinite(attributed.input_attribution).all()
+    assert all(parameter.grad is None for parameter in model.parameters())
 
 
 @pytest.mark.parametrize("output,shape", [("all_tokens", (1, 7, 200)), ("pooled", (1, 200))])

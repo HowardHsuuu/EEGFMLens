@@ -14,6 +14,10 @@
 - Identity-controlled source-to-mediator path patching for proposed circuits.
 - Trial-independent gradients, input × gradient, integrated gradients and nonlinear-site path conductance.
 - Additive inverse-DFT spectral attribution, progressive input/frequency perturbation, AOPC and cross-method consistency.
+- Welch spectra, named time/frequency concepts, correlation, PLI, PLV and band
+  magnitude-squared coherence.
+- Reference-fitted periodic/aperiodic component intervention through an optional dependency.
+- Exact trial-matched CKA/RSA across layers and models, including within-group centering.
 - Pinned-source native checks for seven families and installed-wheel CI on three operating systems.
 - Source type checks, pre-commit hooks, distribution audits and trusted-publishing release automation.
 
@@ -23,7 +27,7 @@
 - Bounded cache storage driven by actual user workflows.
 - Additional BrainOmni configurations with independent native validation.
 - Native gradient conformance across exact model components/checkpoints and functional attention/QKV interfaces.
-- Windowed/Welch and parameterized periodic/aperiodic spectra with explicit dependency contracts.
+- Additional validated EEG concept estimators beyond the current transparent core.
 - Circuit graph discovery and component-level Q/K/V/MLP paths after native sites are validated.
 - Cross-layer transcoder support after feature transport and reconstruction controls are specified.
 

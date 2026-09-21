@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.0a14 — EEG concepts and cross-model geometry
+
+- Add Hann-windowed Welch PSDs with explicit segment and overlap geometry.
+- Add named Hjorth/time descriptors, band-power and broadband spectral summaries,
+  and probe-ready feature matrices with retained channel/patch coordinates.
+- Add channel correlation and band-limited phase-lag index, phase-locking value
+  and magnitude-squared coherence matrices.
+- Add optional reference-fitted FOOOF decomposition and reusable, phase-preserving
+  periodic/aperiodic component removal with fit provenance.
+- Add trial-ID-aligned linear CKA and RSA matrices across model layers, including
+  within-group centering for separating subject identity from within-subject geometry.
+- Add a known-answer cross-model example and optional-dependency CI job.
+
+See [migration instructions](docs/migration-a14.md).
+
 ## 0.1.0a13 — attribution and perturbation evidence
 
 - Add trial-independent gradient, input × gradient and integrated-gradient APIs

@@ -27,6 +27,8 @@ The runtime does not reconstruct attention or replace native forwards. Adapters 
 | `adapters/` | Native paths and tensor semantics |
 | `interventions.py` | Replacement, selection, zero/subspace ablation |
 | `spectral.py` | EEG frequency measurement and trial-matched signal edits |
+| `features.py`, `aperiodic.py` | Named EEG descriptors, connectivity and optional fitted spectral components |
+| `alignment.py` | Trial-matched CKA/RSA within and across model representations |
 | `attribution.py` | Input gradients, integrated gradients, site path conductance and spectral propagation |
 | `perturbation.py` | Progressive input/frequency perturbation, AOPC and map consistency |
 | `probes.py`, `diagnostics.py` | Held-out linear probes and representation diagnostics |

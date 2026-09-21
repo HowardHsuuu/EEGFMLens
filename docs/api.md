@@ -108,7 +108,7 @@ the controlled intervention grid to `patching_sweep`. See the
 
 Records contain checkpoint/source metadata where available, input hash, execution kwargs, coordinates, PyTorch version, selectors and donor/subspace hashes. They do **not** include raw inputs, fitted basis/center or preprocessing code; donor tensors must be saved separately unless included in the cache. Keep these artifacts for replay. Checksums detect changes, not authenticity.
 
-## Attribution, perturbation, spectral, probe, SAE and path APIs
+## Attribution, perturbation, EEG concepts, alignment, probe, SAE and path APIs
 
 `attribute(lens, batch, objective, ...)` computes raw gradient, input × gradient or
 integrated gradients one trial at a time. Integrated gradients requires an explicit,
@@ -125,8 +125,21 @@ aligned maps across methods. Definitions, leakage boundaries and native-evidence
 limits are in the [interpretability method guide](interpretability.md).
 
 `power_spectrum` and `band_power` measure patch- or trial-scope spectra.
+`welch_power_spectrum` adds explicit Hann segment and overlap geometry.
 `scale_frequency_band` and `patch_frequency_band` return new `SignalBatch` objects
 that can be passed directly to `EEGLens`. Spectral donor rows align by trial ID.
+
+`time_domain_features` and `spectral_features` return named `EEGFeatureSet`
+records; `.matrix()` makes their aggregation explicit for probing. Sensor-space
+relationships are available through `channel_correlation` and `band_connectivity`.
+The optional `fit_aperiodic_decomposition` and
+`remove_fitted_spectral_component` functions separate reference fitting from a
+reusable periodic/aperiodic intervention.
+
+`linear_cka`, `rsa_correlation` and `cross_model_similarity` compare paired trial
+geometry. The high-level API requires `Activation` records, aligns exact trial-ID
+sets and reports the model/site identities. A `groups` argument removes group means
+before comparison; it does not estimate uncertainty or choose exchangeability blocks.
 
 `activation_matrix`, `fit_ridge_probe`, `layerwise_ridge_probe`,
 `fit_cross_covariance_subspace`, `group_variance_decomposition` and

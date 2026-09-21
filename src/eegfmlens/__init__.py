@@ -13,6 +13,19 @@ from .adapters.labram import LaBraMAdapter
 from .adapters.neurorvq import NeuroRVQAdapter
 from .adapters.signaljepa import SignalJEPAAdapter
 from .adapters.steegformer import STEEGFormerAdapter
+from .alignment import (
+    CrossModelSimilarity,
+    center_within_groups,
+    cross_model_similarity,
+    linear_cka,
+    rsa_correlation,
+)
+from .aperiodic import (
+    AperiodicChannelFit,
+    AperiodicDecomposition,
+    fit_aperiodic_decomposition,
+    remove_fitted_spectral_component,
+)
 from .attribution import (
     AttributionMethod,
     AttributionResult,
@@ -31,6 +44,14 @@ from .diagnostics import (
     GroupVariance,
     group_variance_decomposition,
     within_group_contrast_consistency,
+)
+from .features import (
+    EEGConnectivity,
+    EEGFeatureSet,
+    band_connectivity,
+    channel_correlation,
+    spectral_features,
+    time_domain_features,
 )
 from .interventions import Ablation, AxisSelection, Replacement, Selection, SubspaceAblation
 from .io import load_run, save_run
@@ -72,10 +93,12 @@ from .spectral import (
     CANONICAL_BANDS,
     FrequencyBand,
     PowerSpectrum,
+    WelchPowerSpectrum,
     band_power,
     patch_frequency_band,
     power_spectrum,
     scale_frequency_band,
+    welch_power_spectrum,
 )
 from .sweep import MatchedReplacement, SweepResult, SweepTarget, patch_grid, patching_sweep
 from .types import Activation, ActivationSite, RunResult, SignalBatch, SignalTransform
@@ -129,11 +152,13 @@ __all__ = [
     "SignalTransform",
     "FrequencyBand",
     "PowerSpectrum",
+    "WelchPowerSpectrum",
     "CANONICAL_BANDS",
     "power_spectrum",
     "band_power",
     "scale_frequency_band",
     "patch_frequency_band",
+    "welch_power_spectrum",
     "RidgeProbe",
     "ProbeScore",
     "LayerProbeResult",
@@ -174,4 +199,19 @@ __all__ = [
     "occlusion_curve",
     "spectral_perturbation_curve",
     "attribution_cosine_consistency",
+    "CrossModelSimilarity",
+    "linear_cka",
+    "rsa_correlation",
+    "center_within_groups",
+    "cross_model_similarity",
+    "EEGFeatureSet",
+    "EEGConnectivity",
+    "time_domain_features",
+    "spectral_features",
+    "channel_correlation",
+    "band_connectivity",
+    "AperiodicChannelFit",
+    "AperiodicDecomposition",
+    "fit_aperiodic_decomposition",
+    "remove_fitted_spectral_component",
 ]

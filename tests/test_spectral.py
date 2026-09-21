@@ -14,6 +14,7 @@ from eegfmlens import (
     patch_frequency_band,
     power_spectrum,
     scale_frequency_band,
+    welch_power_spectrum,
 )
 from eegfmlens.errors import ValidationError
 
@@ -71,3 +72,19 @@ def test_trial_scope_rejects_overlapping_patches_and_run_records_edits():
     lens = EEGLens(nn.Sequential(nn.Identity()).eval(), Adapter([ActivationSite("x", "0")]))
     result = lens.run_with_cache(edited, sites=[])
     assert result.metadata["signal_transforms"][0]["name"] == "scale_frequency_band"
+
+
+def test_welch_power_spectrum_has_explicit_geometry_and_preserves_sine_power():
+    batch = sine_batch()
+    spectrum = welch_power_spectrum(
+        batch,
+        segment_samples=128,
+        overlap_samples=64,
+    )
+    assert spectrum.power.shape == (1, 1, 65)
+    assert spectrum.segment_samples == 128
+    assert spectrum.overlap_samples == 64
+    assert spectrum.segments == 3
+    integrated = spectrum.power.sum(dim=-1) * batch.sampling_rate / 128
+    expected_variance = batch.data.flatten(2).var(dim=-1, unbiased=False)
+    torch.testing.assert_close(integrated, expected_variance, atol=1e-10, rtol=1e-10)

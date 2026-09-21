@@ -10,6 +10,7 @@ mypy
 pytest -m 'not integration and not native'
 python examples/quickstart.py
 python examples/model_catalog.py
+python examples/cross_model_analysis.py
 python examples/restoration_workflow.py --demo --output /tmp/eegfmlens-restoration
 python -m build
 python tools/check_release.py --dist dist
@@ -19,6 +20,8 @@ Run `pre-commit install` once to apply the same Ruff formatting/lint and mypy
 checks before each commit.
 
 The core suite uses synthetic fixtures and never downloads models or data.
+Run `python -m pip install -e '.[dev,aperiodic]'` and
+`pytest -m optional` when changing periodic/aperiodic fitting.
 [Native tests](validation/README.md) additionally use explicit pinned upstream
 checkouts; checkpoint tests also require local weights. These tests remain
 separate so the core package can be tested without upstream dependencies.
@@ -36,7 +39,7 @@ coverage to that commit. Weights are not silently downloaded in CI.
 To verify a built wheel in a separate environment with pytest installed:
 
 ```bash
-python -m pip install /path/to/eegfmlens-0.1.0a13-py3-none-any.whl pytest
+python -m pip install /path/to/eegfmlens-0.1.0a14-py3-none-any.whl pytest
 python -I tools/check_installed.py --dist /path/to/dist --output /path/to/new-report.json
 ```
 

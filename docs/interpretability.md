@@ -41,6 +41,54 @@ Bands use a lower-inclusive, upper-exclusive interval, except that a band ending
 Nyquist includes the Nyquist bin. Sharp spectral boundaries can cause ringing and
 should be paired with appropriate control bands.
 
+## Named EEG concepts and connectivity
+
+`time_domain_features` returns nine per-channel descriptors: Hjorth activity,
+mobility and complexity; population standard deviation; RMS; zero-crossing rate;
+line length; derivative standard deviation; and peak-to-peak amplitude. Flat signals
+use zero mobility and complexity by definition. `spectral_features` returns log10
+and relative power for caller-supplied bands plus normalized spectral entropy,
+centroid and edge frequency over an explicit broadband range. It uses the same
+one-sided periodogram contract as the intervention methods and does not present a
+broadband slope as an aperiodic fit.
+
+Both functions return `EEGFeatureSet`, retaining trial, channel and optional patch
+coordinates. `.matrix(aggregation="flatten")` preserves those coordinates as named
+probe columns; `aggregation="mean"` returns one value per descriptor. This makes the
+same target usable for layer-wise probing, concept-subspace fitting and sparse-feature
+annotation without embedding a dataset split in the extractor.
+
+`welch_power_spectrum` exposes Hann segment length, overlap and number of averaged
+segments. `channel_correlation` computes Pearson matrices. `band_connectivity`
+computes phase-lag index, phase-locking value or magnitude-squared coherence after
+rectangular FFT band selection and an analytic-signal transform. Results preserve
+the trial axis and channel order. Patch scope evaluates each patch separately; trial
+scope requires contiguous nonoverlapping patches. These sensor-space relationships
+are descriptive and must not be interpreted as source-level or directed connectivity.
+
+The initial feature set deliberately excludes BrainPEC quantities labeled as proxies,
+including its compact sample-entropy, Lempel-Ziv, Higuchi and DFA approximations.
+Adding a familiar scientific name requires a reference implementation and
+known-answer evidence for that exact estimator.
+
+## Periodic and aperiodic intervention
+
+`fit_aperiodic_decomposition` is an optional FOOOF 1.1 integration modeled on the
+FMScope diagnostic. It fits a fixed aperiodic component and periodic peaks per channel
+from a Welch PSD averaged over an explicit reference `SignalBatch`. The returned
+`AperiodicDecomposition` records the channel order, preprocessing, units, fit range,
+window geometry, estimator version, exact fitted Gaussian components and a stable fit
+digest.
+
+`remove_fitted_spectral_component` reuses that fit on another compatible batch. It
+divides periodic, aperiodic or both amplitude factors only inside the fitted range,
+retains phase and records the fit digest in `SignalBatch.transforms`. Fit on a
+training/reference cohort and apply the same object to held-out data. Refitting on
+each evaluation condition changes the intervention and can leak cohort information.
+The removal tests dependence on the fitted multiplicative component; reconstructed
+signals are not guaranteed to be physiologically free of periodic or aperiodic
+activity.
+
 ## What is represented and what is used
 
 `activation_matrix` makes pooling explicit. `fit_ridge_probe` fits only the matrix
@@ -134,6 +182,21 @@ space. The chosen mediator must execute downstream of the source. A recovered ef
 supports the tested path under these interventions; it does not discover a complete
 circuit or establish physiological localization.
 
+## Cross-model representation geometry
+
+`linear_cka` compares finite paired `[trial, feature]` matrices and is invariant to
+orthogonal feature rotation and isotropic scaling. `rsa_correlation` compares the
+upper triangles of correlation, cosine or Euclidean trial-similarity matrices.
+`cross_model_similarity` accepts named `Activation` collections, requires the exact
+same set of trial IDs, reorders the right model to the left model's order and returns
+the complete layer-by-layer matrix. It never takes a silent trial intersection.
+
+Supplying `groups` removes each group mean before CKA or RSA. For subject-labeled EEG,
+reporting ordinary and within-subject-centered similarity separately distinguishes
+shared identity geometry from shared within-subject state geometry. Neither statistic
+establishes functional interchangeability or a causal circuit. Use held-out linear
+alignment or intervention when the claim concerns transport or use of a representation.
+
 ## Method provenance
 
 The implementation is original MIT-licensed package code informed by the following
@@ -146,8 +209,11 @@ papers and their public repositories:
 - [EEG-PRISM](https://arxiv.org/abs/2608.13676): linear propagation of attribution into physiologically meaningful signal coordinates, including Fourier components.
 - [EEG-Xplain](https://arxiv.org/abs/2609.15687): gradient attribution, space/time/frequency summaries, progressive perturbation and cross-method consistency.
 - [CLT-Forge](https://arxiv.org/abs/2603.21014) and its [repository](https://github.com/LLM-Interp/CLT-Forge): cross-layer replacement models and attribution graphs. EEGFMLens does not label an ordinary SAE or hook graph as a CLT; a future implementation requires adapters to expose compatible residual inputs and component outputs plus replacement-fidelity tests.
+- [Similarity of Neural Network Representations Revisited](https://arxiv.org/abs/1905.00414): linear centered-kernel alignment for representations with different feature dimensions.
+- [SVCCA](https://arxiv.org/abs/1706.05806): motivates cross-network representation comparison; EEGFMLens currently exposes CKA and RSA rather than claiming SVCCA without its truncation and regularization choices.
+- [FOOOF](https://doi.org/10.1038/s41593-020-00744-x) and its [stable implementation](https://github.com/fooof-tools/fooof): optional fixed-mode spectral parameterization. The dependency is not bundled, and the fit/apply interface is original package code.
 
-The current public API does not claim full LEACE, FOOOF/specparam decomposition,
+The current public API does not claim full LEACE, specparam 2 compatibility,
 attention LRP, Q/K/V intervention, automatic circuit discovery or a cross-layer
 transcoder. Those names will be exposed only after their mathematical and native-model
 contracts have dedicated correctness evidence.

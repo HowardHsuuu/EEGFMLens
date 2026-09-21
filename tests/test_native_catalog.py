@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 import torch
 
-from eegfmlens import Ablation, Replacement, SignalBatch, connect, model_info
+from eegfmlens import Ablation, Replacement, SignalBatch, attribute, connect, model_info
 
 pytestmark = pytest.mark.native
 
@@ -215,6 +215,14 @@ def _seeded(call):
         return call()
 
 
+def _objective(output, batch):
+    if not isinstance(output, torch.Tensor):
+        raise TypeError("Native gradient smoke expects a tensor output")
+    flattened = output.reshape(output.shape[0], -1)
+    weights = torch.linspace(0.5, 1.5, flattened.shape[1], device=output.device)
+    return (flattened * weights).sum(dim=1)
+
+
 def test_pinned_native_catalog_observation_identity_and_ablation():
     family = os.environ.get("EEGLENS_NATIVE_MODEL")
     if family is None:
@@ -266,4 +274,20 @@ def test_pinned_native_catalog_observation_identity_and_ablation():
     )
     torch.testing.assert_close(ablated, native_zero, rtol=0, atol=0)
     assert not torch.equal(ablated, native)
+    assert tuple(module._forward_hooks) == original_hooks
+
+    attributed = _seeded(
+        lambda: attribute(
+            lens,
+            batch,
+            _objective,
+            method="input_x_gradient",
+            sites=(site,),
+        )
+    )
+    assert attributed.input_attribution.shape == batch.data.shape
+    assert attributed.site_attributions[site].shape == observed.cache[site].tensor.shape
+    assert torch.isfinite(attributed.input_attribution).all()
+    assert torch.isfinite(attributed.site_attributions[site]).all()
+    assert all(parameter.grad is None for parameter in lens.model.parameters())
     assert tuple(module._forward_hooks) == original_hooks

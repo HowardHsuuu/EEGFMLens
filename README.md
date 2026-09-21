@@ -13,9 +13,9 @@ outputs, and applies trial-paired replacements, ablations and patching sweeps.
 Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
 Model implementations, checkpoints and data are supplied separately.
 
-**Status: 0.1.0a13, public source alpha.** CPU/float32 is the validated native-model
+**Status: 0.1.0a14, public source alpha.** CPU/float32 is the validated native-model
 execution target. This repository does not claim a PyPI release. See
-[what changed in a13](docs/migration-a13.md).
+[what changed in a14](docs/migration-a14.md).
 
 ## Install
 
@@ -31,6 +31,7 @@ python examples/model_catalog.py
 
 Core dependencies are PyTorch and NumPy. The quickstart is offline and uses a
 small synthetic model; no model code, weights or data are downloaded implicitly.
+Install `.[aperiodic]` only when FOOOF-based periodic/aperiodic fitting is needed.
 
 ## Flagship workflow
 
@@ -97,6 +98,10 @@ also have strict checkpoint helpers accepting external constructors. See
 - Replace donors by trial ID; select verified sensor/patch coordinates or explicit raw axes.
 - Zero activations or erase a supplied feature subspace.
 - Measure and patch EEG frequency bands in amplitude, phase or full complex spectrum.
+- Compute Welch PSDs, named time/frequency descriptors, channel correlation and
+  band-limited PLI, PLV and magnitude-squared coherence.
+- Fit a periodic/aperiodic decomposition on a reference cohort and reuse it as a
+  phase-preserving signal intervention through the optional dependency group.
 - Attribute objectives to input samples and declared internal sites with gradients,
   input × gradient, integrated gradients and path conductance.
 - Propagate additive attribution into EEG frequency coordinates and evaluate it with
@@ -105,9 +110,15 @@ also have strict checkpoint helpers accepting external constructors. See
 - Audit group variance and cross-group condition-direction consistency.
 - Train Top-K sparse autoencoders and ablate or steer individual SAE features.
 - Test a hypothesized source-to-mediator path with identity-controlled path patching.
+- Compare trial-matched layers within or across models using linear CKA or RSA,
+  with optional within-group centering to expose subject-identity similarity.
 - Run paired patching sweeps with identity, location and norm-matched controls.
 - Run an end-to-end activation-restoration workflow with reports and figures.
 - Save outputs, activations and provenance in versioned local bundles.
+
+These functions use the same `SignalBatch`, `Activation` and intervention contracts.
+EEG-aware analyses are composed into a mechanistic study when its hypothesis needs
+signal frequency, sensor or subject structure; they are not a separate workflow.
 - Connect another PyTorch model using `GenericAdapter` and a native forward callback.
 
 Supported families: **CBraMod, LaBraM, EEGPT, BIOT, BENDR, BrainOmni, CSBrain,
@@ -130,12 +141,15 @@ caches, probes, SAE features, restoration sweeps or a hypothesized circuit path.
 | Question | Public methods |
 |---|---|
 | Which signal property changes the model? | periodograms, band power, phase-preserving band scaling, trial-matched amplitude/phase/complex spectral patching |
+| Which named EEG properties are present? | Welch PSD, Hjorth/time descriptors, band power/entropy/centroid/edge, correlation, PLI, PLV, magnitude-squared coherence |
+| Does periodic or aperiodic structure carry an effect? | reference-fitted FOOOF decomposition and reusable component removal |
 | Which input coordinates support an objective? | gradient, input × gradient, integrated gradients, channel/time aggregation, additive frequency attribution |
 | Is an attribution map behaviorally faithful? | progressive channel/patch occlusion, spectral-band removal, AOPC, cross-method cosine consistency |
 | Where is information represented? | layer-wise ridge probes, group-variance decomposition, condition-direction consistency |
 | Does the model use that representation? | cross-covariance subspace fit + `SubspaceAblation`, activation restoration |
 | Can a sparse feature mediate behavior? | Top-K SAE training/metrics, feature ablation and steering |
 | Does an effect travel through a proposed path? | source-to-mediator path patching with identity controls |
+| Do different models share trial geometry? | trial-ID-aligned linear CKA and RSA, optionally after within-group centering |
 
 The implementations draw method definitions and controls from
 [FMScope / *The Identity Trap*](https://arxiv.org/abs/2606.06647),
@@ -145,7 +159,9 @@ The implementations draw method definitions and controls from
 [EEG-PRISM](https://arxiv.org/abs/2608.13676), and
 [EEG-Xplain](https://arxiv.org/abs/2609.15687). Circuit design also follows the
 replacement-fidelity boundary made explicit by
-[CLT-Forge](https://arxiv.org/abs/2603.21014). See the
+[CLT-Forge](https://arxiv.org/abs/2603.21014). Cross-model comparison follows
+[linear CKA](https://arxiv.org/abs/1905.00414); aperiodic intervention follows the
+fit/remove design used by FMScope. See the
 [method guide](docs/interpretability.md) for exact semantics, controls, omissions
 and clean-room implementation provenance.
 
@@ -154,6 +170,7 @@ probe and a path test:
 
 ```bash
 python examples/interpretability_methods.py
+python examples/cross_model_analysis.py
 ```
 
 ## Learn more

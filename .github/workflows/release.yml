@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-      - run: python -m pip install '.[dev,visualization]'
+      - run: python -m pip install '.[dev,visualization,aperiodic]'
       - run: python tools/check_release.py --tag "${GITHUB_REF_NAME}"
       - run: ruff check .
       - run: ruff format --check .
