@@ -76,6 +76,7 @@ def run(wheel, repository, output, *, coverage=False):
                 f"--junitxml={junit}",
             ],
             [sys.executable, "-I", str(repository / "examples/quickstart.py")],
+            [sys.executable, "-I", str(repository / "examples/model_catalog.py")],
             [
                 sys.executable,
                 "-I",
@@ -110,11 +111,12 @@ def run(wheel, repository, output, *, coverage=False):
                 d.metadata["Name"]: d.version for d in importlib.metadata.distributions()
             },
             quickstart="passed",
+            model_catalog="passed",
             known_answer_sweep="passed",
             known_answer_sweep_sha256=sha(sweep),
             example_source_sha256={
                 name: sha(repository / "examples" / name)
-                for name in ("quickstart.py", "patching_sweep.py")
+                for name in ("quickstart.py", "model_catalog.py", "patching_sweep.py")
             },
             pip_check="passed",
             scope="Installed wheel verification and non-integration suite; checkpoint/native studies remain separate evidence.",

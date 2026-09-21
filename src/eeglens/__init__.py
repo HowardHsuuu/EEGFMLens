@@ -13,16 +13,23 @@ from .adapters.labram import LaBraMAdapter
 from .adapters.neurorvq import NeuroRVQAdapter
 from .adapters.signaljepa import SignalJEPAAdapter
 from .adapters.steegformer import STEEGFormerAdapter
+from .catalog import IntegrationSpec, ModelSpec, connect, model_info, supported_models
 from .interventions import Ablation, AxisSelection, Replacement, Selection, SubspaceAblation
 from .io import load_run, save_run
 from .loading import load_cbramod, load_labram
 from .metrics import PairedEffect, paired_effect
-from .model import EEGLens
+from .model import EEGLens, SiteCapability
 from .sweep import MatchedReplacement, SweepResult, SweepTarget, patch_grid, patching_sweep
 from .types import Activation, ActivationSite, RunResult, SignalBatch
 
 __all__ = [
     "EEGLens",
+    "SiteCapability",
+    "IntegrationSpec",
+    "ModelSpec",
+    "connect",
+    "model_info",
+    "supported_models",
     "NeuroRVQAdapter",
     "SignalJEPAAdapter",
     "STEEGFormerAdapter",

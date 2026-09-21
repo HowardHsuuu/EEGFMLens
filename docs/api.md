@@ -2,11 +2,28 @@
 
 ## Model and input
 
+`supported_models()` returns eleven immutable `ModelSpec` records. Each contains
+the upstream reference, verified component, input summary, variants and required
+adapter options. `model_info(family)` resolves documented aliases.
+
+`connect(model, family, variant=None, model_id=None, **adapter_options)` is the
+recommended entry point for an already constructed and loaded supported model.
+It checks model type, family, variant and option names, constructs the verified
+adapter and records the integration identity in the run manifest. It does not
+load weights, execute upstream code, preprocess EEG, call `.eval()` or move the
+model. CBraMod and LaBraM additionally provide strict local checkpoint helpers.
+
 `EEGLens(model, adapter, model_id=None)` wraps an existing eval-mode PyTorch model. It does not call `.eval()`, move the model or change parameters. Official loaders do these before wrapping. Configure device/dtype first. Only eager CPU float32 has integration evidence in this alpha.
 
 `SignalBatch(data, trial_ids, channels, sampling_rate, preprocessing_id, unit="model_scaled", patch_stride_samples=None)` requires finite floating `[batch,sensor,patch,sample]` data. IDs/channels are tuples of nonempty unique strings. Omitted stride means nonoverlapping patches. This type does not filter, scale, rereference or reorder EEG. The preprocessing ID must identify the complete recipe, excluding experimental corruption so clean/recipient pairing remains possible. Trial IDs identify the same source epoch.
 
-`lens.sites()` returns declarations with name, native module path, layout, tuple-output index and writability. Custom adapters use `Adapter([ActivationSite(...)])`; override `validate` and `forward` as needed. The generic `batch` layout does not infer sensor or patch coordinates. Use whole-activation selection or `AxisSelection` for raw axes whose meaning you have verified. Custom adapters are not automatically certified model support.
+`lens.sites()` returns declarations with name, native module path, layout,
+tuple-output index and writability. `lens.capabilities()` returns a public,
+immutable summary for each site, including valid selector kinds and invocation
+counts. Custom adapters use `Adapter([ActivationSite(...)])`; override `validate`
+and `forward` as needed. The generic `batch` layout does not infer sensor or patch
+coordinates. Use whole-activation selection or `AxisSelection` for raw axes whose
+meaning you have verified. Custom adapters are not automatically certified model support.
 
 ## Execution
 

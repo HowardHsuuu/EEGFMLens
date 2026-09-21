@@ -1,4 +1,5 @@
-# Channel embedding order from LaBraM utils.py; see THIRD_PARTY_NOTICES.md.
+# Source: https://github.com/935963004/LaBraM/blob/c431221e6cfd23dbfa9950e0180682fb322b0548/utils.py
+# License: LICENSES/LaBraM-MIT.txt (Copyright 2024 Weibang Jiang).
 CHANNELS = (
     "FP1",
     "FPZ",

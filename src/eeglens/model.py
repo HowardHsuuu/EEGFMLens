@@ -5,6 +5,7 @@ import json
 import threading
 import uuid
 import weakref
+from dataclasses import dataclass
 
 import torch
 
@@ -12,6 +13,19 @@ from .errors import HookExecutionError, ValidationError
 from .interventions import AxisSelection, Selection, _selection_metadata
 from .provenance import tensor_digest
 from .types import Activation, RunResult, SignalBatch
+
+
+@dataclass(frozen=True)
+class SiteCapability:
+    """Operations that one declared activation site supports."""
+
+    name: str
+    module_path: str
+    layout: str
+    writable: bool
+    selectors: tuple[str, ...]
+    call_index: int
+    expected_calls: int
 
 
 class EEGLens:
@@ -48,6 +62,25 @@ class EEGLens:
 
     def sites(self):
         return tuple(self.adapter.sites.values())
+
+    def capabilities(self) -> tuple[SiteCapability, ...]:
+        """Describe usable operations without running the native model."""
+
+        physical = {"bcpd", "spatial", "temporal", "tokens", "patch_tokens"}
+        return tuple(
+            SiteCapability(
+                site.name,
+                site.module_path,
+                site.layout,
+                site.writable,
+                ("whole", "axis", "sensor", "patch")
+                if site.layout in physical
+                else ("whole", "axis"),
+                site.call_index,
+                site.expected_calls,
+            )
+            for site in self.sites()
+        )
 
     def run_with_cache(self, batch: SignalBatch, *, sites=None, **kwargs):
         return self._run(batch, sites=sites, interventions=(), kwargs=kwargs)

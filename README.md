@@ -9,8 +9,8 @@ outputs, and applies trial-paired replacements, ablations and patching sweeps.
 Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
 Model implementations, checkpoints and data are supplied separately.
 
-**Status: 0.1.0a10, source alpha.** CPU/float32 is the validated execution target.
-This repository does not claim a PyPI release. See [migration from a9](docs/migration-a10.md).
+**Status: 0.1.0a11, public source alpha.** CPU/float32 is the validated execution target.
+This repository does not claim a PyPI release. See [what changed in a11](docs/migration-a11.md).
 
 ## Install
 
@@ -21,6 +21,7 @@ git clone https://github.com/HowardHsuuu/EEGFMLens.git
 cd EEGFMLens
 python -m pip install .
 python examples/quickstart.py
+python examples/model_catalog.py
 ```
 
 Core dependencies are PyTorch and NumPy. The quickstart is offline and uses a
@@ -52,10 +53,22 @@ patched = lens.run_with_interventions(
 torch.testing.assert_close(patched.output, clean.output)
 ```
 
-For real models, follow [model setup and checkpoint loading](docs/models.md).
-CBraMod and LaBraM have strict checkpoint helpers accepting external constructors.
-For the other families, wrap an already loaded native model with its adapter.
-All adapters declare supported output paths; they do not resample or normalize EEG.
+For real models, load the native model and checkpoint from its upstream project,
+then use the common connection API:
+
+```python
+from eeglens import connect, model_info
+
+print(model_info("biot"))
+lens = connect(native_model.eval(), "biot", channels=checkpoint_channels)
+for site in lens.capabilities():
+    print(site.name, site.layout, site.selectors)
+```
+
+The catalog covers all eleven verified families and reports required adapter
+options, input contracts, references and selection semantics. CBraMod and LaBraM
+also have strict checkpoint helpers accepting external constructors. See
+[model setup and checkpoint loading](docs/models.md).
 
 ## What you can do
 
@@ -76,7 +89,7 @@ and cross-model activation transport are not validated public capabilities.
 
 ## Learn more
 
-- [Model setup](docs/models.md) · [Input contracts](docs/input-contracts.md)
+- [Supported models and setup](docs/models.md) · [Input contracts](docs/input-contracts.md)
 - [API](docs/api.md) · [Custom models](docs/custom-models.md)
 - [Patching sweeps](docs/sweeps.md) · [Known-answer example](examples/patching_sweep.py)
 - [Real EEG example](docs/validation.md) · [Integration testing](validation/README.md)
@@ -91,6 +104,6 @@ and [WorldModelLens](https://github.com/Bhavith-Chandra/WorldModelLens).
 The tool and native conformance tests live here; dataset-specific scientific
 studies are maintained separately.
 
-EEGFMLens code is MIT licensed. The retained LaBraM channel metadata has its
-[own notice](THIRD_PARTY_NOTICES.md). External models, weights and datasets retain
-their respective licenses.
+EEGFMLens code is MIT licensed. Attribution for the small retained LaBraM channel
+mapping is kept with its source and in [LICENSES](LICENSES/README.md). External
+models, weights and datasets retain their respective licenses.

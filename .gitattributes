@@ -1,7 +1,6 @@
 # Keep executable source and documentation consistent on every checkout.
 * text=auto eol=lf
 
-# These files carry upstream or recorded-evidence byte digests. Preserve bytes,
-# including intentional upstream whitespace and CSV writer CRLF line endings.
-LICENSES/** -text -whitespace
-validation/archive/results/** -text -whitespace
+# This file carries an upstream license verbatim. Preserve its bytes and
+# intentional whitespace.
+LICENSES/*.txt -text -whitespace

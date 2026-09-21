@@ -1,5 +1,7 @@
 # Migrating from 0.1.0a9
 
+For the subsequent unified model connection API, see [the a11 guide](migration-a11.md).
+
 0.1.0a10 removes bundled CBraMod/LaBraM model implementations. The runtime,
 activation layouts, site names, checkpoint key handling and output modes remain
 unchanged. Import native constructors from explicit upstream installations.
@@ -25,5 +27,5 @@ The LaBraM constructor is called with `num_classes=0`, `init_values=0.1` and
 fresh models, load strictly, freeze parameters and select eval mode.
 
 Core tests now exclude `native` as well as `integration`. Native source tests
-remain available and run in a separate CI job. Historical reports moved to
-`validation/archive/`; their JSON/XML bytes retain their original provenance.
+remain available and run in a separate CI job. Generated validation reports and
+machine-specific runners are not distributed with the package repository.

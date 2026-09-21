@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.0a11 — public source alpha
+
+- Add `supported_models()`, `model_info()` and `connect()` as one discoverable
+  integration path for all eleven verified EEG model families.
+- Add immutable per-site capability reporting through `lens.capabilities()`.
+- Document every family's native component, required adapter options, input
+  contract and physical-selection boundary in one table.
+- Run the offline model catalog in installed-wheel verification.
+- Move the sole retained third-party attribution next to its complete license in
+  `LICENSES/`; no upstream model implementation is bundled.
+- Remove generated validation reports, milestone documents and machine-specific
+  runners from the maintained source tree.
+
+See [migration instructions](docs/migration-a11.md).
+
 ## 0.1.0a10 — source alpha
 
 - Remove bundled CBraMod/LaBraM implementations; checkpoint helpers now require
@@ -7,7 +22,7 @@
 - Preserve LaBraM channel metadata with its direct MIT notice.
 - Keep offline core examples/tests independent of external model code; add a
   separate pinned-source native CI job.
-- Add package URLs, pin Ruff, and separate current user guides from archived evidence.
+- Add package URLs, pin Ruff, and separate current user guides from generated evidence.
 - Include the previously unreleased AxisSelection and DIVER reconstruction APIs.
 
 See [migration instructions](docs/migration-a10.md). Historical entries below
@@ -28,7 +43,9 @@ covers 30 site/batch conditions; this is not a new scientific finding.
 
 ## Repository scope
 
-Scientific experiment code, results and planning documents are maintained separately. Native tool validation lives in `validation/`; its runners use standalone fixtures. Runtime APIs and package Python bytes are unchanged by this separation.
+Scientific experiment code, results and planning documents are maintained
+separately. Maintained tool validation lives in `tests/`, with source/checkpoint
+setup documented in `validation/README.md`.
 
 ## 0.1.0a9 — public source alpha
 
@@ -54,13 +71,16 @@ BrainOmni validates matching native window sizes and a finite overlap yielding a
 
 ## 0.1.0a4 — local alpha, not published
 
-EEGPT now reports unknown native channel names as `ValidationError` and rejects distinct input names that normalize to the same native channel ID. Valid native casing/trailing-dot normalization is preserved. BENDR validates the encoder/contextualizer composition before indexing its components, with explicit errors for missing, extra, non-indexable or incompatible components. Official EEGPT and full BENDR dense checks were rerun against these adapter changes; earlier a3 artifacts remain historical.
+EEGPT now reports unknown native channel names as `ValidationError` and rejects distinct input names that normalize to the same native channel ID. Valid native casing/trailing-dot normalization is preserved. BENDR validates the encoder/contextualizer composition before indexing its components, with explicit errors for missing, extra, non-indexable or incompatible components. Official EEGPT and full BENDR dense checks were rerun against these adapter changes.
 
 ## 0.1.0a3 — local alpha, not published
 
 Intervention return values must preserve exposed tensor shape, dtype and device and contain finite values. Previously, a custom intervention could return a different shape with the same element count and be silently reshaped by the adapter. Invalid results now raise `ValidationError`; scoped cleanup preserves existing hooks and permits the next run. Invalid batch objects, string cache-site collections and malformed intervention objects also produce explicit errors. Non-tensor subspace basis/center inputs are rejected deliberately.
 
-Eleven-family dense native validation is documented under `validation/DENSE_VALIDATION.md`. Those retained validation records predate the new runtime return-value guard; the guard does not change valid intervention arithmetic. The source checkpoint suite covers the changed runtime, while historical artifacts are not relabeled as new-version runs.
+The eleven-family integration campaign informed the documented support
+boundaries. Current tests cover the return-value guard and valid intervention
+arithmetic; generated reports from earlier versions are not part of the
+maintained source tree.
 
 ## 0.1.0a2 — local alpha, not published
 

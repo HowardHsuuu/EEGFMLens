@@ -3,6 +3,7 @@
 ## Implemented
 
 - Explicit adapters for eleven checkpoint-verified model families; see [coverage](model-coverage.md).
+- One catalog/connection API and per-site capability discovery across all eleven families.
 - Native activation caching, paired replacement, zero and orthonormal-subspace ablation.
 - Validated input/selector contracts, scoped hook cleanup and versioned run bundles.
 - Channel/time patching sweeps with per-trial matching and explicit invalid-control diagnostics.
@@ -17,4 +18,4 @@
 
 Scientific studies and their publication schedules are maintained outside this
 repository. They are not prerequisites for releasing the reusable tool. Current
-supported scope and limitations are in the [acceptance ledger](https://github.com/HowardHsuuu/EEGFMLens/blob/main/validation/archive/PUBLIC_READINESS_A9.md).
+supported scope and limitations are in [model coverage](model-coverage.md).

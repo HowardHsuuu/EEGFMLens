@@ -27,18 +27,20 @@ checkpoint paths are skipped. CPU float32 is the validated target.
 
 The a10 migration was checked against the previous bundled implementations on
 both official checkpoints: all 49 CBraMod and 37 LaBraM cached sites and selected
-C3/patch interventions matched exactly. [Migration result](migration/external-parity-a10.json).
-This is a two-model migration check, not a fresh validation of all eleven models.
+C3/patch interventions matched exactly. This was a two-model migration check,
+not a fresh validation of all eleven models. Generated reports are not shipped
+with the package repository.
 
 ## Other models
 
 The [coverage table](../docs/model-coverage.md) and [input contracts](../docs/input-contracts.md)
-identify supported native components and geometry. Standalone `validate_*.py`
-runners preserve the original per-model assays. Several legacy runners still
-expect the external workspace layout described in their archived execution notes;
-they are developer integration tools, not the installation path for the package.
-The modern two-model source/checkpoint commands above are portable.
+identify supported native components and geometry. Generated checkpoint reports
+and machine-specific experiment runners are intentionally excluded from this
+tool repository. The pytest commands above are the maintained portable
+source/checkpoint checks.
 
-Older results and milestone write-ups live in [archive/](https://github.com/HowardHsuuu/EEGFMLens/blob/main/validation/archive/README.md).
-JSON/XML records are retained byte-for-byte; paths and hashes describe the original
-execution. They do not claim that old code was rerun after relocation.
+The normal public integration path is the package catalog and `connect(...)`,
+documented in [model setup](../docs/models.md). The installed-wheel suite checks
+that catalog and the adapter contracts for all eleven families on every supported
+OS/Python combination. Only CBraMod and LaBraM currently run against pinned live
+upstream source in CI; this distinction is reported explicitly.

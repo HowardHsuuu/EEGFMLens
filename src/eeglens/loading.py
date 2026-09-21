@@ -7,10 +7,8 @@ from pathlib import Path
 import torch
 from torch import nn
 
-from .adapters.cbramod import CBraModAdapter
-from .adapters.labram import LaBraMAdapter
+from .catalog import connect
 from .errors import ValidationError
-from .model import EEGLens
 
 CBRAMOD_REVISION = "b9e961003214326972c567eff390e75b0287e32a"
 LABRAM_REVISION = "c431221e6cfd23dbfa9950e0180682fb322b0548"
@@ -74,18 +72,20 @@ def load_cbramod(
         model.proj_out = nn.Identity()
     model.to(device).eval()
     model.requires_grad_(False)
-    lens = EEGLens(model, CBraModAdapter(model), model_id=f"cbramod:{digest}:{output}")
-    lens.manifest = {
-        "architecture": "CBraMod",
-        "source_revision": source_revision,
-        "validated_source_revision": CBRAMOD_REVISION,
-        "implementation": implementation,
-        "checkpoint_sha256": digest,
-        "output": output,
-        "missing_keys": [],
-        "unexpected_keys": [],
-        "dtype": "float32",
-    }
+    lens = connect(model, "cbramod", model_id=f"cbramod:{digest}:{output}")
+    lens.manifest.update(
+        {
+            "architecture": "CBraMod",
+            "source_revision": source_revision,
+            "validated_source_revision": CBRAMOD_REVISION,
+            "implementation": implementation,
+            "checkpoint_sha256": digest,
+            "output": output,
+            "missing_keys": [],
+            "unexpected_keys": [],
+            "dtype": "float32",
+        }
+    )
     return lens
 
 
@@ -156,22 +156,25 @@ def load_labram(
     model.load_state_dict(state, strict=True)
     model.to(device).eval()
     model.requires_grad_(False)
-    lens = EEGLens(
+    lens = connect(
         model,
-        LaBraMAdapter(model, output=output),
+        "labram",
+        output=output,
         model_id=f"labram:{digest}:{output}:pretrained_norm",
     )
-    lens.manifest = {
-        "architecture": "LaBraM-base",
-        "source_revision": source_revision,
-        "validated_source_revision": LABRAM_REVISION,
-        "implementation": implementation,
-        "checkpoint_sha256": digest,
-        "output": output,
-        "normalization": "pretrained student.norm; no new fc_norm",
-        "discarded_pretraining_keys": sorted(discarded),
-        "missing_keys": [],
-        "unexpected_keys": [],
-        "dtype": "float32",
-    }
+    lens.manifest.update(
+        {
+            "architecture": "LaBraM-base",
+            "source_revision": source_revision,
+            "validated_source_revision": LABRAM_REVISION,
+            "implementation": implementation,
+            "checkpoint_sha256": digest,
+            "output": output,
+            "normalization": "pretrained student.norm; no new fc_norm",
+            "discarded_pretraining_keys": sorted(discarded),
+            "missing_keys": [],
+            "unexpected_keys": [],
+            "dtype": "float32",
+        }
+    )
     return lens

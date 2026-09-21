@@ -27,4 +27,3 @@ The JSON output records the actual inputs, checkpoint, software and errors.
 
 An existing output file is rejected. Use a new filename for each run.
 For the broader model-specific test suite see [integration validation](../validation/README.md).
-Historical measurements are in [the archive](https://github.com/HowardHsuuu/EEGFMLens/blob/main/validation/archive/README.md).

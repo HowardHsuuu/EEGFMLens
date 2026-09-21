@@ -4,12 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "eeglens"
-version = "0.1.0a10"
+version = "0.1.0a11"
 description = "Observe and intervene on EEG foundation models with explicit tensor semantics."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
-license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md", "LICENSES/*.txt"]
+license-files = ["LICENSE", "LICENSES/*.txt"]
 dependencies = ["torch>=2.6", "numpy>=1.26"]
 classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Topic :: Scientific/Engineering :: Artificial Intelligence"]
 
@@ -27,7 +27,7 @@ dev = ["pytest>=8", "pytest-cov>=5", "ruff==0.16.6", "build>=1.2"]
 packages = ["src/eeglens"]
 
 [tool.hatch.build.targets.sdist]
-include = ["/src", "/tests", "/tools", "/examples", "/docs", "/validation/*.py", "/validation/README.md", "/validation/migration", "/LICENSES", "/README.md", "/LICENSE", "/THIRD_PARTY_NOTICES.md", "/CONTRIBUTING.md", "/CHANGELOG.md", "/pyproject.toml"]
+include = ["/src", "/tests", "/tools", "/examples", "/docs", "/validation/README.md", "/LICENSES", "/README.md", "/LICENSE", "/CONTRIBUTING.md", "/CHANGELOG.md", "/pyproject.toml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -35,7 +35,6 @@ addopts = "-ra"
 markers = ["native: requires explicitly supplied upstream source checkouts", "integration: requires explicitly supplied checkpoint or EEG data"]
 
 [tool.ruff]
-extend-exclude = ["validation/archive"]
 line-length = 100
 
 [tool.ruff.lint]
