@@ -4,8 +4,8 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import load_cbramod, load_labram
-from eeglens.errors import ValidationError
+from eegfmlens import load_cbramod, load_labram
+from eegfmlens.errors import ValidationError
 
 
 @pytest.mark.parametrize("loader", [load_cbramod, load_labram])

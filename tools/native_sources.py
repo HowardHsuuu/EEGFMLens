@@ -54,7 +54,7 @@ def native_module(name, source):
         finally:
             sys.path.remove(str(source))
     spec = importlib.util.spec_from_file_location(
-        "eeglens_example_labram", source / "modeling_finetune.py"
+        "eegfmlens_example_labram", source / "modeling_finetune.py"
     )
     existing = sys.modules.get(spec.name)
     if existing is not None:

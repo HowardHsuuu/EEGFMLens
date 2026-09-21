@@ -11,7 +11,7 @@ EEGLens supplies local checkpoint loaders for CBraMod and LaBraM only. For the o
 variant and option names before constructing the adapter.
 
 ```python
-from eeglens import connect, model_info, supported_models
+from eegfmlens import connect, model_info, supported_models
 
 for spec in supported_models():
     print(spec.family, spec.variants)
@@ -90,7 +90,7 @@ Pinned [upstream](https://github.com/wjq-learning/CBraMod) source: `b9e961003214
 
 ```python
 from models.cbramod import CBraMod  # External CBraMod checkout on PYTHONPATH
-from eeglens import load_cbramod
+from eegfmlens import load_cbramod
 
 lens = load_cbramod("cbramod.pth", model_factory=CBraMod, output="features", device="cpu")
 ```
@@ -107,7 +107,7 @@ Pinned [upstream](https://github.com/935963004/LaBraM) source: `c431221e6cfd23db
 
 ```python
 from modeling_finetune import labram_base_patch200_200  # External LaBraM checkout
-from eeglens import load_labram
+from eegfmlens import load_labram
 
 lens = load_labram("labram-base.pth", model_factory=labram_base_patch200_200, output="patch_tokens")
 ```

@@ -26,7 +26,7 @@ def save_run(run: RunResult, directory) -> Path:
     if destination.exists():
         raise FileExistsError(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    temporary = Path(tempfile.mkdtemp(prefix=".eeglens-", dir=destination.parent))
+    temporary = Path(tempfile.mkdtemp(prefix=".eegfmlens-", dir=destination.parent))
     tensors: dict[str, torch.Tensor] = {}
 
     def pack(value):

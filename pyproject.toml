@@ -3,7 +3,7 @@ requires = ["hatchling>=1.25"]
 build-backend = "hatchling.build"
 
 [project]
-name = "eeglens"
+name = "eegfmlens"
 version = "0.1.0a11"
 description = "Observe and intervene on EEG foundation models with explicit tensor semantics."
 readme = "README.md"
@@ -43,7 +43,7 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/eeglens"]
+packages = ["src/eegfmlens"]
 
 [tool.hatch.build.targets.sdist]
 include = ["/src", "/tests", "/tools", "/examples", "/docs", "/validation/README.md", "/LICENSES", "/README.md", "/LICENSE", "/CONTRIBUTING.md", "/CHANGELOG.md", "/pyproject.toml"]
@@ -60,7 +60,7 @@ line-length = 100
 select = ["E4", "E7", "E9", "F", "I"]
 
 [tool.mypy]
-files = ["src/eeglens"]
+files = ["src/eegfmlens"]
 check_untyped_defs = true
 ignore_missing_imports = true
 no_implicit_optional = true

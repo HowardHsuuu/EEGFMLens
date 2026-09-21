@@ -4,8 +4,8 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import ActivationSite, Adapter, EEGLens, Selection, SignalBatch, SubspaceAblation
-from eeglens.errors import ValidationError
+from eegfmlens import ActivationSite, Adapter, EEGLens, Selection, SignalBatch, SubspaceAblation
+from eegfmlens.errors import ValidationError
 
 
 @dataclass

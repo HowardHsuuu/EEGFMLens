@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 import torch
 
-from eeglens import Ablation, Replacement, SignalBatch, connect, model_info
+from eegfmlens import Ablation, Replacement, SignalBatch, connect, model_info
 
 pytestmark = pytest.mark.native
 
@@ -34,7 +34,7 @@ def _source_module(source, module_name):
 
 
 def _eegpt(source):
-    upstream = _load_file("eeglens_native_eegpt", source / "pretrain/modeling_pretraining.py")
+    upstream = _load_file("eegfmlens_native_eegpt", source / "pretrain/modeling_pretraining.py")
     model = upstream.EEGTransformer(
         img_size=(3, 64),
         patch_size=16,
@@ -120,7 +120,7 @@ def _csbrain(source):
 
 
 def _steegformer(source):
-    upstream = _load_file("eeglens_native_steegformer", source / "easy_start/models_vit_eeg.py")
+    upstream = _load_file("eegfmlens_native_steegformer", source / "easy_start/models_vit_eeg.py")
     with (source / "pretrain/senloc_file/sen_chan_idx.pkl").open("rb") as stream:
         mapping = pickle.load(stream)["channels_mapping"]
     channels = ("C1", "C4", "F4")

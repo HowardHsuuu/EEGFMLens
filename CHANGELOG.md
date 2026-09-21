@@ -2,6 +2,9 @@
 
 ## 0.1.0a11 — public source alpha
 
+- Align the distribution and import namespace with the project name: install
+  `eegfmlens` and import from `eegfmlens`; the unreleased `eeglens` namespace is
+  removed rather than retained as a compatibility alias.
 - Add `supported_models()`, `model_info()` and `connect()` as one discoverable
   integration path for all eleven verified EEG model families.
 - Add immutable per-site capability reporting through `lens.capabilities()`.

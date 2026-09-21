@@ -1,11 +1,15 @@
 # Moving from 0.1.0a10 to 0.1.0a11
 
-Existing adapters and checkpoint loader signatures remain compatible. The new
+The package namespace now matches the project name: replace imports from
+`eeglens` with imports from `eegfmlens`. No compatibility alias is provided
+because neither alpha was published to PyPI.
+
+Existing adapters and checkpoint loader signatures otherwise remain compatible. The new
 `connect(...)` API provides one checked construction path for all eleven public
 families, while `supported_models()` and `model_info(...)` expose their contracts.
 
 ```python
-from eeglens import connect
+from eegfmlens import connect
 
 # Before
 lens = EEGLens(model.eval(), BIOTAdapter(model, channels=channels))

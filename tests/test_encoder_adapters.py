@@ -3,9 +3,9 @@ from types import SimpleNamespace
 import pytest
 import torch
 
-from eeglens import EEGPTAdapter, SignalBatch
-from eeglens.adapters.continuous import _ContinuousAdapter
-from eeglens.errors import ValidationError
+from eegfmlens import EEGPTAdapter, SignalBatch
+from eegfmlens.adapters.continuous import _ContinuousAdapter
+from eegfmlens.errors import ValidationError
 
 
 def eegpt_contract():

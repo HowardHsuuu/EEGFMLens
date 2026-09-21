@@ -3,7 +3,7 @@
 See [model coverage](model-coverage.md) for the verified integrations, including CBraMod, LaBraM, EEGPT, BIOT and the BENDR convolutional encoder. The runtime is extensible: `GenericAdapter` connects a user-supplied model without changing EEGLens internals. It does not download weights, infer EEG geometry or certify a new architecture.
 
 ```python
-from eeglens import EEGLens, GenericAdapter, ActivationSite, inspect_modules
+from eegfmlens import EEGLens, GenericAdapter, ActivationSite, inspect_modules
 
 # Discover paths without running a forward pass.
 for module in inspect_modules(model):

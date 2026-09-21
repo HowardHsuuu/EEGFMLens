@@ -21,7 +21,7 @@ jobs:
       - run: ruff check .
       - run: ruff format --check .
       - run: mypy
-      - run: pytest -m 'not integration and not native' --cov=eeglens --cov-fail-under=80
+      - run: pytest -m 'not integration and not native' --cov=eegfmlens --cov-fail-under=80
       - run: python -m build
       - run: python tools/check_release.py --tag "${GITHUB_REF_NAME}" --dist dist
       - run: twine check dist/*

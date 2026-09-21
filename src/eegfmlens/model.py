@@ -48,10 +48,10 @@ class EEGLens:
         self._lock = threading.Lock()
         for site in adapter.sites.values():
             model.get_submodule(site.module_path)
-        owner = getattr(model, "_eeglens_owner", None)
+        owner = getattr(model, "_eegfmlens_owner", None)
         if owner is not None and owner() is not None:
             raise ValidationError("Native model already has a live EEGLens wrapper")
-        model._eeglens_owner = weakref.ref(self)
+        model._eegfmlens_owner = weakref.ref(self)
         self._initial_state = self._state()
 
     def _state(self):

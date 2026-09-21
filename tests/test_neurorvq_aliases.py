@@ -3,8 +3,8 @@ from types import SimpleNamespace
 import pytest
 import torch
 
-from eeglens import NeuroRVQAdapter, SignalBatch
-from eeglens.errors import ValidationError
+from eegfmlens import NeuroRVQAdapter, SignalBatch
+from eegfmlens.errors import ValidationError
 
 
 def test_channel_aliases_must_not_duplicate_native_electrodes():

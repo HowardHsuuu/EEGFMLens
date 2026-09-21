@@ -4,7 +4,7 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import (
+from eegfmlens import (
     Ablation,
     ActivationSite,
     Adapter,
@@ -18,7 +18,7 @@ from eeglens import (
     patching_sweep,
     save_run,
 )
-from eeglens.errors import ValidationError
+from eegfmlens.errors import ValidationError
 
 
 class Pair(nn.Module):

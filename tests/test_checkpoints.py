@@ -6,8 +6,8 @@ from pathlib import Path
 import pytest
 import torch
 
-from eeglens import Ablation, Replacement, Selection, SignalBatch, load_cbramod, load_labram
-from eeglens.errors import ValidationError
+from eegfmlens import Ablation, Replacement, Selection, SignalBatch, load_cbramod, load_labram
+from eegfmlens.errors import ValidationError
 
 
 @pytest.mark.integration

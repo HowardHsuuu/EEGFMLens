@@ -4,8 +4,8 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import ActivationSite, Adapter, EEGLens, Replacement, SignalBatch
-from eeglens.errors import ValidationError
+from eegfmlens import ActivationSite, Adapter, EEGLens, Replacement, SignalBatch
+from eegfmlens.errors import ValidationError
 
 
 def test_mutated_weights_and_duplicate_wrapper_are_rejected():

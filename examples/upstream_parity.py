@@ -15,8 +15,8 @@ import torch
 from real_eeg import prepare_edf
 from torch import nn
 
-from eeglens import load_cbramod, load_labram
-from eeglens.loading import CBRAMOD_REVISION, LABRAM_REVISION
+from eegfmlens import load_cbramod, load_labram
+from eegfmlens.loading import CBRAMOD_REVISION, LABRAM_REVISION
 
 
 def main():

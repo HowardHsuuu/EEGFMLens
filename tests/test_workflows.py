@@ -4,7 +4,7 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import (
+from eegfmlens import (
     ActivationSite,
     Adapter,
     EEGLens,
@@ -13,7 +13,7 @@ from eeglens import (
     SweepTarget,
     restoration_sweep,
 )
-from eeglens.errors import ValidationError
+from eegfmlens.errors import ValidationError
 
 
 class RestorationModel(nn.Module):

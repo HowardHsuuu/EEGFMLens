@@ -2,7 +2,7 @@
 
 import torch
 
-from eeglens import SignalBatch
+from eegfmlens import SignalBatch
 
 CHANNELS = (
     "FP1",

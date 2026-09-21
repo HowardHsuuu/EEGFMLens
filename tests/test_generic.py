@@ -4,8 +4,15 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import Ablation, ActivationSite, EEGLens, GenericAdapter, SignalBatch, inspect_modules
-from eeglens.errors import ValidationError
+from eegfmlens import (
+    Ablation,
+    ActivationSite,
+    EEGLens,
+    GenericAdapter,
+    SignalBatch,
+    inspect_modules,
+)
+from eegfmlens.errors import ValidationError
 
 
 class Structured(nn.Module):

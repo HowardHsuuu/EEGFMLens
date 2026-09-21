@@ -5,7 +5,7 @@ from dataclasses import replace
 import torch
 from torch import nn
 
-from eeglens import ActivationSite, Adapter, EEGLens, Replacement, SignalBatch
+from eegfmlens import ActivationSite, Adapter, EEGLens, Replacement, SignalBatch
 
 
 def main():

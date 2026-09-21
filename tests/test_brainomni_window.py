@@ -3,8 +3,8 @@ from types import SimpleNamespace
 import pytest
 import torch
 
-from eeglens import BrainOmniAdapter, SignalBatch
-from eeglens.errors import ValidationError
+from eegfmlens import BrainOmniAdapter, SignalBatch
+from eegfmlens.errors import ValidationError
 
 
 def fixture():

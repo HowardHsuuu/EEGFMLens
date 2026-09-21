@@ -8,13 +8,13 @@ unchanged. Import native constructors from explicit upstream installations.
 
 ```python
 from models.cbramod import CBraMod  # From your CBraMod checkout
-from eeglens import load_cbramod
+from eegfmlens import load_cbramod
 
 lens = load_cbramod("checkpoint.pth", model_factory=CBraMod)
 ```
 
 For LaBraM, pass `model_factory=labram_base_patch200_200` from upstream
-`modeling_finetune`. See [setup commands](models.md). `eeglens.models.CBraMod`
+`modeling_finetune`. See [setup commands](models.md). `eegfmlens.models.CBraMod`
 and private `_vendor` imports have been removed; no fallback downloads code.
 
 `source_revision=` is optional caller-supplied provenance, not a verified claim.

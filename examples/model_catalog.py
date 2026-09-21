@@ -1,6 +1,6 @@
 """List the model connection contracts without downloading anything."""
 
-from eeglens import supported_models
+from eegfmlens import supported_models
 
 if __name__ == "__main__":
     for spec in supported_models():

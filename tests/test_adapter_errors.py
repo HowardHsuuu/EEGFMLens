@@ -4,8 +4,8 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import BENDRAdapter, EEGLens, EEGPTAdapter, SignalBatch
-from eeglens.errors import ValidationError
+from eegfmlens import BENDRAdapter, EEGLens, EEGPTAdapter, SignalBatch
+from eegfmlens.errors import ValidationError
 
 
 class EEGPTFixture(nn.Module):

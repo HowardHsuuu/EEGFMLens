@@ -5,7 +5,7 @@ from types import SimpleNamespace
 import torch
 from torch import nn
 
-from eeglens import BENDRAdapter, BENDREncoderAdapter, SignalBatch, SubspaceAblation
+from eegfmlens import BENDRAdapter, BENDREncoderAdapter, SignalBatch, SubspaceAblation
 
 
 def test_bendr_convolution_features_are_last_for_subspace_erasure():

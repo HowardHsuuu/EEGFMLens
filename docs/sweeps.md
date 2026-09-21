@@ -3,7 +3,7 @@
 `patching_sweep` runs native donor replacement, location controls and identity checks through the public EEGLens interface. Supply two model-ready `SignalBatch` objects, an `EEGLens` model, and a pure score function. The score receives `(native_output, single_trial_batch)` and returns a finite Torch tensor of shape `[1]`. It can select a class logit, a frozen readout margin, or another prespecified scalar. No head fitting, preprocessing or data download is performed.
 
 ```python
-from eeglens import patching_sweep
+from eegfmlens import patching_sweep
 
 result = patching_sweep(lens, clean, recipient, score)
 result.save("new-sweep.json")
@@ -14,7 +14,7 @@ By default it scans every writable channel/time site and every channel × time p
 ## Annotated regions and controls
 
 ```python
-from eeglens import Selection, SweepTarget, patching_sweep
+from eegfmlens import Selection, SweepTarget, patching_sweep
 
 region = SweepTarget(
     "event",
@@ -52,7 +52,7 @@ Multipliers above `multiplier_warning` (default 2) are retained and flagged, not
 - `rows`: trial, site, target, control type, actual selections, reference selection, validity diagnostics, patched score, raw score delta and reduction in absolute clean-score error.
 - `metadata`: model/checkpoint identity, execution kwargs, sites, seed, threshold and independent-trial execution policy.
 
-Identity replacement is checked at every site; cleanup is checked by another recipient forward after the interventions. Failure raises instead of producing a completed sweep. `save(path)` writes schema `eeglens.sweep.v1` and refuses to overwrite an existing file. Lower-level `save_run` records matched-intervention diagnostics and reference selections too.
+Identity replacement is checked at every site; cleanup is checked by another recipient forward after the interventions. Failure raises instead of producing a completed sweep. `save(path)` writes schema `eegfmlens.sweep.v1` and refuses to overwrite an existing file. Lower-level `save_run` records matched-intervention diagnostics and reference selections too.
 
 `result.summary(groups={trial_id: subject_id, ...})` reports equal-group means of valid clean-error reductions, the contributing counts and multiplier flags. Without `groups`, every trial is one group. This descriptive summary does not compute significance, turn correlated trials into independent samples, or automatically exclude large multipliers. For repeated trials, supply scientifically appropriate grouping and a prespecified statistical analysis.
 

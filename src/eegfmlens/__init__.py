@@ -1,4 +1,4 @@
-"""EEGLens: explicit observation and intervention on native EEG models."""
+"""EEGFMLens: explicit observation and intervention on native EEG models."""
 
 from .adapters.base import Adapter
 from .adapters.bendr import BENDRAdapter

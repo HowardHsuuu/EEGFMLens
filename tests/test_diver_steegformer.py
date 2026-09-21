@@ -3,9 +3,9 @@ from types import SimpleNamespace
 import pytest
 import torch
 
-from eeglens import SignalBatch, STEEGFormerAdapter
-from eeglens.adapters.diver import DIVERAdapter
-from eeglens.errors import ValidationError
+from eegfmlens import SignalBatch, STEEGFormerAdapter
+from eegfmlens.adapters.diver import DIVERAdapter
+from eegfmlens.errors import ValidationError
 
 
 def test_steegformer_channel_lookup_and_patch_contract():

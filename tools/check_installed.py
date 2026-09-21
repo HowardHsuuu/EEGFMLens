@@ -28,17 +28,17 @@ def run(wheel, repository, output, *, coverage=False):
         raise FileExistsError(output)
     if junit_output.exists():
         raise FileExistsError(junit_output)
-    distribution = importlib.metadata.distribution("eeglens")
+    distribution = importlib.metadata.distribution("eegfmlens")
     # Keep this coordinator free of native runtimes. Loading torch here while
     # launching another torch process can exhaust sandbox OpenMP SHM access.
-    spec = importlib.util.find_spec("eeglens")
+    spec = importlib.util.find_spec("eegfmlens")
     if spec is None or spec.origin is None:
-        raise RuntimeError("Installed EEGLens module cannot be resolved")
+        raise RuntimeError("Installed EEGFMLens module cannot be resolved")
     imported = Path(spec.origin).resolve()
-    installed = Path(distribution.locate_file("eeglens/__init__.py")).resolve()
+    installed = Path(distribution.locate_file("eegfmlens/__init__.py")).resolve()
     if imported != installed or repository in imported.parents:
         raise RuntimeError(
-            "EEGLens import does not originate from an installed distribution outside the checkout"
+            "EEGFMLens import does not originate from an installed distribution outside the checkout"
         )
     direct = json.loads(distribution.read_text("direct_url.json") or "{}")
     if direct.get("archive_info", {}).get("hashes", {}).get("sha256") != sha(wheel):
@@ -46,13 +46,13 @@ def run(wheel, repository, output, *, coverage=False):
     count = 0
     with zipfile.ZipFile(wheel) as archive:
         for name in archive.namelist():
-            if name.startswith("eeglens/") and name.endswith(".py"):
+            if name.startswith("eegfmlens/") and name.endswith(".py"):
                 if archive.read(name) != Path(distribution.locate_file(name)).read_bytes():
                     raise RuntimeError(f"Installed file differs from wheel: {name}")
                 count += 1
     if not count:
         raise RuntimeError("Wheel contains no package Python files")
-    with tempfile.TemporaryDirectory(prefix="eeglens-installed-") as cwd:
+    with tempfile.TemporaryDirectory(prefix="eegfmlens-installed-") as cwd:
         junit = Path(cwd) / "tests.xml"
         sweep = Path(cwd) / "known-answer-sweep.json"
         commands = [
@@ -60,8 +60,8 @@ def run(wheel, repository, output, *, coverage=False):
                 sys.executable,
                 "-I",
                 "-c",
-                "import sys; from pathlib import Path; import eeglens; "
-                "assert Path(eeglens.__file__).resolve() == Path(sys.argv[1])",
+                "import sys; from pathlib import Path; import eegfmlens; "
+                "assert Path(eegfmlens.__file__).resolve() == Path(sys.argv[1])",
                 str(installed),
             ],
             [sys.executable, "-I", "-m", "pip", "check"],
@@ -88,7 +88,7 @@ def run(wheel, repository, output, *, coverage=False):
         ]
         if coverage:
             commands[2].extend(
-                ["--cov=eeglens", "--cov-report=term-missing", "--cov-fail-under=80"]
+                ["--cov=eegfmlens", "--cov-report=term-missing", "--cov-fail-under=80"]
             )
         restoration = Path(cwd) / "restoration"
         commands.append(

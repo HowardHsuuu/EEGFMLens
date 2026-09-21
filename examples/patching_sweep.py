@@ -6,7 +6,7 @@ from dataclasses import replace
 import torch
 from torch import nn
 
-from eeglens import ActivationSite, Adapter, EEGLens, SignalBatch, patching_sweep
+from eegfmlens import ActivationSite, Adapter, EEGLens, SignalBatch, patching_sweep
 
 
 class KnownCircuit(nn.Module):

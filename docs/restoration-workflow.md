@@ -12,7 +12,7 @@ separately executed clean reference. A positive `clean_error_reduction` therefor
 means that the patch moved the native output toward the clean output.
 
 ```python
-from eeglens import restoration_sweep
+from eegfmlens import restoration_sweep
 
 result = restoration_sweep(
     lens,
@@ -35,7 +35,7 @@ The deterministic demo has a known causal coordinate and requires no download:
 
 ```bash
 python -m pip install '.[visualization]'
-python examples/restoration_workflow.py --demo --output /tmp/eeglens-restoration
+python examples/restoration_workflow.py --demo --output /tmp/eegfmlens-restoration
 ```
 
 For a pinned CBraMod or LaBraM checkout, checkpoint, and public EEGMMIDB file:

@@ -15,15 +15,15 @@ from pathlib import Path
 import torch
 from eegmmidb import prepare_eegmmidb
 
-from eeglens import Ablation, Replacement, Selection, load_cbramod, load_labram
-from eeglens.loading import sha256_file
+from eegfmlens import Ablation, Replacement, Selection, load_cbramod, load_labram
+from eegfmlens.loading import sha256_file
 
 
 def native_forward(model_name, model, batch):
     """Call the encoder directly, independently of the adapter's forward method."""
     if model_name == "cbramod":
         return model(batch.data)
-    from eeglens.adapters.labram_channels import CHANNELS
+    from eegfmlens.adapters.labram_channels import CHANNELS
 
     indices = [0, *(CHANNELS.index(channel) + 1 for channel in batch.channels)]
     return model.forward_features(batch.data, input_chans=indices, return_patch_tokens=True)

@@ -4,8 +4,8 @@ from types import SimpleNamespace
 import pytest
 from torch import nn
 
-from eeglens import connect, model_info, supported_models
-from eeglens.errors import ValidationError
+from eegfmlens import connect, model_info, supported_models
+from eegfmlens.errors import ValidationError
 
 EXPECTED = {
     "cbramod": "CBraModAdapter",

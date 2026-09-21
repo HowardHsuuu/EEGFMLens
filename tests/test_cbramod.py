@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from eeglens import Ablation, CBraModAdapter, EEGLens, Replacement, Selection, SignalBatch
+from eegfmlens import Ablation, CBraModAdapter, EEGLens, Replacement, Selection, SignalBatch
 
 pytestmark = pytest.mark.native
 

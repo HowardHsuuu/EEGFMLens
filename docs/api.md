@@ -44,7 +44,7 @@ defaults to caching none. Request downstream sites explicitly when an intervened
 run will supply a donor for a later intervention:
 
 ```python
-from eeglens import Replacement
+from eegfmlens import Replacement
 
 induced = lens.run_with_interventions(batch, interventions=[patch], sites=["blocks.5.output"])
 receiver_patch = Replacement("blocks.5.output", induced.cache["blocks.5.output"])
@@ -73,7 +73,7 @@ The run records the axis, indices and real donor provenance. `Ablation` and
 `Selection` targets and does not accept raw axis coordinates.
 
 ```python
-from eeglens import AxisSelection, Replacement
+from eegfmlens import AxisSelection, Replacement
 
 # For a verified [batch, native_token, feature] exposed site:
 patch = Replacement(site, donor.cache[site], AxisSelection(axis=1, indices=(2, 5)))
@@ -81,7 +81,7 @@ result = lens.run_with_interventions(recipient, interventions=[patch])
 ```
 
 ```python
-from eeglens import Ablation, Replacement, Selection, SubspaceAblation
+from eegfmlens import Ablation, Replacement, Selection, SubspaceAblation
 
 selection = Selection(sensors=("C3",), patches=(1,))
 patch = Replacement("blocks.0.output", clean.cache["blocks.0.output"], selection)

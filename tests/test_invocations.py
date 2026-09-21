@@ -2,8 +2,8 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import Ablation, ActivationSite, Adapter, EEGLens, SignalBatch
-from eeglens.errors import HookExecutionError
+from eegfmlens import Ablation, ActivationSite, Adapter, EEGLens, SignalBatch
+from eegfmlens.errors import HookExecutionError
 
 
 class Shared(nn.Module):

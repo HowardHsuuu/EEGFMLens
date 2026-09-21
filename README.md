@@ -4,7 +4,7 @@
 
 Inspect and intervene on EEG foundation models with explicit sensor and time axes.
 
-The Python package is **`eeglens`**. It runs native PyTorch models, caches module
+The Python package is **`eegfmlens`**. It runs native PyTorch models, caches module
 outputs, and applies trial-paired replacements, ablations and patching sweeps.
 Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
 Model implementations, checkpoints and data are supplied separately.
@@ -34,7 +34,7 @@ offline model:
 
 ```bash
 python -m pip install '.[visualization]'
-python examples/restoration_workflow.py --demo --output /tmp/eeglens-restoration
+python examples/restoration_workflow.py --demo --output /tmp/eegfmlens-restoration
 ```
 
 The output directory contains the full controlled sweep, an auditable manifest,
@@ -49,7 +49,7 @@ question, controls, interpretation, and real-model command.
 from dataclasses import replace
 import torch
 from torch import nn
-from eeglens import ActivationSite, Adapter, EEGLens, Replacement, SignalBatch
+from eegfmlens import ActivationSite, Adapter, EEGLens, Replacement, SignalBatch
 
 model = nn.Sequential(nn.Linear(200, 32), nn.GELU(), nn.Linear(32, 16)).eval()
 lens = EEGLens(model, Adapter([ActivationSite("features", "2")]))
@@ -73,7 +73,7 @@ For real models, load the native model and checkpoint from its upstream project,
 then use the common connection API:
 
 ```python
-from eeglens import connect, model_info
+from eegfmlens import connect, model_info
 
 print(model_info("biot"))
 lens = connect(native_model.eval(), "biot", channels=checkpoint_channels)

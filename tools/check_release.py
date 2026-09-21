@@ -12,6 +12,7 @@ except ModuleNotFoundError:  # Python 3.10
 
 BANNED_PARTS = (
     "third_party_notices",
+    "eeglens/",
     "validation/archive",
     "validation/migration",
     "validation/results",
@@ -42,24 +43,26 @@ def audit_distributions(dist, version):
     if len(files) != 2 or len(wheels) != 1 or len(sdists) != 1:
         raise RuntimeError("dist must contain exactly one wheel and one source archive")
     wheel, sdist = wheels[0], sdists[0]
-    if not wheel.name.startswith(f"eeglens-{version}-"):
+    if not wheel.name.startswith(f"eegfmlens-{version}-"):
         raise RuntimeError(f"Wheel filename does not match version {version}")
-    if sdist.name != f"eeglens-{version}.tar.gz":
+    if sdist.name != f"eegfmlens-{version}.tar.gz":
         raise RuntimeError(f"Source archive filename does not match version {version}")
 
     with zipfile.ZipFile(wheel) as archive:
         names = tuple(archive.namelist())
         _audit_names(names)
         for suffix in (
-            "eeglens/__init__.py",
-            "eeglens/catalog.py",
-            "eeglens/workflows.py",
+            "eegfmlens/__init__.py",
+            "eegfmlens/catalog.py",
+            "eegfmlens/workflows.py",
             ".dist-info/licenses/LICENSE",
             ".dist-info/licenses/LICENSES/README.md",
         ):
             _require_suffix(names, suffix)
         (metadata_name,) = (name for name in names if name.endswith(".dist-info/METADATA"))
         metadata = archive.read(metadata_name).decode()
+        if "Name: eegfmlens\n" not in metadata:
+            raise RuntimeError("Wheel metadata name mismatch")
         if f"Version: {version}\n" not in metadata:
             raise RuntimeError("Wheel metadata version mismatch")
 
@@ -102,7 +105,7 @@ def check(repository, *, tag=None, dist=None):
     _audit_names(tracked)
     if dist is not None:
         audit_distributions(dist.resolve(), version)
-    print(f"Release contract passed for eeglens {version}")
+    print(f"Release contract passed for eegfmlens {version}")
 
 
 if __name__ == "__main__":

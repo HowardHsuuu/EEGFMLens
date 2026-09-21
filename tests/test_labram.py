@@ -1,8 +1,8 @@
 import pytest
 import torch
 
-from eeglens import Ablation, EEGLens, LaBraMAdapter, Replacement, Selection, SignalBatch
-from eeglens.errors import UnsupportedSiteError, ValidationError
+from eegfmlens import Ablation, EEGLens, LaBraMAdapter, Replacement, Selection, SignalBatch
+from eegfmlens.errors import UnsupportedSiteError, ValidationError
 
 pytestmark = pytest.mark.native
 

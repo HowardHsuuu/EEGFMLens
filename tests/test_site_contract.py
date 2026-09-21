@@ -6,8 +6,8 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import Ablation, ActivationSite, Adapter, EEGLens, SignalBatch
-from eeglens.errors import ValidationError
+from eegfmlens import Ablation, ActivationSite, Adapter, EEGLens, SignalBatch
+from eegfmlens.errors import ValidationError
 
 
 @pytest.mark.parametrize(

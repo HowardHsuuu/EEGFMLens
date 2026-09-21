@@ -5,7 +5,7 @@ One small piece of adapter metadata is retained:
 
 | Package file | Source | Terms |
 | --- | --- | --- |
-| `src/eeglens/adapters/labram_channels.py` | LaBraM `utils.py`, `standard_1020` channel order at revision `c431221e6cfd23dbfa9950e0180682fb322b0548` | [LaBraM MIT license](LaBraM-MIT.txt), Copyright (c) 2024 Weibang Jiang |
+| `src/eegfmlens/adapters/labram_channels.py` | LaBraM `utils.py`, `standard_1020` channel order at revision `c431221e6cfd23dbfa9950e0180682fb322b0548` | [LaBraM MIT license](LaBraM-MIT.txt), Copyright (c) 2024 Weibang Jiang |
 
 Source: <https://github.com/935963004/LaBraM/blob/c431221e6cfd23dbfa9950e0180682fb322b0548/utils.py>
 

@@ -5,7 +5,7 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import (
+from eegfmlens import (
     ActivationSite,
     Adapter,
     EEGLens,
@@ -14,7 +14,7 @@ from eeglens import (
     load_run,
     save_run,
 )
-from eeglens.errors import ValidationError
+from eegfmlens.errors import ValidationError
 
 
 def setup():

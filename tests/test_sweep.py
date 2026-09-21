@@ -4,7 +4,7 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import (
+from eegfmlens import (
     ActivationSite,
     Adapter,
     EEGLens,
@@ -147,9 +147,9 @@ def test_matched_restore_support_norm_and_missing_control():
     import pytest
     import torch
 
-    from eeglens import Replacement, Selection, SignalBatch
-    from eeglens.errors import ValidationError
-    from eeglens.types import Activation
+    from eegfmlens import Replacement, Selection, SignalBatch
+    from eegfmlens.errors import ValidationError
+    from eegfmlens.types import Activation
 
     batch = SignalBatch(torch.zeros(1, 1, 6, 200), ("a",), ("C3",), 200, "test")
     current = torch.zeros(1, 7, 4)
@@ -192,7 +192,7 @@ def test_matched_restore_support_norm_and_missing_control():
 
 
 def test_invalid_controls_rejected_and_invalid_rows_not_averaged():
-    from eeglens.errors import ValidationError
+    from eegfmlens.errors import ValidationError
 
     lens, clean, recipient = fixture()
     with pytest.raises(ValidationError, match="disjoint"):
@@ -224,7 +224,7 @@ def test_invalid_controls_rejected_and_invalid_rows_not_averaged():
 
 
 def test_direct_diagnostics_survive_run_serialization(tmp_path):
-    from eeglens import load_run, save_run
+    from eegfmlens import load_run, save_run
 
     lens, clean, recipient = fixture()
     donor = lens.run_with_cache(clean, sites=["early"]).cache["early"]

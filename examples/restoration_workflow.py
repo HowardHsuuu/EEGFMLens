@@ -1,7 +1,7 @@
 """Run the flagship activation-restoration workflow and emit an auditable report.
 
 Offline smoke test:
-  python examples/restoration_workflow.py --demo --output /tmp/eeglens-restoration
+  python examples/restoration_workflow.py --demo --output /tmp/eegfmlens-restoration
 
 Real EEG:
   python examples/restoration_workflow.py --model cbramod --upstream /path/to/CBraMod \
@@ -22,7 +22,7 @@ import numpy as np
 import torch
 from torch import nn
 
-from eeglens import (
+from eegfmlens import (
     ActivationSite,
     Adapter,
     EEGLens,
@@ -33,7 +33,7 @@ from eeglens import (
     load_labram,
     restoration_sweep,
 )
-from eeglens.loading import sha256_file
+from eegfmlens.loading import sha256_file
 
 DEFAULT_SITES = (
     "embedding.output",
@@ -201,7 +201,7 @@ def run(args):
     if destination.exists():
         raise FileExistsError(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    temporary = Path(tempfile.mkdtemp(prefix=".eeglens-workflow-", dir=destination.parent))
+    temporary = Path(tempfile.mkdtemp(prefix=".eegfmlens-workflow-", dir=destination.parent))
     try:
         sweep_path = temporary / "sweep.json"
         figure_path = temporary / "restoration_heatmap.png"
@@ -209,7 +209,7 @@ def run(args):
         render_heatmap(result, sites, targets, figure_path)
         event_rows = [row for row in result.rows if row["kind"] == "event"]
         report = {
-            "schema": "eeglens.restoration_workflow.v1",
+            "schema": "eegfmlens.restoration_workflow.v1",
             "mode": "demo" if args.demo else "real-eeg",
             "model": model_name,
             "manifest": lens.manifest,

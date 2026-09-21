@@ -6,8 +6,8 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import Ablation, DIVERAdapter, EEGLens, Replacement, Selection, SignalBatch
-from eeglens.errors import ValidationError
+from eegfmlens import Ablation, DIVERAdapter, EEGLens, Replacement, Selection, SignalBatch
+from eegfmlens.errors import ValidationError
 
 
 class MaskGenerator(nn.Module):

@@ -3,10 +3,10 @@ from types import SimpleNamespace
 import pytest
 import torch
 
-from eeglens import SignalBatch
-from eeglens.adapters.brainomni import BrainOmniAdapter
-from eeglens.adapters.csbrain import CSBrainAdapter
-from eeglens.errors import ValidationError
+from eegfmlens import SignalBatch
+from eegfmlens.adapters.brainomni import BrainOmniAdapter
+from eegfmlens.adapters.csbrain import CSBrainAdapter
+from eegfmlens.errors import ValidationError
 
 
 def test_csbrain_native_sort_maps_back_to_declared_sensors():
@@ -43,7 +43,7 @@ def test_brainomni_geometry_cannot_change_silently():
 
 
 def test_bendr_context_sequence_axis_roundtrip_preserves_trial_edits():
-    from eeglens.adapters.bendr import BENDRAdapter
+    from eegfmlens.adapters.bendr import BENDRAdapter
 
     model = [
         SimpleNamespace(in_features=2, encoder_h=4),
@@ -69,7 +69,7 @@ def test_bendr_context_sequence_axis_roundtrip_preserves_trial_edits():
 
 
 def test_signaljepa_rejects_short_input_and_changed_channel_mapping():
-    from eeglens import SignalJEPAAdapter
+    from eegfmlens import SignalJEPAAdapter
 
     model = SimpleNamespace(
         chs_info=[{"ch_name": "C3"}, {"ch_name": "C4"}],

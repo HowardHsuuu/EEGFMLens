@@ -1,4 +1,4 @@
-# Releasing EEGLens
+# Releasing EEGFMLens
 
 Releases are built from a clean version tag. GitHub Actions builds one wheel and
 one source archive, runs lint, formatting, mypy, the core test suite with an 80%
@@ -16,7 +16,7 @@ with the desired reviewer policy. No long-lived PyPI token is required.
    ruff check .
    ruff format --check .
    mypy
-   pytest -m 'not integration and not native' --cov=eeglens --cov-fail-under=80
+   pytest -m 'not integration and not native' --cov=eegfmlens --cov-fail-under=80
    python -m build
    python tools/check_release.py --tag v0.1.0a11 --dist dist
    twine check dist/*

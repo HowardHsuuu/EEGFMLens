@@ -4,7 +4,7 @@ import pytest
 import torch
 from torch import nn
 
-from eeglens import (
+from eegfmlens import (
     Ablation,
     ActivationSite,
     Adapter,
@@ -14,7 +14,7 @@ from eeglens import (
     SignalBatch,
     paired_effect,
 )
-from eeglens.errors import HookExecutionError, UnsupportedSiteError, ValidationError
+from eegfmlens.errors import HookExecutionError, UnsupportedSiteError, ValidationError
 
 
 class KnownModel(nn.Module):

@@ -2,7 +2,7 @@
 
 import torch
 
-from eeglens import Selection, SignalBatch, SubspaceAblation
+from eegfmlens import Selection, SignalBatch, SubspaceAblation
 
 
 def test_dense_erasure_is_basis_invariant_idempotent_and_local():

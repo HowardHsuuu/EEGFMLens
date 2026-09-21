@@ -201,7 +201,7 @@ class SweepResult:
         with path.open("x") as f:
             json.dump(
                 dict(
-                    schema="eeglens.sweep.v1",
+                    schema="eegfmlens.sweep.v1",
                     rows=self.rows,
                     baselines=self.baselines,
                     metadata=self.metadata,
