@@ -4,8 +4,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - run: python -m pip install ruff==0.16.6 'mypy>=1.18,<3'
@@ -23,8 +23,8 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
       - run: python -m pip install build
@@ -40,7 +40,7 @@ jobs:
           PY
       - name: Verify installed artifact and run outside checkout
         run: python -I tools/check_installed.py --dist dist --output installed-wheel-report.json --coverage
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: installed-wheel-${{ matrix.os }}-py${{ matrix.python }}
           path: |
@@ -50,18 +50,18 @@ jobs:
   native-sources:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           repository: wjq-learning/CBraMod
           ref: b9e961003214326972c567eff390e75b0287e32a
           path: external/CBraMod
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: 935963004/LaBraM
           ref: c431221e6cfd23dbfa9950e0180682fb322b0548
           path: external/LaBraM
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - run: python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
@@ -84,7 +84,7 @@ jobs:
           - model: csbrain
             repository: yuchen2199/CSBrain
             revision: 185aee55b24d0410a830df8dd08d03f675616998
-            dependencies: matplotlib
+            dependencies: matplotlib einops
           - model: steegformer
             repository: LiuyinYang1101/STEEGFormer
             revision: 542ee17918c3c2c36ba1d4ea02bedff5eb149370
@@ -98,13 +98,13 @@ jobs:
             revision: d138e32634e52ae9fa6ec98ac9c4087b14ca869a
             dependencies: linear-attention-transformer einops
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           repository: ${{ matrix.repository }}
           ref: ${{ matrix.revision }}
           path: external/native
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - run: python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
