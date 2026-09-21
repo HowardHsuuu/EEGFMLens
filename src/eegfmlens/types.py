@@ -10,6 +10,40 @@ from .errors import ValidationError
 
 
 @dataclass(frozen=True)
+class SignalTransform:
+    """One deliberate signal-space edit recorded on a :class:`SignalBatch`.
+
+    Parameters are immutable JSON scalars so a transformed batch can be traced
+    without retaining the original EEG.  These records describe experimental
+    edits; they do not replace ``preprocessing_id``.
+    """
+
+    name: str
+    parameters: tuple[tuple[str, str | int | float | bool], ...] = ()
+
+    def __post_init__(self):
+        if not isinstance(self.name, str) or not self.name:
+            raise ValidationError("Signal transform name must be nonempty")
+        if not isinstance(self.parameters, tuple):
+            raise ValidationError("Signal transform parameters must be a tuple")
+        keys = []
+        for item in self.parameters:
+            if (
+                not isinstance(item, tuple)
+                or len(item) != 2
+                or not isinstance(item[0], str)
+                or not item[0]
+                or type(item[1]) not in {str, int, float, bool}
+            ):
+                raise ValidationError("Signal transform parameters must be key/scalar pairs")
+            if isinstance(item[1], float) and not math.isfinite(item[1]):
+                raise ValidationError("Signal transform parameters must be finite")
+            keys.append(item[0])
+        if len(set(keys)) != len(keys):
+            raise ValidationError("Signal transform parameter names must be unique")
+
+
+@dataclass(frozen=True)
 class SignalBatch:
     """Model-ready patches, with provenance; this class does not preprocess EEG.
 
@@ -25,6 +59,7 @@ class SignalBatch:
     preprocessing_id: str
     unit: str = "model_scaled"
     patch_stride_samples: int | None = None
+    transforms: tuple[SignalTransform, ...] = ()
 
     def __post_init__(self):
         if (
@@ -62,6 +97,12 @@ class SignalBatch:
             type(self.patch_stride_samples) is not int or self.patch_stride_samples <= 0
         ):
             raise ValidationError("Patch stride must be positive")
+        if not isinstance(self.transforms, tuple) or any(
+            not isinstance(transform, SignalTransform) for transform in self.transforms
+        ):
+            raise ValidationError("transforms must be a tuple of SignalTransform records")
+        for transform in self.transforms:
+            transform.__post_init__()
         if not torch.isfinite(self.data).all():
             raise ValidationError("Non-finite input")
 

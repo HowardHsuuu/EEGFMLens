@@ -273,6 +273,9 @@ class EEGLens:
                         None if reference is None else _selection_metadata(reference)
                     )
                     record["multiplier_warning"] = getattr(intervention, "multiplier_warning", None)
+                provenance = getattr(intervention, "provenance", None)
+                if callable(provenance):
+                    record["parameters"] = json.loads(json.dumps(provenance(), allow_nan=False))
                 records.append(record)
             return RunResult(
                 output,
@@ -287,6 +290,13 @@ class EEGLens:
                     "sampling_rate": batch.sampling_rate,
                     "patch_stride_samples": batch.stride,
                     "unit": batch.unit,
+                    "signal_transforms": [
+                        {
+                            "name": transform.name,
+                            "parameters": dict(transform.parameters),
+                        }
+                        for transform in batch.transforms
+                    ],
                     "input_shape": tuple(batch.data.shape),
                     "torch_version": str(torch.__version__),
                     "model": dict(self.manifest),

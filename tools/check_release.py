@@ -55,6 +55,10 @@ def audit_distributions(dist, version):
             "eegfmlens/__init__.py",
             "eegfmlens/catalog.py",
             "eegfmlens/workflows.py",
+            "eegfmlens/spectral.py",
+            "eegfmlens/probes.py",
+            "eegfmlens/sae.py",
+            "eegfmlens/circuits.py",
             ".dist-info/licenses/LICENSE",
             ".dist-info/licenses/LICENSES/README.md",
         ):
@@ -78,6 +82,8 @@ def audit_distributions(dist, version):
             "/LICENSES/README.md",
             "/docs/assets/eegfmlens-hero.png",
             "/docs/restoration-workflow.md",
+            "/docs/interpretability.md",
+            "/examples/interpretability_methods.py",
             "/tools/check_release.py",
         ):
             _require_suffix(names, suffix)
@@ -98,6 +104,8 @@ def check(repository, *, tag=None, dist=None):
         "CONTRIBUTING.md",
         "docs/releasing.md",
         "docs/restoration-workflow.md",
+        "docs/interpretability.md",
+        "examples/interpretability_methods.py",
         "LICENSES/README.md",
     ):
         if not (repository / name).is_file():

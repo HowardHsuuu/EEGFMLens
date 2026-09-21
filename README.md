@@ -13,8 +13,9 @@ outputs, and applies trial-paired replacements, ablations and patching sweeps.
 Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
 Model implementations, checkpoints and data are supplied separately.
 
-**Status: 0.1.0a11, public source alpha.** CPU/float32 is the validated execution target.
-This repository does not claim a PyPI release. See [what changed in a11](docs/migration-a11.md).
+**Status: 0.1.0a12, public source alpha.** CPU/float32 is the validated native-model
+execution target. This repository does not claim a PyPI release. See
+[what changed in a12](docs/migration-a12.md).
 
 ## Install
 
@@ -95,6 +96,11 @@ also have strict checkpoint helpers accepting external constructors. See
 - Cache independent activation snapshots at declared module outputs.
 - Replace donors by trial ID; select verified sensor/patch coordinates or explicit raw axes.
 - Zero activations or erase a supplied feature subspace.
+- Measure and patch EEG frequency bands in amplitude, phase or full complex spectrum.
+- Fit held-out layer-wise ridge probes and concept-associated representation subspaces.
+- Audit group variance and cross-group condition-direction consistency.
+- Train Top-K sparse autoencoders and ablate or steer individual SAE features.
+- Test a hypothesized source-to-mediator path with identity-controlled path patching.
 - Run paired patching sweeps with identity, location and norm-matched controls.
 - Run an end-to-end activation-restoration workflow with reports and figures.
 - Save outputs, activations and provenance in versioned local bundles.
@@ -108,10 +114,43 @@ require paired RNG in the tested paths. [Coverage and limitations](docs/model-co
 Individual heads, QKV editing, gradients, GPU/mixed precision, compiled execution
 and cross-model activation transport are not validated public capabilities.
 
+## Interpretability methods
+
+EEGFMLens treats EEG-aware operations and general mechanistic methods as one
+composable experiment API. For example, a frequency-band or phase edit produces a
+traceable `SignalBatch`; the same batch can then be followed through activation
+caches, probes, SAE features, restoration sweeps or a hypothesized circuit path.
+
+| Question | Public methods |
+|---|---|
+| Which signal property changes the model? | periodograms, band power, phase-preserving band scaling, trial-matched amplitude/phase/complex spectral patching |
+| Where is information represented? | layer-wise ridge probes, group-variance decomposition, condition-direction consistency |
+| Does the model use that representation? | cross-covariance subspace fit + `SubspaceAblation`, activation restoration |
+| Can a sparse feature mediate behavior? | Top-K SAE training/metrics, feature ablation and steering |
+| Does an effect travel through a proposed path? | source-to-mediator path patching with identity controls |
+
+The implementations draw method definitions and controls from
+[FMScope / *The Identity Trap*](https://arxiv.org/abs/2606.06647),
+[BrainPEC / *What Do EEG Foundation Models Capture?*](https://arxiv.org/abs/2605.11410),
+[*Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders*](https://arxiv.org/abs/2605.13930),
+and [*Beyond Accuracy*](https://arxiv.org/abs/2605.17562). The package also tracks
+signal-space attribution directions from [EEG-PRISM](https://arxiv.org/abs/2608.13676)
+and [EEG-Xplain](https://arxiv.org/abs/2609.15687). See the
+[method guide](docs/interpretability.md) for exact semantics, controls, omissions
+and clean-room implementation provenance.
+
+An offline known-answer walkthrough connects a spectral intervention, a held-out
+probe and a path test:
+
+```bash
+python examples/interpretability_methods.py
+```
+
 ## Learn more
 
 - [Supported models and setup](docs/models.md) · [Input contracts](docs/input-contracts.md)
 - [API](docs/api.md) · [Custom models](docs/custom-models.md)
+- [Interpretability methods](docs/interpretability.md)
 - [Flagship restoration workflow](docs/restoration-workflow.md) · [Patching sweeps](docs/sweeps.md)
 - [Real EEG example](docs/validation.md) · [Integration testing](validation/README.md)
 - [Contributing](CONTRIBUTING.md) · [Release process](docs/releasing.md) · [Changelog](CHANGELOG.md)

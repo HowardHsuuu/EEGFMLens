@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.0a12 — composable interpretability methods
+
+- Add trial- and patch-scope periodograms, band power, phase-preserving band
+  scaling and trial-matched amplitude/phase/complex spectral patching.
+- Record signal edits on `SignalBatch` and in every run manifest.
+- Add leakage-explicit ridge probes, cross-covariance concept subspaces, exact
+  group-variance decomposition and cross-group condition-direction diagnostics.
+- Add a clean-room Top-K sparse autoencoder, reconstruction/feature-use metrics,
+  and residual-preserving feature ablation and steering.
+- Add identity-controlled source-to-mediator path patching for testing proposed
+  internal routes.
+- Document method provenance, mathematical scope and unsupported claims from the
+  EEG-FM interpretability literature.
+
+See [migration instructions](docs/migration-a12.md).
+
 ## 0.1.0a11 — public source alpha
 
 - Align the distribution and import namespace with the project name: install

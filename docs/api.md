@@ -20,7 +20,7 @@ for the documented local checkpoint campaign.
 
 `EEGLens(model, adapter, model_id=None)` wraps an existing eval-mode PyTorch model. It does not call `.eval()`, move the model or change parameters. Official loaders do these before wrapping. Configure device/dtype first. Only eager CPU float32 has integration evidence in this alpha.
 
-`SignalBatch(data, trial_ids, channels, sampling_rate, preprocessing_id, unit="model_scaled", patch_stride_samples=None)` requires finite floating `[batch,sensor,patch,sample]` data. IDs/channels are tuples of nonempty unique strings. Omitted stride means nonoverlapping patches. This type does not filter, scale, rereference or reorder EEG. The preprocessing ID must identify the complete recipe, excluding experimental corruption so clean/recipient pairing remains possible. Trial IDs identify the same source epoch.
+`SignalBatch(data, trial_ids, channels, sampling_rate, preprocessing_id, unit="model_scaled", patch_stride_samples=None, transforms=())` requires finite floating `[batch,sensor,patch,sample]` data. IDs/channels are tuples of nonempty unique strings. Omitted stride means nonoverlapping patches. This type does not filter, scale, rereference or reorder EEG. The preprocessing ID must identify the complete recipe, excluding experimental corruption so clean/recipient pairing remains possible. Trial IDs identify the same source epoch. Library signal edits append immutable `SignalTransform` records without changing the preprocessing identity.
 
 `lens.sites()` returns declarations with name, native module path, layout,
 tuple-output index and writability. `lens.capabilities()` returns a public,
@@ -107,3 +107,18 @@ the controlled intervention grid to `patching_sweep`. See the
 `save_run(run, "new-directory")` writes JSON and tensor files, refusing existing destinations. `load_run(...)` checks schema/SHA256, uses weights-only loading and returns CPU tensors. Supported outputs: tensors, JSON scalars, string-keyed dictionaries, lists and tuples. Starting with a7, list/tuple subclasses (including namedtuples) serialize as plain lists/tuples: values and order survive, but class identity and field names do not. This fixes an a6-and-earlier defect that could write an unreadable bundle for these subclasses. Other arbitrary Python classes are rejected. Failed saves clean temporary files.
 
 Records contain checkpoint/source metadata where available, input hash, execution kwargs, coordinates, PyTorch version, selectors and donor/subspace hashes. They do **not** include raw inputs, fitted basis/center or preprocessing code; donor tensors must be saved separately unless included in the cache. Keep these artifacts for replay. Checksums detect changes, not authenticity.
+
+## Spectral, probe, SAE and path APIs
+
+`power_spectrum` and `band_power` measure patch- or trial-scope spectra.
+`scale_frequency_band` and `patch_frequency_band` return new `SignalBatch` objects
+that can be passed directly to `EEGLens`. Spectral donor rows align by trial ID.
+
+`activation_matrix`, `fit_ridge_probe`, `layerwise_ridge_probe`,
+`fit_cross_covariance_subspace`, `group_variance_decomposition` and
+`within_group_contrast_consistency` provide representation diagnostics without
+implicit splits. `TopKSAE`, `train_sae`, `SAEFeatureAblation` and
+`SAEFeatureSteering` expose sparse features and interventions. `path_patch` composes
+two activation replacements to test a declared source-to-mediator route. Exact
+definitions and interpretation boundaries are in the
+[interpretability method guide](interpretability.md).

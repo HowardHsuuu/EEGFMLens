@@ -78,6 +78,7 @@ def run(wheel, repository, output, *, coverage=False):
             ],
             [sys.executable, "-I", str(repository / "examples/quickstart.py")],
             [sys.executable, "-I", str(repository / "examples/model_catalog.py")],
+            [sys.executable, "-I", str(repository / "examples/interpretability_methods.py")],
             [
                 sys.executable,
                 "-I",
@@ -133,6 +134,7 @@ def run(wheel, repository, output, *, coverage=False):
             known_answer_sweep="passed",
             known_answer_sweep_sha256=sha(sweep),
             restoration_workflow="passed",
+            interpretability_methods="passed",
             restoration_report_sha256=sha(restoration / "report.json"),
             restoration_sweep_sha256=sha(restoration / "sweep.json"),
             restoration_figure_sha256=sha(restoration / "restoration_heatmap.png"),
@@ -143,6 +145,7 @@ def run(wheel, repository, output, *, coverage=False):
                     "model_catalog.py",
                     "patching_sweep.py",
                     "restoration_workflow.py",
+                    "interpretability_methods.py",
                 )
             },
             pip_check="passed",
