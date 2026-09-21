@@ -18,7 +18,7 @@ with the desired reviewer policy. No long-lived PyPI token is required.
    mypy
    pytest -m 'not integration and not native' --cov=eegfmlens --cov-fail-under=80
    python -m build
-   python tools/check_release.py --tag v0.1.0a14 --dist dist
+   python tools/check_release.py --tag v0.1.0a15 --dist dist
    twine check dist/*
    ```
 
@@ -26,8 +26,8 @@ with the desired reviewer policy. No long-lived PyPI token is required.
    version tag only after that review:
 
    ```bash
-   git tag -s v0.1.0a14
-   git push origin v0.1.0a14
+   git tag -s v0.1.0a15
+   git push origin v0.1.0a15
    ```
 
 The tag triggers publication. A tag that differs from the package version fails

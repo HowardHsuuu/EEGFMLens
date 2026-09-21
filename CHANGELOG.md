@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0a15 — covariance-aware concept erasure
+
+- Add an independently implemented closed-form LEACE fit with explicit empirical
+  covariance, optional isotropic shrinkage and low-rank affine application.
+- Add `LEACEAblation` for fixed site interventions with fit metadata and parameter
+  hashes in each run manifest.
+- Add seeded same-rank random-subspace controls for separating concept-specific
+  effects from generic representational damage.
+- Reject partial feature-axis LEACE edits and add known-answer evidence for linear
+  erasure, idempotence, oblique geometry, intervention cleanup and control behavior.
+
+See [migration instructions](docs/migration-a15.md).
+
 ## 0.1.0a14 — EEG concepts and cross-model geometry
 
 - Add Hann-windowed Welch PSDs with explicit segment and overlap geometry.

@@ -53,7 +53,14 @@ from .features import (
     spectral_features,
     time_domain_features,
 )
-from .interventions import Ablation, AxisSelection, Replacement, Selection, SubspaceAblation
+from .interventions import (
+    Ablation,
+    AxisSelection,
+    LEACEAblation,
+    Replacement,
+    Selection,
+    SubspaceAblation,
+)
 from .io import load_run, save_run
 from .loading import load_cbramod, load_labram
 from .metrics import PairedEffect, paired_effect
@@ -69,11 +76,15 @@ from .perturbation import (
 from .probes import (
     CrossCovarianceSubspace,
     LayerProbeResult,
+    LEACEEraser,
     ProbeScore,
+    RandomSubspaceControl,
     RidgeProbe,
     activation_matrix,
     categorical_targets,
     fit_cross_covariance_subspace,
+    fit_leace_eraser,
+    fit_random_subspace_control,
     fit_ridge_probe,
     layerwise_ridge_probe,
     r2_score,
@@ -146,6 +157,7 @@ __all__ = [
     "load_cbramod",
     "load_labram",
     "SubspaceAblation",
+    "LEACEAblation",
     "save_run",
     "load_run",
     "restoration_sweep",
@@ -163,12 +175,16 @@ __all__ = [
     "ProbeScore",
     "LayerProbeResult",
     "CrossCovarianceSubspace",
+    "LEACEEraser",
+    "RandomSubspaceControl",
     "activation_matrix",
     "categorical_targets",
     "fit_ridge_probe",
     "r2_score",
     "layerwise_ridge_probe",
     "fit_cross_covariance_subspace",
+    "fit_leace_eraser",
+    "fit_random_subspace_control",
     "GroupVariance",
     "ContrastConsistency",
     "group_variance_decomposition",

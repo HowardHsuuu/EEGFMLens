@@ -5,6 +5,8 @@ from dataclasses import dataclass
 import torch
 
 from .errors import ValidationError
+from .probes import LEACEEraser
+from .provenance import tensor_digest
 from .types import Activation, SignalBatch
 
 
@@ -169,3 +171,34 @@ class SubspaceAblation:
             raise ValidationError("Basis columns must be orthonormal")
         erased = current - ((current - center) @ q) @ q.T
         return torch.where(self.selection.mask(current, batch, layout), erased, current)
+
+
+@dataclass(frozen=True)
+class LEACEAblation:
+    """Apply a separately fitted covariance-aware concept eraser at one site."""
+
+    site: str
+    eraser: LEACEEraser
+    selection: Selection | AxisSelection = Selection()
+
+    def apply(self, current, batch, layout, model_id):
+        if not isinstance(self.eraser, LEACEEraser):
+            raise ValidationError("LEACEAblation requires a fitted LEACEEraser")
+        if isinstance(self.selection, AxisSelection) and self.selection.axis == current.ndim - 1:
+            raise ValidationError(
+                "LEACEAblation cannot select only part of the transformed feature axis"
+            )
+        erased = self.eraser.erase(current)
+        return torch.where(self.selection.mask(current, batch, layout), erased, current)
+
+    def provenance(self):
+        return {
+            "fit_rows": self.eraser.fit_rows,
+            "concept_dimensions": self.eraser.concept_dimensions,
+            "rank": self.eraser.rank,
+            "covariance_shrinkage": self.eraser.covariance_shrinkage,
+            "relative_tolerance": self.eraser.relative_tolerance,
+            "proj_left_sha256": tensor_digest(self.eraser.proj_left),
+            "proj_right_sha256": tensor_digest(self.eraser.proj_right),
+            "center_sha256": tensor_digest(self.eraser.center),
+        }

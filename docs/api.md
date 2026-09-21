@@ -68,9 +68,10 @@ coordinates whose meaning you have verified in the model. Axis zero is reserved
 for trial identity; negative axes, duplicate indices and out-of-range indices
 are rejected. It does not infer electrode or time labels. With `Replacement`,
 unselected recipient values remain intact and donor rows still align by trial ID.
-The run records the axis, indices and real donor provenance. `Ablation` and
-`SubspaceAblation` also accept this selector; `patching_sweep` requires physical
-`Selection` targets and does not accept raw axis coordinates.
+The run records the axis, indices and real donor provenance. `Ablation`,
+`SubspaceAblation` and `LEACEAblation` also accept this selector;
+`patching_sweep` requires physical `Selection` targets and does not accept raw
+axis coordinates.
 
 ```python
 from eegfmlens import AxisSelection, Replacement
@@ -90,9 +91,25 @@ zero = Ablation("blocks.0.output", selection)
 erase = SubspaceAblation("blocks.0.output", basis, center, selection)
 ```
 
+Fit covariance-aware concept erasure on reference rows, then reuse the fixed
+operator at a declared activation site:
+
+```python
+from eegfmlens import LEACEAblation, fit_leace_eraser, fit_random_subspace_control
+
+eraser = fit_leace_eraser(reference_features, reference_concepts)
+leace = LEACEAblation("blocks.0.output", eraser, selection)
+control = fit_random_subspace_control(
+    reference_features,
+    rank=eraser.rank,
+    seed=17,
+)
+random = SubspaceAblation("blocks.0.output", control.basis, control.center, selection)
+```
+
 One intervention per site is allowed. Sensor/patch selectors take their Cartesian product across all trials/features. They select whole patches, not sample windows or exclusive receptive fields. LaBraM order is sensor-major, patch-minor. An unrestricted selection includes CLS; explicit sensor or patch selections exclude CLS, even if they name all sensors/patches.
 
-Replacement matches donor rows by trial ID, allowing reordering or donor supersets. It requires identical site/model/layout, channel order, preprocessing ID, sampling rate, stride, patch length, units, remaining shape, dtype and device. No implicit casting, resampling or cross-model patching occurs. Subspace ablation computes `x - ((x-center) @ basis) @ basis.T`. Fit basis/center on training data separately.
+Replacement matches donor rows by trial ID, allowing reordering or donor supersets. It requires identical site/model/layout, channel order, preprocessing ID, sampling rate, stride, patch length, units, remaining shape, dtype and device. No implicit casting, resampling or cross-model patching occurs. Subspace ablation computes `x - ((x-center) @ basis) @ basis.T`. `LEACEAblation` applies the fitted affine map along the final feature axis and records fit dimensions, numerical settings and parameter hashes. It rejects an `AxisSelection` over that feature axis because the resulting partial edit would not erase the fitted concept. Fit every basis, center or eraser on reference/training data separately.
 
 ## Metrics and storage
 
@@ -142,9 +159,11 @@ sets and reports the model/site identities. A `groups` argument removes group me
 before comparison; it does not estimate uncertainty or choose exchangeability blocks.
 
 `activation_matrix`, `fit_ridge_probe`, `layerwise_ridge_probe`,
-`fit_cross_covariance_subspace`, `group_variance_decomposition` and
-`within_group_contrast_consistency` provide representation diagnostics without
-implicit splits. `TopKSAE`, `train_sae`, `SAEFeatureAblation` and
+`fit_cross_covariance_subspace`, `fit_leace_eraser`,
+`fit_random_subspace_control`, `group_variance_decomposition` and
+`within_group_contrast_consistency` provide representation diagnostics and
+controlled erasure without implicit splits. `TopKSAE`, `train_sae`,
+`SAEFeatureAblation` and
 `SAEFeatureSteering` expose sparse features and interventions. `path_patch` composes
 two activation replacements to test a declared source-to-mediator route. Exact
 definitions and interpretation boundaries are in the

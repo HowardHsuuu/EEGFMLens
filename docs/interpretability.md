@@ -101,7 +101,36 @@ of centered feature–concept cross-covariance. Its `basis` and `center` plug di
 into `SubspaceAblation`, turning a descriptive representation into a causal removal
 test. Fit the subspace on training subjects and evaluate both residual decodability
 and task behavior on held-out subjects. This is the simplified Euclidean construction
-used in BrainPEC. It is not covariance-whitened LEACE and the API names it accordingly.
+used in BrainPEC. It remains useful as a transparent baseline, but correlated feature
+coordinates can make its minimum-change geometry inappropriate.
+
+`fit_leace_eraser` implements covariance-aware least-squares concept erasure. It
+whitens the reference feature covariance, finds the column space of the whitened
+feature–concept cross-covariance, and returns a low-rank affine map centered on the
+reference mean. The map is idempotent, preserves that mean, and removes linear
+cross-covariance with the supplied concept on the fitted support. Pass categorical
+concepts through `categorical_targets`; centering makes the effective rank at most
+the number of categories minus one.
+
+Fit the eraser on a declared training/reference cohort and apply that fixed object
+through `LEACEAblation` to held-out activations. It acts on the final feature axis;
+sensor, patch or non-feature axis selections apply the complete map at selected
+positions. Partial selection of the transformed feature axis is rejected because it
+would no longer be a LEACE erasure. The run records fit dimensions, rank, numerical
+settings and parameter hashes. It does not store the reference data or fitted tensors,
+so retain the fitted object with the study artifacts.
+
+The default uses the empirical covariance. `covariance_shrinkage` explicitly mixes
+it with an isotropic covariance of the same trace; this can stabilize small reference
+cohorts but changes the metric whose displacement is minimized. Report the chosen
+value rather than treating shrinkage as an implementation detail.
+
+`fit_random_subspace_control` produces a seeded isotropic orthonormal basis with the
+same requested rank and reference mean. Apply it with `SubspaceAblation` and compare
+several prespecified seeds with the concept eraser. A behavioral drop beyond these
+controls supports use of that fitted linear concept subspace. Linear erasure does not
+exclude nonlinear concept information, and an intervention effect alone does not
+identify a biological variable or a complete circuit.
 
 `group_variance_decomposition` exactly separates between-group and within-group sums
 of squares. `within_group_contrast_consistency` compares a binary condition-contrast
@@ -204,6 +233,7 @@ papers and their public repositories:
 
 - [The Identity Trap in EEG Foundation Models: A Diagnostic Audit](https://arxiv.org/abs/2606.06647) and [FMScope](https://github.com/Jimmy110101013/fmscope): variance, subject-direction and spectral-ablation diagnostics.
 - [What Do EEG Foundation Models Capture from Human Brain Signals?](https://arxiv.org/abs/2605.11410) and [BrainPEC](https://github.com/Kian-Chen/BrainPEC): feature-family probing, cross-covariance erasure and residual controls.
+- [LEACE: Perfect Linear Concept Erasure in Closed Form](https://arxiv.org/abs/2306.03819) and its [reference implementation](https://github.com/EleutherAI/concept-erasure): covariance-aware affine concept erasure and same-rank random-subspace controls. EEGFMLens implements the published closed-form operator independently and exposes explicit reference-fit and intervention objects.
 - [Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders](https://arxiv.org/abs/2605.13930) and its [companion repository](https://github.com/BrainCapture/mechanistic-interpretability-for-eeg-foundation-models): Top-K SAE, spectral decoding and feature interventions. The companion code is PolyForm Noncommercial; no code was copied into EEGFMLens.
 - [Beyond Accuracy: Robustness, Interpretability and Expressiveness of EEG Foundation Models](https://arxiv.org/abs/2605.17562) and its [repository](https://github.com/urbansirca/Beyond-Accuracy-Robustness-Interpretability-and-Expressiveness-of-EEG-Foundation-Models): channel perturbation, attribution and block-wise probing controls.
 - [EEG-PRISM](https://arxiv.org/abs/2608.13676): linear propagation of attribution into physiologically meaningful signal coordinates, including Fourier components.
@@ -213,7 +243,7 @@ papers and their public repositories:
 - [SVCCA](https://arxiv.org/abs/1706.05806): motivates cross-network representation comparison; EEGFMLens currently exposes CKA and RSA rather than claiming SVCCA without its truncation and regularization choices.
 - [FOOOF](https://doi.org/10.1038/s41593-020-00744-x) and its [stable implementation](https://github.com/fooof-tools/fooof): optional fixed-mode spectral parameterization. The dependency is not bundled, and the fit/apply interface is original package code.
 
-The current public API does not claim full LEACE, specparam 2 compatibility,
-attention LRP, Q/K/V intervention, automatic circuit discovery or a cross-layer
-transcoder. Those names will be exposed only after their mathematical and native-model
-contracts have dedicated correctness evidence.
+The current public API does not claim specparam 2 compatibility, attention LRP,
+Q/K/V intervention, automatic circuit discovery or a cross-layer transcoder. Those
+names will be exposed only after their mathematical and native-model contracts have
+dedicated correctness evidence.

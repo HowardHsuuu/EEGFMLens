@@ -80,6 +80,7 @@ def run(wheel, repository, output, *, coverage=False):
             [sys.executable, "-I", str(repository / "examples/model_catalog.py")],
             [sys.executable, "-I", str(repository / "examples/interpretability_methods.py")],
             [sys.executable, "-I", str(repository / "examples/cross_model_analysis.py")],
+            [sys.executable, "-I", str(repository / "examples/concept_erasure.py")],
             [
                 sys.executable,
                 "-I",
@@ -137,6 +138,7 @@ def run(wheel, repository, output, *, coverage=False):
             restoration_workflow="passed",
             interpretability_methods="passed",
             cross_model_analysis="passed",
+            concept_erasure="passed",
             restoration_report_sha256=sha(restoration / "report.json"),
             restoration_sweep_sha256=sha(restoration / "sweep.json"),
             restoration_figure_sha256=sha(restoration / "restoration_heatmap.png"),
@@ -149,6 +151,7 @@ def run(wheel, repository, output, *, coverage=False):
                     "restoration_workflow.py",
                     "interpretability_methods.py",
                     "cross_model_analysis.py",
+                    "concept_erasure.py",
                 )
             },
             pip_check="passed",

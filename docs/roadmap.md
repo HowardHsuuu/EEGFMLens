@@ -9,7 +9,8 @@
 - Channel/time patching sweeps with per-trial matching and explicit invalid-control diagnostics.
 - A complete activation-restoration workflow with auditable reports and figures.
 - Trial- and patch-scope spectral measurement plus amplitude/phase/complex band interventions.
-- Held-out ridge probes, cross-covariance subspaces, group-variance and contrast diagnostics.
+- Held-out ridge probes, Euclidean cross-covariance subspaces, covariance-aware
+  LEACE with same-rank random controls, group-variance and contrast diagnostics.
 - Top-K sparse autoencoders with residual-preserving feature ablation and steering.
 - Identity-controlled source-to-mediator path patching for proposed circuits.
 - Trial-independent gradients, input × gradient, integrated gradients and nonlinear-site path conductance.

@@ -13,9 +13,9 @@ outputs, and applies trial-paired replacements, ablations and patching sweeps.
 Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
 Model implementations, checkpoints and data are supplied separately.
 
-**Status: 0.1.0a14, public source alpha.** CPU/float32 is the validated native-model
+**Status: 0.1.0a15, public source alpha.** CPU/float32 is the validated native-model
 execution target. This repository does not claim a PyPI release. See
-[what changed in a14](docs/migration-a14.md).
+[what changed in a15](docs/migration-a15.md).
 
 ## Install
 
@@ -106,7 +106,8 @@ also have strict checkpoint helpers accepting external constructors. See
   input × gradient, integrated gradients and path conductance.
 - Propagate additive attribution into EEG frequency coordinates and evaluate it with
   progressive channel/patch or frequency-band perturbation curves.
-- Fit held-out layer-wise ridge probes and concept-associated representation subspaces.
+- Fit held-out layer-wise ridge probes, Euclidean concept subspaces and
+  covariance-aware LEACE erasers with same-rank random controls.
 - Audit group variance and cross-group condition-direction consistency.
 - Train Top-K sparse autoencoders and ablate or steer individual SAE features.
 - Test a hypothesized source-to-mediator path with identity-controlled path patching.
@@ -115,11 +116,11 @@ also have strict checkpoint helpers accepting external constructors. See
 - Run paired patching sweeps with identity, location and norm-matched controls.
 - Run an end-to-end activation-restoration workflow with reports and figures.
 - Save outputs, activations and provenance in versioned local bundles.
+- Connect another PyTorch model using `GenericAdapter` and a native forward callback.
 
 These functions use the same `SignalBatch`, `Activation` and intervention contracts.
 EEG-aware analyses are composed into a mechanistic study when its hypothesis needs
 signal frequency, sensor or subject structure; they are not a separate workflow.
-- Connect another PyTorch model using `GenericAdapter` and a native forward callback.
 
 Supported families: **CBraMod, LaBraM, EEGPT, BIOT, BENDR, BrainOmni, CSBrain,
 NeuroRVQ, SignalJEPA, DIVER-1 and ST-EEGFormer**. Coverage is component-specific;
@@ -146,7 +147,7 @@ caches, probes, SAE features, restoration sweeps or a hypothesized circuit path.
 | Which input coordinates support an objective? | gradient, input × gradient, integrated gradients, channel/time aggregation, additive frequency attribution |
 | Is an attribution map behaviorally faithful? | progressive channel/patch occlusion, spectral-band removal, AOPC, cross-method cosine consistency |
 | Where is information represented? | layer-wise ridge probes, group-variance decomposition, condition-direction consistency |
-| Does the model use that representation? | cross-covariance subspace fit + `SubspaceAblation`, activation restoration |
+| Does the model use that representation? | Euclidean subspace removal, covariance-aware LEACE, same-rank controls, activation restoration |
 | Can a sparse feature mediate behavior? | Top-K SAE training/metrics, feature ablation and steering |
 | Does an effect travel through a proposed path? | source-to-mediator path patching with identity controls |
 | Do different models share trial geometry? | trial-ID-aligned linear CKA and RSA, optionally after within-group centering |
@@ -161,7 +162,9 @@ The implementations draw method definitions and controls from
 replacement-fidelity boundary made explicit by
 [CLT-Forge](https://arxiv.org/abs/2603.21014). Cross-model comparison follows
 [linear CKA](https://arxiv.org/abs/1905.00414); aperiodic intervention follows the
-fit/remove design used by FMScope. See the
+fit/remove design used by FMScope. Concept erasure follows
+[LEACE](https://arxiv.org/abs/2306.03819) with an independently implemented,
+reference-fitted low-rank affine map. See the
 [method guide](docs/interpretability.md) for exact semantics, controls, omissions
 and clean-room implementation provenance.
 
@@ -171,6 +174,7 @@ probe and a path test:
 ```bash
 python examples/interpretability_methods.py
 python examples/cross_model_analysis.py
+python examples/concept_erasure.py
 ```
 
 ## Learn more
