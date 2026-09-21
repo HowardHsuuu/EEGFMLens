@@ -31,6 +31,21 @@ C3/patch interventions matched exactly. This was a two-model migration check,
 not a fresh validation of all eleven models. Generated reports are not shipped
 with the package repository.
 
+## Pinned-source catalog matrix
+
+CI also checks EEGPT, BIOT, CSBrain, DIVER-1 and ST-EEGFormer one checkout per
+job. To reproduce one job locally:
+
+```bash
+EEGLENS_NATIVE_MODEL=eegpt \
+EEGLENS_NATIVE_SOURCE=/path/to/EEGPT \
+pytest -q tests/test_native_catalog.py
+```
+
+Use the exact reference returned by `model_info(...)` and install that upstream
+project's runtime dependencies. `tools/native_sources.py` rejects a different Git
+HEAD or modified tracked Python before import.
+
 ## Other models
 
 The [coverage table](../docs/model-coverage.md) and [input contracts](../docs/input-contracts.md)
@@ -42,5 +57,6 @@ source/checkpoint checks.
 The normal public integration path is the package catalog and `connect(...)`,
 documented in [model setup](../docs/models.md). The installed-wheel suite checks
 that catalog and the adapter contracts for all eleven families on every supported
-OS/Python combination. Only CBraMod and LaBraM currently run against pinned live
-upstream source in CI; this distinction is reported explicitly.
+OS/Python combination. Seven families run against pinned live upstream source in
+CI; the remaining distinction is reported through `ModelSpec.evidence` and the
+[coverage table](../docs/model-coverage.md).

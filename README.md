@@ -27,6 +27,22 @@ python examples/model_catalog.py
 Core dependencies are PyTorch and NumPy. The quickstart is offline and uses a
 small synthetic model; no model code, weights or data are downloaded implicitly.
 
+## Flagship workflow
+
+Run a complete layer × sensor/time activation-restoration study with a known-answer
+offline model:
+
+```bash
+python -m pip install '.[visualization]'
+python examples/restoration_workflow.py --demo --output /tmp/eeglens-restoration
+```
+
+The output directory contains the full controlled sweep, an auditable manifest,
+and a heatmap. The same workflow accepts pinned CBraMod or LaBraM source, a local
+checkpoint, and public EEGMMIDB data. See the
+[activation-restoration workflow](docs/restoration-workflow.md) for the research
+question, controls, interpretation, and real-model command.
+
 ## Cache and patch
 
 ```python
@@ -76,6 +92,7 @@ also have strict checkpoint helpers accepting external constructors. See
 - Replace donors by trial ID; select verified sensor/patch coordinates or explicit raw axes.
 - Zero activations or erase a supplied feature subspace.
 - Run paired patching sweeps with identity, location and norm-matched controls.
+- Run an end-to-end activation-restoration workflow with reports and figures.
 - Save outputs, activations and provenance in versioned local bundles.
 - Connect another PyTorch model using `GenericAdapter` and a native forward callback.
 
@@ -91,9 +108,9 @@ and cross-model activation transport are not validated public capabilities.
 
 - [Supported models and setup](docs/models.md) · [Input contracts](docs/input-contracts.md)
 - [API](docs/api.md) · [Custom models](docs/custom-models.md)
-- [Patching sweeps](docs/sweeps.md) · [Known-answer example](examples/patching_sweep.py)
+- [Flagship restoration workflow](docs/restoration-workflow.md) · [Patching sweeps](docs/sweeps.md)
 - [Real EEG example](docs/validation.md) · [Integration testing](validation/README.md)
-- [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+- [Contributing](CONTRIBUTING.md) · [Release process](docs/releasing.md) · [Changelog](CHANGELOG.md)
 
 Please use [GitHub issues](https://github.com/HowardHsuuu/EEGFMLens/issues) for bugs
 and questions. Include the package version, native source/checkpoint versions and

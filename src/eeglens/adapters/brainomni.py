@@ -23,18 +23,31 @@ class BrainOmniAdapter(Adapter):
         window = getattr(model, "window_length", None)
         overlap = getattr(model, "overlap_ratio", None)
         if (
-            type(window) is not int
+            isinstance(window, bool)
+            or not isinstance(window, int)
             or window <= 0
             or getattr(model.tokenizer, "window_length", None) != window
-            or type(overlap) not in (int, float)
-            or not math.isfinite(overlap)
-            or not 0 <= overlap < 1
-            or int(window * (1 - overlap)) < 1
         ):
             raise ValidationError(
                 "BrainOmni requires matching positive native windows and a valid overlap"
             )
-        self._window_config = (window, overlap, model.tokenizer.window_length)
+        window_value = int(window)
+        if (
+            isinstance(overlap, bool)
+            or not isinstance(overlap, (int, float))
+            or not math.isfinite(overlap)
+            or not 0 <= overlap < 1
+            or int(window_value * (1 - overlap)) < 1
+        ):
+            raise ValidationError(
+                "BrainOmni requires matching positive native windows and a valid overlap"
+            )
+        overlap_value = float(overlap)
+        self._window_config = (
+            window_value,
+            overlap_value,
+            model.tokenizer.window_length,
+        )
         self.channels = tuple(channels)
         if not self.channels or len(set(self.channels)) != len(self.channels):
             raise ValidationError("Declare unique ordered sensor names")

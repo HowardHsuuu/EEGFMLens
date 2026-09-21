@@ -13,8 +13,9 @@ from dataclasses import replace
 from pathlib import Path
 
 import torch
+from eegmmidb import prepare_eegmmidb
 
-from eeglens import Ablation, Replacement, Selection, SignalBatch, load_cbramod, load_labram
+from eeglens import Ablation, Replacement, Selection, load_cbramod, load_labram
 from eeglens.loading import sha256_file
 
 
@@ -57,46 +58,9 @@ def native_local_ablation(model_name, model, batch):
     return output, observed[0]
 
 
-def prepare_edf(path):
-    import mne
-
-    raw = mne.io.read_raw_edf(path, preload=True, verbose="ERROR")
-    raw.rename_channels({name: name.rstrip(".").upper() for name in raw.ch_names})
-    channels = (
-        "FP1",
-        "FP2",
-        "F7",
-        "F3",
-        "FZ",
-        "F4",
-        "F8",
-        "T7",
-        "C3",
-        "CZ",
-        "C4",
-        "T8",
-        "P7",
-        "P3",
-        "PZ",
-        "P4",
-        "P8",
-        "O1",
-        "O2",
-    )
-    raw.pick(list(channels))
-    raw.reorder_channels(list(channels))
-    raw.crop(tmin=0, tmax=15.99)
-    raw.filter(0.5, 75, verbose="ERROR")
-    raw.resample(200, verbose="ERROR")
-    values = torch.tensor(raw.get_data(units="uV")[:, :1600], dtype=torch.float32) / 100
-    patches = values.reshape(19, 2, 4, 200).permute(1, 0, 2, 3).contiguous()
-    recipe = "eegmmidb-demo:v1:19ch:0.5-75Hz:200Hz:uV/100:no-rereference:4s"
-    return SignalBatch(patches, ("recording:0-4s", "recording:4-8s"), channels, 200, recipe)
-
-
 def run(model_name, checkpoint, edf, upstream):
     torch.set_num_threads(2)
-    batch = prepare_edf(edf)
+    batch = prepare_eegmmidb(edf)
     loader = load_cbramod if model_name == "cbramod" else load_labram
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
     from native_sources import REVISIONS, native_module

@@ -8,9 +8,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install ruff==0.16.6
+      - run: python -m pip install ruff==0.16.6 'mypy>=1.18,<3'
       - run: ruff check .
       - run: ruff format --check .
+      - run: mypy
   installed-wheel:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -35,7 +36,7 @@ jobs:
           python - <<'PY'
           import pathlib, subprocess, sys
           wheel, = pathlib.Path('dist').glob('*.whl')
-          subprocess.run([sys.executable, '-m', 'pip', 'install', str(wheel), 'pytest', 'pytest-cov'], check=True)
+          subprocess.run([sys.executable, '-m', 'pip', 'install', str(wheel) + '[visualization]', 'pytest', 'pytest-cov'], check=True)
           PY
       - name: Verify installed artifact and run outside checkout
         run: python -I tools/check_installed.py --dist dist --output installed-wheel-report.json --coverage
@@ -69,3 +70,46 @@ jobs:
         env:
           EEGLENS_CBRAMOD_SOURCE: ${{ github.workspace }}/external/CBraMod
           EEGLENS_LABRAM_SOURCE: ${{ github.workspace }}/external/LaBraM
+
+  native-catalog:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - model: eegpt
+            repository: BINE022/EEGPT
+            revision: a0e0a8fad729e2ecf4eedb3a81548a6e6d48a705
+            dependencies: ''
+          - model: csbrain
+            repository: yuchen2199/CSBrain
+            revision: 185aee55b24d0410a830df8dd08d03f675616998
+            dependencies: matplotlib
+          - model: steegformer
+            repository: LiuyinYang1101/STEEGFormer
+            revision: 542ee17918c3c2c36ba1d4ea02bedff5eb149370
+            dependencies: timm
+          - model: diver
+            repository: DIVER-Project/DIVER-1
+            revision: fae4d7c5a58f2f795ce767939ad191d9c7ba49b8
+            dependencies: mup jaxtyping einops
+          - model: biot
+            repository: ycq091044/BIOT
+            revision: d138e32634e52ae9fa6ec98ac9c4087b14ca869a
+            dependencies: linear-attention-transformer einops
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repository }}
+          ref: ${{ matrix.revision }}
+          path: external/native
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install '.[dev]' ${{ matrix.dependencies }}
+      - run: pytest -q tests/test_native_catalog.py
+        env:
+          EEGLENS_NATIVE_MODEL: ${{ matrix.model }}
+          EEGLENS_NATIVE_SOURCE: ${{ github.workspace }}/external/native

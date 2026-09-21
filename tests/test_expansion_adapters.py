@@ -68,33 +68,6 @@ def test_bendr_context_sequence_axis_roundtrip_preserves_trial_edits():
     torch.testing.assert_close(restored, native_conditioning, rtol=0, atol=0)
 
 
-def test_reve_coordinates_are_owned_and_native_overlap_kept():
-    from eeglens.adapters.reve import REVEAdapter
-
-    class NativeFixture:
-        patch_size = 200
-        overlap_size = 20
-        transformer = SimpleNamespace(layers=[])
-
-        def __call__(self, eeg, pos, return_output=False):
-            assert eeg.shape == (1, 2, 400)
-            assert pos.shape == (1, 2, 3)
-            assert not return_output
-            return eeg.unfold(2, self.patch_size, self.patch_size - self.overlap_size)
-
-    model = NativeFixture()
-    positions = torch.zeros(2, 3)
-    adapter = REVEAdapter(model, channels=("C3", "C4"), positions=positions, sampling_rate=200)
-    batch = SignalBatch(torch.randn(1, 2, 4, 100), ("a",), adapter.channels, 200, "fixture")
-    positions.add_(1)
-    adapter.validate(batch)
-    result = adapter.forward(model, batch)
-    torch.testing.assert_close(result[:, :, 1], batch.data.flatten(2)[:, :, 180:380])
-    adapter.positions.add_(1)
-    with pytest.raises(ValidationError, match="positions changed"):
-        adapter.validate(batch)
-
-
 def test_signaljepa_rejects_short_input_and_changed_channel_mapping():
     from eeglens import SignalJEPAAdapter
 

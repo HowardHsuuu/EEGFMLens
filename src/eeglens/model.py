@@ -6,6 +6,7 @@ import threading
 import uuid
 import weakref
 from dataclasses import dataclass
+from typing import Any
 
 import torch
 
@@ -40,7 +41,10 @@ class EEGLens:
         self.model = model
         self.adapter = adapter
         self.model_id = model_id or f"instance:{uuid.uuid4().hex}"
-        self.manifest = {"identity": self.model_id, "checkpoint_sha256": None}
+        self.manifest: dict[str, Any] = {
+            "identity": self.model_id,
+            "checkpoint_sha256": None,
+        }
         self._lock = threading.Lock()
         for site in adapter.sites.values():
             model.get_submodule(site.module_path)
@@ -210,16 +214,16 @@ class EEGLens:
                     if site.tensor_index is None:
                         return replacement
                     if isinstance(output, dict):
-                        items = output.copy()
-                        items[site.tensor_index] = replacement
-                        return items
+                        mapping = output.copy()
+                        mapping[site.tensor_index] = replacement
+                        return mapping
                     if isinstance(output, tuple) and hasattr(output, "_fields"):
-                        items = list(output)
-                        items[site.tensor_index] = replacement
-                        return type(output)(*items)
-                    items = list(output)
-                    items[site.tensor_index] = replacement
-                    return tuple(items) if isinstance(output, tuple) else items
+                        sequence = list(output)
+                        sequence[site.tensor_index] = replacement
+                        return type(output)(*sequence)
+                    sequence = list(output)
+                    sequence[site.tensor_index] = replacement
+                    return tuple(sequence) if isinstance(output, tuple) else sequence
 
                 return hook
 

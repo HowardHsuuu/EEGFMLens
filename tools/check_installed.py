@@ -5,6 +5,7 @@ import hashlib
 import importlib.metadata
 import importlib.util
 import json
+import os
 import platform
 import subprocess
 import sys
@@ -86,9 +87,25 @@ def run(wheel, repository, output, *, coverage=False):
             ],
         ]
         if coverage:
-            commands[2].extend(["--cov=eeglens", "--cov-report=term-missing"])
+            commands[2].extend(
+                ["--cov=eeglens", "--cov-report=term-missing", "--cov-fail-under=80"]
+            )
+        restoration = Path(cwd) / "restoration"
+        commands.append(
+            [
+                sys.executable,
+                "-I",
+                str(repository / "examples/restoration_workflow.py"),
+                "--demo",
+                "--output",
+                str(restoration),
+            ]
+        )
+        environment = dict(os.environ)
+        environment["MPLCONFIGDIR"] = str(Path(cwd) / ".matplotlib")
+        environment["XDG_CACHE_HOME"] = str(Path(cwd) / ".cache")
         for command in commands:
-            subprocess.run(command, cwd=cwd, check=True)
+            subprocess.run(command, cwd=cwd, check=True, env=environment)
         suites = list(ET.parse(junit).getroot().iter("testsuite"))
         counts = {
             key: sum(int(s.attrib.get(key, 0)) for s in suites)
@@ -108,15 +125,25 @@ def run(wheel, repository, output, *, coverage=False):
             python=sys.version,
             platform=platform.platform(),
             dependencies={
-                d.metadata["Name"]: d.version for d in importlib.metadata.distributions()
+                name: importlib.metadata.version(name)
+                for name in ("torch", "numpy", "matplotlib", "pytest", "pytest-cov")
             },
             quickstart="passed",
             model_catalog="passed",
             known_answer_sweep="passed",
             known_answer_sweep_sha256=sha(sweep),
+            restoration_workflow="passed",
+            restoration_report_sha256=sha(restoration / "report.json"),
+            restoration_sweep_sha256=sha(restoration / "sweep.json"),
+            restoration_figure_sha256=sha(restoration / "restoration_heatmap.png"),
             example_source_sha256={
                 name: sha(repository / "examples" / name)
-                for name in ("quickstart.py", "model_catalog.py", "patching_sweep.py")
+                for name in (
+                    "quickstart.py",
+                    "model_catalog.py",
+                    "patching_sweep.py",
+                    "restoration_workflow.py",
+                )
             },
             pip_check="passed",
             scope="Installed wheel verification and non-integration suite; checkpoint/native studies remain separate evidence.",

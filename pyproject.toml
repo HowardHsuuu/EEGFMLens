@@ -9,9 +9,17 @@ description = "Observe and intervene on EEG foundation models with explicit tens
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
-license-files = ["LICENSE", "LICENSES/*.txt"]
+license-files = ["LICENSE", "LICENSES/*"]
 dependencies = ["torch>=2.6", "numpy>=1.26"]
-classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Topic :: Scientific/Engineering :: Artificial Intelligence"]
+keywords = ["EEG", "foundation models", "mechanistic interpretability", "neuroscience"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 
 [project.urls]
 Repository = "https://github.com/HowardHsuuu/EEGFMLens"
@@ -21,13 +29,24 @@ Issues = "https://github.com/HowardHsuuu/EEGFMLens/issues"
 [project.optional-dependencies]
 eeg = ["mne>=1.6"]
 labram = ["timm>=0.4.12", "einops>=0.7"]
-dev = ["pytest>=8", "pytest-cov>=5", "ruff==0.16.6", "build>=1.2"]
+visualization = ["matplotlib>=3.8"]
+workflow = ["mne>=1.6", "matplotlib>=3.8"]
+dev = [
+  "pytest>=8",
+  "pytest-cov>=5",
+  "ruff==0.16.6",
+  "mypy>=1.18,<3",
+  "pre-commit>=4,<5",
+  "build>=1.2",
+  "twine>=7,<8",
+  "tomli>=2; python_version < '3.11'",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/eeglens"]
 
 [tool.hatch.build.targets.sdist]
-include = ["/src", "/tests", "/tools", "/examples", "/docs", "/validation/README.md", "/LICENSES", "/README.md", "/LICENSE", "/CONTRIBUTING.md", "/CHANGELOG.md", "/pyproject.toml"]
+include = ["/src", "/tests", "/tools", "/examples", "/docs", "/validation/README.md", "/LICENSES", "/README.md", "/LICENSE", "/SECURITY.md", "/CONTRIBUTING.md", "/CHANGELOG.md", "/pyproject.toml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -39,3 +58,10 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.mypy]
+files = ["src/eeglens"]
+check_untyped_defs = true
+ignore_missing_imports = true
+no_implicit_optional = true
+warn_unused_ignores = true

@@ -7,7 +7,9 @@
 - Native activation caching, paired replacement, zero and orthonormal-subspace ablation.
 - Validated input/selector contracts, scoped hook cleanup and versioned run bundles.
 - Channel/time patching sweeps with per-trial matching and explicit invalid-control diagnostics.
-- Offline examples, independent native-hook validation and installed-wheel CI on three operating systems.
+- A complete activation-restoration workflow with auditable reports and figures.
+- Pinned-source native checks for seven families and installed-wheel CI on three operating systems.
+- Source type checks, pre-commit hooks, distribution audits and trusted-publishing release automation.
 
 ## Future capabilities
 

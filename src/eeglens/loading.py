@@ -3,6 +3,7 @@
 import hashlib
 import inspect
 from pathlib import Path
+from typing import Any
 
 import torch
 from torch import nn
@@ -115,7 +116,7 @@ def load_labram(
         import numpy as np
         from numpy.core.multiarray import scalar
 
-        allowed = [
+        allowed: list[Any] = [
             (scalar, "numpy.core.multiarray.scalar"),
             np.dtype,
             type(np.dtype("float64")),

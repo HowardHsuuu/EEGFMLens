@@ -13,4 +13,5 @@ if __name__ == "__main__":
         print(f"{spec.display_name} [{spec.family}] variants={variants}")
         print(f"  input: {spec.input_contract}")
         print(f"  selection: {spec.physical_selection}")
+        print(f"  evidence: {', '.join(spec.evidence)}")
         print(f"  options: {' | '.join(options)}")

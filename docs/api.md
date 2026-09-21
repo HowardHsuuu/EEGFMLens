@@ -13,6 +13,11 @@ adapter and records the integration identity in the run manifest. It does not
 load weights, execute upstream code, preprocess EEG, call `.eval()` or move the
 model. CBraMod and LaBraM additionally provide strict local checkpoint helpers.
 
+Every `ModelSpec` also exposes `evidence`, a tuple of maintained validation tiers:
+`contract-ci` for installed synthetic contract tests, `pinned-source-ci` for
+direct tests against an exact clean upstream commit, and `checkpoint-evaluated`
+for the documented local checkpoint campaign.
+
 `EEGLens(model, adapter, model_id=None)` wraps an existing eval-mode PyTorch model. It does not call `.eval()`, move the model or change parameters. Official loaders do these before wrapping. Configure device/dtype first. Only eager CPU float32 has integration evidence in this alpha.
 
 `SignalBatch(data, trial_ids, channels, sampling_rate, preprocessing_id, unit="model_scaled", patch_stride_samples=None)` requires finite floating `[batch,sensor,patch,sample]` data. IDs/channels are tuples of nonempty unique strings. Omitted stride means nonoverlapping patches. This type does not filter, scale, rereference or reorder EEG. The preprocessing ID must identify the complete recipe, excluding experimental corruption so clean/recipient pairing remains possible. Trial IDs identify the same source epoch.
@@ -90,6 +95,12 @@ One intervention per site is allowed. Sensor/patch selectors take their Cartesia
 Replacement matches donor rows by trial ID, allowing reordering or donor supersets. It requires identical site/model/layout, channel order, preprocessing ID, sampling rate, stride, patch length, units, remaining shape, dtype and device. No implicit casting, resampling or cross-model patching occurs. Subspace ablation computes `x - ((x-center) @ basis) @ basis.T`. Fit basis/center on training data separately.
 
 ## Metrics and storage
+
+`restoration_sweep(lens, clean, recipient, ...)` is the higher-level default for
+tensor-valued model outputs. It computes a separately executed clean reference
+for every trial and scores negative normalized L2 output error before delegating
+the controlled intervention grid to `patching_sweep`. See the
+[flagship workflow](restoration-workflow.md).
 
 `paired_effect(clean, recipient, patched, epsilon=1e-8)` expects scalar **higher-is-better** metrics; negate losses. It reports `delta=patched-recipient` and `recovery=delta/(clean-recipient)` only when the denominator exceeds epsilon. Recovery is not clipped; otherwise it is `None` with a reason. Callers own readouts, aggregation and statistical inference.
 

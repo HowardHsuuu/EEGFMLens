@@ -14,6 +14,10 @@ For LaBraM, use `--model labram`, its checkout and checkpoint. The example check
 the upstream Git revision before executing the supplied source. Use a trusted
 checkout. No model source, weights or EEG are downloaded by the script.
 
+The [flagship restoration workflow](restoration-workflow.md) uses the same
+preprocessing and loaders to produce a controlled layer × sensor/time sweep,
+manifest, and heatmap.
+
 A suitable public example is [EEGMMIDB S001R04](https://physionet.org/files/eegmmidb/1.0.0/S001/S001R04.edf).
 Its SHA256 is `3d161f88e1c00632585287d2ce584c2bc0f08862438eb255ea8723e00fac693d`.
 Download it separately and follow the dataset's terms.

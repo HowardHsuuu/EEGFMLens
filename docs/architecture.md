@@ -26,6 +26,7 @@ The runtime does not reconstruct attention or replace native forwards. Adapters 
 | `io.py`, `provenance.py` | Local bundles and hashes |
 | `metrics.py` | Paired effects and guarded normalization |
 | `sweep.py` | Trial-paired sweeps, controlled replacements, validity records and grouped summaries |
+| `workflows.py` | Reusable end-to-end diagnostics built from the intervention API |
 | `adapters/labram_channels.py` | Retained native channel metadata; model implementations stay external |
 
 Core depends on PyTorch and NumPy; LaBraM implementation imports and MNE I/O are optional. Hypotheses, alignment training, dataset pipelines and downloads remain outside the runtime. No placeholder adapter silently claims support.

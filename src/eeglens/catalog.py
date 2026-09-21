@@ -43,6 +43,7 @@ class ModelSpec:
     integrations: tuple[IntegrationSpec, ...]
     default_variant: str = "default"
     caveat: str | None = None
+    evidence: tuple[str, ...] = ("contract-ci", "checkpoint-evaluated")
 
     @property
     def variants(self) -> tuple[str, ...]:
@@ -59,6 +60,7 @@ _SPECS = (
         "https://github.com/wjq-learning/CBraMod",
         "b9e961003214326972c567eff390e75b0287e32a",
         (IntegrationSpec("default", CBraModAdapter),),
+        evidence=("contract-ci", "pinned-source-ci", "checkpoint-evaluated"),
     ),
     ModelSpec(
         "labram",
@@ -69,6 +71,7 @@ _SPECS = (
         "https://github.com/935963004/LaBraM",
         "c431221e6cfd23dbfa9950e0180682fb322b0548",
         (IntegrationSpec("default", LaBraMAdapter, optional_options=("output",)),),
+        evidence=("contract-ci", "pinned-source-ci", "checkpoint-evaluated"),
     ),
     ModelSpec(
         "eegpt",
@@ -79,6 +82,7 @@ _SPECS = (
         "https://github.com/BINE022/EEGPT",
         "a0e0a8fad729e2ecf4eedb3a81548a6e6d48a705",
         (IntegrationSpec("default", EEGPTAdapter),),
+        evidence=("contract-ci", "pinned-source-ci", "checkpoint-evaluated"),
     ),
     ModelSpec(
         "biot",
@@ -87,8 +91,9 @@ _SPECS = (
         "200 Hz; declared complete checkpoint channel vocabulary",
         "whole activation or explicit raw axis",
         "https://github.com/ycq091044/BIOT",
-        "validated source SHA256 2bba53052a93a005033b27ef89f20037fd7894780ce9da130b823c7c73029e01",
+        "d138e32634e52ae9fa6ec98ac9c4087b14ca869a",
         (IntegrationSpec("default", BIOTAdapter, required_options=("channels",)),),
+        evidence=("contract-ci", "pinned-source-ci", "checkpoint-evaluated"),
     ),
     ModelSpec(
         "bendr",
@@ -130,6 +135,7 @@ _SPECS = (
         "https://github.com/yuchen2199/CSBrain",
         "185aee55b24d0410a830df8dd08d03f675616998",
         (IntegrationSpec("default", CSBrainAdapter, required_options=("channels",)),),
+        evidence=("contract-ci", "pinned-source-ci", "checkpoint-evaluated"),
     ),
     ModelSpec(
         "neurorvq",
@@ -168,6 +174,7 @@ _SPECS = (
             ),
         ),
         caveat="Native evaluation uses dropout; pair RNG when comparing runs.",
+        evidence=("contract-ci", "pinned-source-ci", "checkpoint-evaluated"),
     ),
     ModelSpec(
         "steegformer",
@@ -184,6 +191,7 @@ _SPECS = (
                 required_options=("channels", "channel_mapping"),
             ),
         ),
+        evidence=("contract-ci", "pinned-source-ci", "checkpoint-evaluated"),
     ),
 )
 
@@ -264,6 +272,7 @@ def connect(model: nn.Module, family: str, *, variant: str | None = None, model_
             "native_model_class": f"{type(model).__module__}.{type(model).__qualname__}",
             "upstream": spec.upstream,
             "integration_reference": spec.reference,
+            "catalog_evidence": spec.evidence,
         }
     )
     return lens

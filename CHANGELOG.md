@@ -8,6 +8,14 @@
 - Document every family's native component, required adapter options, input
   contract and physical-selection boundary in one table.
 - Run the offline model catalog in installed-wheel verification.
+- Add `restoration_sweep` and a flagship workflow that emits a controlled sweep,
+  audit manifest, and heatmap from either a deterministic demo or real EEG.
+- Expand pinned live-upstream CI from two to seven model families and expose each
+  catalog entry's maintained evidence tiers.
+- Add mypy, pre-commit, an installed-suite coverage floor, distribution auditing,
+  signed-tag release documentation, GitHub release assets, and trusted PyPI
+  publishing workflow.
+- Remove unvalidated REVE and EEGMamba sketches from the distributed source.
 - Move the sole retained third-party attribution next to its complete license in
   `LICENSES/`; no upstream model implementation is bundled.
 - Remove generated validation reports, milestone documents and machine-specific

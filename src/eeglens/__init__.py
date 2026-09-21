@@ -21,6 +21,7 @@ from .metrics import PairedEffect, paired_effect
 from .model import EEGLens, SiteCapability
 from .sweep import MatchedReplacement, SweepResult, SweepTarget, patch_grid, patching_sweep
 from .types import Activation, ActivationSite, RunResult, SignalBatch
+from .workflows import restoration_sweep
 
 __all__ = [
     "EEGLens",
@@ -66,4 +67,5 @@ __all__ = [
     "SubspaceAblation",
     "save_run",
     "load_run",
+    "restoration_sweep",
 ]

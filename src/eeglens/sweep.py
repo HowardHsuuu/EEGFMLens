@@ -6,7 +6,7 @@ import math
 import random
 from dataclasses import dataclass, field, replace
 from pathlib import Path
-from typing import Callable, Sequence
+from typing import Any, Callable, Sequence
 
 import torch
 
@@ -167,7 +167,7 @@ class SweepResult:
         Supply subject IDs to avoid treating correlated trials as independent.
         With no mapping each trial is its own group. No significance inference.
         """
-        grouped = {}
+        grouped: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
         for r in self.rows:
             if r["kind"] == "identity":
                 continue
@@ -175,7 +175,7 @@ class SweepResult:
             grouped.setdefault(key, []).append(r)
         result = []
         for (site, target, kind), rows in grouped.items():
-            values = {}
+            values: dict[str, list[float]] = {}
             for r in rows:
                 if not r["valid"]:
                     continue
@@ -327,7 +327,9 @@ def patching_sweep(
                 )
             )
             for target in targets:
-                controls = [("event", target.selection, None)]
+                controls: list[tuple[str, Selection | None, Selection | None]] = [
+                    ("event", target.selection, None)
+                ]
                 if target.off_event is not None:
                     controls.append(("off_event", target.off_event, target.selection))
                 if random_controls:

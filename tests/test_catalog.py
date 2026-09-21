@@ -29,6 +29,16 @@ def test_catalog_has_one_complete_contract_per_verified_family():
     assert all(spec.display_name and spec.component and spec.input_contract for spec in specs)
     assert all(spec.upstream.startswith("https://github.com/") for spec in specs)
     assert all(spec.reference and spec.integrations for spec in specs)
+    assert all("contract-ci" in spec.evidence for spec in specs)
+    assert {spec.family for spec in specs if "pinned-source-ci" in spec.evidence} == {
+        "cbramod",
+        "labram",
+        "eegpt",
+        "biot",
+        "csbrain",
+        "diver",
+        "steegformer",
+    }
     for spec in specs:
         assert len(spec.variants) == len(set(spec.variants))
         assert spec.default_variant in spec.variants
@@ -90,6 +100,7 @@ def test_connect_records_family_and_describes_site_capabilities():
     assert lens.manifest["variant"] == "default"
     assert lens.manifest["native_model_class"].endswith("TinyCBraMod")
     assert lens.manifest["upstream"] == model_info("cbramod").upstream
+    assert lens.manifest["catalog_evidence"] == model_info("cbramod").evidence
     capabilities = lens.capabilities()
     assert tuple(item.name for item in capabilities) == tuple(site.name for site in lens.sites())
     assert all(item.selectors == ("whole", "axis", "sensor", "patch") for item in capabilities)
