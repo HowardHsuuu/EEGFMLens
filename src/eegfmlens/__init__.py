@@ -13,6 +13,17 @@ from .adapters.labram import LaBraMAdapter
 from .adapters.neurorvq import NeuroRVQAdapter
 from .adapters.signaljepa import SignalJEPAAdapter
 from .adapters.steegformer import STEEGFormerAdapter
+from .attribution import (
+    AttributionMethod,
+    AttributionResult,
+    SpectralAttribution,
+    attribute,
+    channel_attribution,
+    patch_attribution,
+    spectral_attribution,
+    spectral_band_attribution,
+    temporal_attribution,
+)
 from .catalog import IntegrationSpec, ModelSpec, connect, model_info, supported_models
 from .circuits import PathTraceResult, path_patch
 from .diagnostics import (
@@ -26,6 +37,14 @@ from .io import load_run, save_run
 from .loading import load_cbramod, load_labram
 from .metrics import PairedEffect, paired_effect
 from .model import EEGLens, SiteCapability
+from .perturbation import (
+    BandTarget,
+    InputTarget,
+    PerturbationCurve,
+    attribution_cosine_consistency,
+    occlusion_curve,
+    spectral_perturbation_curve,
+)
 from .probes import (
     CrossCovarianceSubspace,
     LayerProbeResult,
@@ -140,4 +159,19 @@ __all__ = [
     "SAEFeatureSteering",
     "PathTraceResult",
     "path_patch",
+    "AttributionResult",
+    "AttributionMethod",
+    "SpectralAttribution",
+    "attribute",
+    "patch_attribution",
+    "channel_attribution",
+    "temporal_attribution",
+    "spectral_attribution",
+    "spectral_band_attribution",
+    "InputTarget",
+    "BandTarget",
+    "PerturbationCurve",
+    "occlusion_curve",
+    "spectral_perturbation_curve",
+    "attribution_cosine_consistency",
 ]

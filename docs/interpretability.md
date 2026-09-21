@@ -61,6 +61,55 @@ direction across groups and reports mean pairwise cosine plus a precisely define
 contrast SNR. For EEG-FM audits, groups will often be subjects. Both are descriptive;
 the study must estimate uncertainty at the subject level.
 
+## Gradient and spectral attribution
+
+`attribute` accepts an explicit scalar objective and runs each trial independently.
+It provides raw gradient, input × gradient and integrated gradients. Integrated
+gradients requires an explicit `SignalBatch` baseline with matching trial identities,
+signal geometry, preprocessing, dtype and device. The path uses trapezoidal
+integration over a caller-visible step count. The result records the input and
+baseline hashes, objective values, execution arguments and per-trial completeness
+error.
+
+Requested internal sites use the same declared adapter layouts as caching and
+intervention. For integrated gradients, each site's attribution is discrete path
+conductance: the downstream gradient is integrated against that site's activation
+change along the input path. This matters when internal activation paths are
+nonlinear. `site_multipliers` and `site_deltas` are also returned for inspection,
+but multiplying those two summaries is not the path-conductance definition.
+
+`patch_attribution`, `channel_attribution` and `temporal_attribution` preserve the
+trial axis and make signed versus absolute aggregation explicit. `spectral_attribution`
+implements the additive inverse-DFT propagation used by EEG-PRISM for input ×
+gradient or integrated gradients. It retains the raw or path-averaged gradient, so
+it does not divide by zero-valued EEG samples. Conjugate frequency pairs are combined
+into a one-sided result, and `conservation_error` compares its sum with time-domain
+attribution. Trial scope requires contiguous, nonoverlapping patches; patch scope
+keeps each patch separate.
+
+Gradient evidence in this release consists of analytic synthetic cases for input
+completeness, nonlinear-site conductance, semantic hook restoration and spectral
+conservation. A declared adapter site does not by itself certify that every upstream
+checkpoint path is differentiable. Native studies should record the exact component,
+checkpoint and objective and treat a disconnected-gradient error as an unsupported
+path, rather than silently substituting a different forward.
+
+## Perturbation faithfulness
+
+`occlusion_curve` progressively replaces caller-ordered, disjoint channel/patch
+regions with an explicit trial-matched baseline. `spectral_perturbation_curve`
+progressively removes nonoverlapping frequency bands while preserving retained-bin
+phase. Both execute trials independently and return the complete score curve plus
+area over the perturbation curve (AOPC), defined as the mean drop from the unperturbed
+score. The score must be higher-is-better. Raw AOPC values are comparable only when
+models use the same objective and score scale.
+
+Target order is part of the hypothesis. Rank regions on separate data or with a
+separately computed attribution map; ranking and evaluating on the same trials can
+inflate faithfulness. `attribution_cosine_consistency` reports a symmetric mean
+per-trial cosine matrix for already aligned maps and makes the signed/absolute choice
+explicit. Agreement is a stability diagnostic, not proof that either map is causal.
+
 ## Sparse features
 
 `TopKSAE` uses ReLU Top-K codes and unit-norm decoder directions. `train_sae` is a
@@ -94,9 +143,11 @@ papers and their public repositories:
 - [What Do EEG Foundation Models Capture from Human Brain Signals?](https://arxiv.org/abs/2605.11410) and [BrainPEC](https://github.com/Kian-Chen/BrainPEC): feature-family probing, cross-covariance erasure and residual controls.
 - [Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders](https://arxiv.org/abs/2605.13930) and its [companion repository](https://github.com/BrainCapture/mechanistic-interpretability-for-eeg-foundation-models): Top-K SAE, spectral decoding and feature interventions. The companion code is PolyForm Noncommercial; no code was copied into EEGFMLens.
 - [Beyond Accuracy: Robustness, Interpretability and Expressiveness of EEG Foundation Models](https://arxiv.org/abs/2605.17562) and its [repository](https://github.com/urbansirca/Beyond-Accuracy-Robustness-Interpretability-and-Expressiveness-of-EEG-Foundation-Models): channel perturbation, attribution and block-wise probing controls.
-- [EEG-PRISM](https://arxiv.org/abs/2608.13676) and [EEG-Xplain](https://arxiv.org/abs/2609.15687): physiologically grounded and space/time/frequency attribution directions tracked for future gradient APIs.
+- [EEG-PRISM](https://arxiv.org/abs/2608.13676): linear propagation of attribution into physiologically meaningful signal coordinates, including Fourier components.
+- [EEG-Xplain](https://arxiv.org/abs/2609.15687): gradient attribution, space/time/frequency summaries, progressive perturbation and cross-method consistency.
+- [CLT-Forge](https://arxiv.org/abs/2603.21014) and its [repository](https://github.com/LLM-Interp/CLT-Forge): cross-layer replacement models and attribution graphs. EEGFMLens does not label an ordinary SAE or hook graph as a CLT; a future implementation requires adapters to expose compatible residual inputs and component outputs plus replacement-fidelity tests.
 
 The current public API does not claim full LEACE, FOOOF/specparam decomposition,
-gradient attribution, attention LRP, Q/K/V intervention, circuit discovery or a
-cross-layer transcoder. Those names will be exposed only after their mathematical and
-native-model contracts have dedicated correctness evidence.
+attention LRP, Q/K/V intervention, automatic circuit discovery or a cross-layer
+transcoder. Those names will be exposed only after their mathematical and native-model
+contracts have dedicated correctness evidence.

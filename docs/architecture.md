@@ -11,7 +11,9 @@ RunResult: native output, cache, execution evidence
                 ↓
 public paired sweeps / diagnostics / descriptive summaries
                 ↓
-composable spectral edits / probes / SAE features / path tests
+gradient attribution / spectral edits / perturbation faithfulness
+                ↓
+composable probes / SAE features / proposed path tests
                 ↓
 caller-owned task metrics / study design / statistical inference
 ```
@@ -25,6 +27,8 @@ The runtime does not reconstruct attention or replace native forwards. Adapters 
 | `adapters/` | Native paths and tensor semantics |
 | `interventions.py` | Replacement, selection, zero/subspace ablation |
 | `spectral.py` | EEG frequency measurement and trial-matched signal edits |
+| `attribution.py` | Input gradients, integrated gradients, site path conductance and spectral propagation |
+| `perturbation.py` | Progressive input/frequency perturbation, AOPC and map consistency |
 | `probes.py`, `diagnostics.py` | Held-out linear probes and representation diagnostics |
 | `sae.py` | Top-K SAE training, metrics and feature interventions |
 | `circuits.py` | Hypothesis-driven source-to-mediator path patching |
@@ -41,4 +45,8 @@ provenance contracts as activation-space methods; they are not a separate analys
 layer. Dataset pipelines, experimental hypotheses and statistical inference remain
 study responsibilities. No placeholder adapter silently claims support.
 
-Geometry, padding/bad-channel masks, chunked caches, gradients and functional instrumentation require future contracts. BrainOmni latent slots must not inherit electrode selectors merely because dimensions match.
+Geometry, padding/bad-channel masks, chunked caches and functional instrumentation
+require future contracts. Gradient execution is available through the public
+attribution API, with native support scoped to differentiable paths that pass
+model-specific evidence. BrainOmni latent slots must not inherit electrode selectors
+merely because dimensions match.

@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.0a13 — attribution and perturbation evidence
+
+- Add trial-independent gradient, input × gradient and integrated-gradient APIs
+  for model inputs and declared internal sites.
+- Integrate internal-site attribution as discrete path conductance, including a
+  nonlinear known-answer test that rejects the simpler invalid approximation.
+- Add channel, patch and temporal summaries plus additive inverse-DFT frequency
+  attribution with an explicit conservation diagnostic.
+- Add progressive trial-matched input occlusion and phase-preserving spectral-band
+  removal with full score curves and AOPC.
+- Add cross-method attribution consistency and provenance hashes for attribution
+  and perturbation experiments.
+- Document native gradient evidence limits and the paired-site/fidelity contract
+  required before claiming a cross-layer transcoder.
+
+See [migration instructions](docs/migration-a13.md).
+
 ## 0.1.0a12 — composable interpretability methods
 
 - Add trial- and patch-scope periodograms, band power, phase-preserving band

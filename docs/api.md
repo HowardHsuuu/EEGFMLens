@@ -58,7 +58,7 @@ Observation preserves the native output object. Interventions replace only the d
 
 Changes to parameter/buffer version, storage, device or module identity since wrapping cause errors. Create a fresh model/wrapper after training or conversion. This does not detect every `.data` mutation or arbitrary Python attribute change; do not mutate model configuration after wrapping. Custom model IDs are caller assertions; official loaders derive identity from checkpoint bytes and output configuration.
 
-Generic kwargs must be JSON-serializable and match exactly between donor and recipient. Built-in adapters reject runtime kwargs and use declared unmasked paths. Calls use `torch.no_grad()`. Training, gradient retention, stochastic replay and chunked caches are not supplied. Select sites/batch sizes to fit memory.
+Generic kwargs must be JSON-serializable and match exactly between donor and recipient. Built-in adapters reject runtime kwargs and use declared unmasked paths. Cache and intervention calls use `torch.no_grad()`; `attribute` uses a separate scoped gradient path and does not populate parameter `.grad` fields. Training, persistent gradient retention, stochastic replay and chunked caches are not supplied. Select sites/batch sizes to fit memory.
 
 ## Interventions
 
@@ -108,7 +108,21 @@ the controlled intervention grid to `patching_sweep`. See the
 
 Records contain checkpoint/source metadata where available, input hash, execution kwargs, coordinates, PyTorch version, selectors and donor/subspace hashes. They do **not** include raw inputs, fitted basis/center or preprocessing code; donor tensors must be saved separately unless included in the cache. Keep these artifacts for replay. Checksums detect changes, not authenticity.
 
-## Spectral, probe, SAE and path APIs
+## Attribution, perturbation, spectral, probe, SAE and path APIs
+
+`attribute(lens, batch, objective, ...)` computes raw gradient, input × gradient or
+integrated gradients one trial at a time. Integrated gradients requires an explicit,
+trial-aligned baseline. Requested site results use declared semantic layouts; the
+integrated form is path conductance rather than total activation change times one
+averaged gradient. `patch_attribution`, `channel_attribution` and
+`temporal_attribution` aggregate input coordinates.
+
+`spectral_attribution` maps additive input × gradient or integrated-gradient results
+through an inverse-DFT basis and reports conservation error. `occlusion_curve` and
+`spectral_perturbation_curve` evaluate ordered spatial/temporal or frequency targets
+with full per-trial score curves and AOPC. `attribution_cosine_consistency` compares
+aligned maps across methods. Definitions, leakage boundaries and native-evidence
+limits are in the [interpretability method guide](interpretability.md).
 
 `power_spectrum` and `band_power` measure patch- or trial-scope spectra.
 `scale_frequency_band` and `patch_frequency_band` return new `SignalBatch` objects

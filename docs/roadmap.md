@@ -12,6 +12,8 @@
 - Held-out ridge probes, cross-covariance subspaces, group-variance and contrast diagnostics.
 - Top-K sparse autoencoders with residual-preserving feature ablation and steering.
 - Identity-controlled source-to-mediator path patching for proposed circuits.
+- Trial-independent gradients, input × gradient, integrated gradients and nonlinear-site path conductance.
+- Additive inverse-DFT spectral attribution, progressive input/frequency perturbation, AOPC and cross-method consistency.
 - Pinned-source native checks for seven families and installed-wheel CI on three operating systems.
 - Source type checks, pre-commit hooks, distribution audits and trusted-publishing release automation.
 
@@ -20,7 +22,7 @@
 - Broader device, dtype and input-configuration validation.
 - Bounded cache storage driven by actual user workflows.
 - Additional BrainOmni configurations with independent native validation.
-- Functional attention/QKV and gradient interfaces, each with separate correctness evidence.
+- Native gradient conformance across exact model components/checkpoints and functional attention/QKV interfaces.
 - Windowed/Welch and parameterized periodic/aperiodic spectra with explicit dependency contracts.
 - Circuit graph discovery and component-level Q/K/V/MLP paths after native sites are validated.
 - Cross-layer transcoder support after feature transport and reconstruction controls are specified.

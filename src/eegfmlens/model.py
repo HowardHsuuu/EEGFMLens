@@ -5,8 +5,8 @@ import json
 import threading
 import uuid
 import weakref
-from dataclasses import dataclass
-from typing import Any
+from dataclasses import dataclass, replace
+from typing import Any, Callable
 
 import torch
 
@@ -29,12 +29,23 @@ class SiteCapability:
     expected_calls: int
 
 
+@dataclass(frozen=True)
+class _DifferentiatedRun:
+    objective: torch.Tensor
+    input_value: torch.Tensor
+    input_gradient: torch.Tensor
+    site_values: dict[str, torch.Tensor]
+    site_gradients: dict[str, torch.Tensor]
+    execution_kwargs: dict[str, Any]
+
+
 class EEGLens:
     """Wrap an existing eval-mode model with declared adapter sites.
 
     The wrapper never changes training mode or parameters. This first runtime
-    is inference-only. One run per wrapper may be active at a time. Do not run
-    the underlying model concurrently or wrap it twice.
+    provides inference runs and scoped attribution runs. One run per wrapper may
+    be active at a time. Do not run the underlying model concurrently or wrap it
+    twice.
     """
 
     def __init__(self, model, adapter, *, model_id: str | None = None):
@@ -91,6 +102,147 @@ class EEGLens:
 
     def run_with_interventions(self, batch: SignalBatch, *, interventions, sites=(), **kwargs):
         return self._run(batch, sites=sites, interventions=interventions, kwargs=kwargs)
+
+    def _differentiate(
+        self,
+        batch: SignalBatch,
+        objective: Callable[[Any, SignalBatch], torch.Tensor],
+        *,
+        sites: tuple[str, ...],
+        kwargs: dict[str, Any],
+    ) -> _DifferentiatedRun:
+        """Differentiate one trial while preserving native forward semantics.
+
+        This private primitive backs the public attribution API.  Exposed site
+        tensors are restored into the forward graph so gradients refer to the
+        exact semantic layouts returned by adapters.
+        """
+
+        if not self._lock.acquire(blocking=False):
+            raise ValidationError("Concurrent or reentrant execution is unsupported")
+        handles = []
+        try:
+            if self._state() != self._initial_state:
+                raise ValidationError(
+                    "Model state changed after wrapping; create a fresh model and wrapper"
+                )
+            if any(module.training for module in self.model.modules()):
+                raise ValidationError("Set the native model to eval() before execution")
+            if not isinstance(batch, SignalBatch) or len(batch.trial_ids) != 1:
+                raise ValidationError("Gradient execution requires a one-trial SignalBatch")
+            batch.__post_init__()
+            if not callable(objective):
+                raise ValidationError("Attribution objective must be callable")
+            try:
+                execution = json.dumps(kwargs, sort_keys=True, allow_nan=False)
+            except (TypeError, ValueError) as exc:
+                raise ValidationError(
+                    "Execution kwargs must be JSON-serializable scalars/containers"
+                ) from exc
+            if len(set(sites)) != len(sites) or any(
+                not isinstance(name, str) or not name for name in sites
+            ):
+                raise ValidationError("Gradient sites must be unique nonempty names")
+            for name in sites:
+                if not self.adapter.require(name).writable:
+                    raise ValidationError(
+                        "Activation gradients require sites with reversible writable layouts"
+                    )
+            input_value = batch.data.detach().clone().requires_grad_(True)
+            differentiable_batch = replace(batch, data=input_value)
+            self.adapter.validate(differentiable_batch)
+            calls = dict.fromkeys(sites, 0)
+            activations: dict[str, torch.Tensor] = {}
+
+            def make_hook(site):
+                def hook(module, args, output):
+                    calls[site.name] += 1
+                    if calls[site.name] > site.expected_calls:
+                        raise HookExecutionError(
+                            f"Site {site.name} executed more than "
+                            + ("once" if site.expected_calls == 1 else "expected")
+                        )
+                    if calls[site.name] - 1 != site.call_index:
+                        return None
+                    tensor = output if site.tensor_index is None else output[site.tensor_index]
+                    if not isinstance(tensor, torch.Tensor):
+                        raise ValidationError(f"Non-tensor output at {site.name}")
+                    semantic = self.adapter.expose(tensor, site, differentiable_batch)
+                    if not semantic.is_floating_point():
+                        raise ValidationError(
+                            f"Activation gradients require floating output at {site.name}"
+                        )
+                    activations[site.name] = semantic
+                    replacement = self.adapter.restore(semantic, site, tuple(tensor.shape))
+                    if site.tensor_index is None:
+                        return replacement
+                    if isinstance(output, dict):
+                        mapping = output.copy()
+                        mapping[site.tensor_index] = replacement
+                        return mapping
+                    if isinstance(output, tuple) and hasattr(output, "_fields"):
+                        sequence = list(output)
+                        sequence[site.tensor_index] = replacement
+                        return type(output)(*sequence)
+                    sequence = list(output)
+                    sequence[site.tensor_index] = replacement
+                    return tuple(sequence) if isinstance(output, tuple) else sequence
+
+                return hook
+
+            for name in sites:
+                site = self.adapter.require(name)
+                handles.append(
+                    self.model.get_submodule(site.module_path).register_forward_hook(
+                        make_hook(site)
+                    )
+                )
+            with torch.enable_grad():
+                output = self.adapter.forward(self.model, differentiable_batch, **kwargs)
+                missing = [
+                    name
+                    for name, count in calls.items()
+                    if count != self.adapter.require(name).expected_calls
+                ]
+                if missing:
+                    raise HookExecutionError(f"Declared sites did not execute: {missing}")
+                value = objective(output, differentiable_batch)
+                if (
+                    not isinstance(value, torch.Tensor)
+                    or value.shape not in {(), (1,)}
+                    or not value.is_floating_point()
+                    or not torch.isfinite(value).all()
+                ):
+                    raise ValidationError(
+                        "Attribution objective must return one finite floating value per trial"
+                    )
+                targets = [input_value, *(activations[name] for name in sites)]
+                gradients = torch.autograd.grad(value.sum(), targets, allow_unused=True)
+            if any(gradient is None for gradient in gradients):
+                unused = [
+                    "input" if index == 0 else sites[index - 1]
+                    for index, gradient in enumerate(gradients)
+                    if gradient is None
+                ]
+                raise ValidationError(f"Objective is disconnected from gradient targets: {unused}")
+            resolved_gradients = tuple(gradient for gradient in gradients if gradient is not None)
+            if self._state() != self._initial_state:
+                raise ValidationError("Model state mutated during gradient execution")
+            return _DifferentiatedRun(
+                value.detach().reshape(1),
+                input_value.detach().clone(),
+                resolved_gradients[0].detach().clone(),
+                {name: activations[name].detach().clone() for name in sites},
+                {
+                    name: resolved_gradients[index + 1].detach().clone()
+                    for index, name in enumerate(sites)
+                },
+                json.loads(execution),
+            )
+        finally:
+            for handle in handles:
+                handle.remove()
+            self._lock.release()
 
     def _run(self, batch, *, sites, interventions, kwargs):
         if not self._lock.acquire(blocking=False):

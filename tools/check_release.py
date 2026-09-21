@@ -56,6 +56,8 @@ def audit_distributions(dist, version):
             "eegfmlens/catalog.py",
             "eegfmlens/workflows.py",
             "eegfmlens/spectral.py",
+            "eegfmlens/attribution.py",
+            "eegfmlens/perturbation.py",
             "eegfmlens/probes.py",
             "eegfmlens/sae.py",
             "eegfmlens/circuits.py",
@@ -83,6 +85,7 @@ def audit_distributions(dist, version):
             "/docs/assets/eegfmlens-hero.png",
             "/docs/restoration-workflow.md",
             "/docs/interpretability.md",
+            "/docs/migration-a13.md",
             "/examples/interpretability_methods.py",
             "/tools/check_release.py",
         ):

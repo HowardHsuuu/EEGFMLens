@@ -13,9 +13,9 @@ outputs, and applies trial-paired replacements, ablations and patching sweeps.
 Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
 Model implementations, checkpoints and data are supplied separately.
 
-**Status: 0.1.0a12, public source alpha.** CPU/float32 is the validated native-model
+**Status: 0.1.0a13, public source alpha.** CPU/float32 is the validated native-model
 execution target. This repository does not claim a PyPI release. See
-[what changed in a12](docs/migration-a12.md).
+[what changed in a13](docs/migration-a13.md).
 
 ## Install
 
@@ -97,6 +97,10 @@ also have strict checkpoint helpers accepting external constructors. See
 - Replace donors by trial ID; select verified sensor/patch coordinates or explicit raw axes.
 - Zero activations or erase a supplied feature subspace.
 - Measure and patch EEG frequency bands in amplitude, phase or full complex spectrum.
+- Attribute objectives to input samples and declared internal sites with gradients,
+  input × gradient, integrated gradients and path conductance.
+- Propagate additive attribution into EEG frequency coordinates and evaluate it with
+  progressive channel/patch or frequency-band perturbation curves.
 - Fit held-out layer-wise ridge probes and concept-associated representation subspaces.
 - Audit group variance and cross-group condition-direction consistency.
 - Train Top-K sparse autoencoders and ablate or steer individual SAE features.
@@ -111,8 +115,10 @@ NeuroRVQ, SignalJEPA, DIVER-1 and ST-EEGFormer**. Coverage is component-specific
 some internal axes have no validated electrode/time mapping. BrainOmni and DIVER
 require paired RNG in the tested paths. [Coverage and limitations](docs/model-coverage.md).
 
-Individual heads, QKV editing, gradients, GPU/mixed precision, compiled execution
-and cross-model activation transport are not validated public capabilities.
+Individual heads, QKV editing, GPU/mixed precision, compiled execution and
+cross-model activation transport are not validated public capabilities. Gradient
+methods have analytic synthetic evidence; model-family-specific gradient support
+must be established on each exact native component and checkpoint.
 
 ## Interpretability methods
 
@@ -124,6 +130,8 @@ caches, probes, SAE features, restoration sweeps or a hypothesized circuit path.
 | Question | Public methods |
 |---|---|
 | Which signal property changes the model? | periodograms, band power, phase-preserving band scaling, trial-matched amplitude/phase/complex spectral patching |
+| Which input coordinates support an objective? | gradient, input × gradient, integrated gradients, channel/time aggregation, additive frequency attribution |
+| Is an attribution map behaviorally faithful? | progressive channel/patch occlusion, spectral-band removal, AOPC, cross-method cosine consistency |
 | Where is information represented? | layer-wise ridge probes, group-variance decomposition, condition-direction consistency |
 | Does the model use that representation? | cross-covariance subspace fit + `SubspaceAblation`, activation restoration |
 | Can a sparse feature mediate behavior? | Top-K SAE training/metrics, feature ablation and steering |
@@ -133,9 +141,11 @@ The implementations draw method definitions and controls from
 [FMScope / *The Identity Trap*](https://arxiv.org/abs/2606.06647),
 [BrainPEC / *What Do EEG Foundation Models Capture?*](https://arxiv.org/abs/2605.11410),
 [*Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders*](https://arxiv.org/abs/2605.13930),
-and [*Beyond Accuracy*](https://arxiv.org/abs/2605.17562). The package also tracks
-signal-space attribution directions from [EEG-PRISM](https://arxiv.org/abs/2608.13676)
-and [EEG-Xplain](https://arxiv.org/abs/2609.15687). See the
+[*Beyond Accuracy*](https://arxiv.org/abs/2605.17562),
+[EEG-PRISM](https://arxiv.org/abs/2608.13676), and
+[EEG-Xplain](https://arxiv.org/abs/2609.15687). Circuit design also follows the
+replacement-fidelity boundary made explicit by
+[CLT-Forge](https://arxiv.org/abs/2603.21014). See the
 [method guide](docs/interpretability.md) for exact semantics, controls, omissions
 and clean-room implementation provenance.
 

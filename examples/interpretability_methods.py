@@ -7,13 +7,18 @@ from eegfmlens import (
     CANONICAL_BANDS,
     ActivationSite,
     Adapter,
+    BandTarget,
     EEGLens,
     SignalBatch,
     activation_matrix,
+    attribute,
     fit_ridge_probe,
     path_patch,
     r2_score,
     scale_frequency_band,
+    spectral_attribution,
+    spectral_band_attribution,
+    spectral_perturbation_curve,
 )
 
 
@@ -77,7 +82,30 @@ def main():
         source_site="features",
         mediator_site="mediator",
     )
+    attributed = attribute(
+        lens,
+        clean,
+        lambda output, batch: output,
+        method="input_x_gradient",
+    )
+    frequency_attribution = spectral_attribution(attributed)
+    alpha_attribution = spectral_band_attribution(
+        frequency_attribution,
+        CANONICAL_BANDS["alpha"],
+    )
+    faithfulness = spectral_perturbation_curve(
+        lens,
+        clean,
+        lambda output, batch: output,
+        (
+            BandTarget("alpha", CANONICAL_BANDS["alpha"]),
+            BandTarget("beta", CANONICAL_BANDS["beta"]),
+        ),
+    )
     print(f"held-out amplitude probe R2: {held_out.mean_r2:.4f}")
+    print("alpha attribution:", alpha_attribution.flatten().tolist())
+    print("spectral attribution conservation:", frequency_attribution.conservation_error.tolist())
+    print("spectral perturbation AOPC:", faithfulness.aopc.tolist())
     print("recipient scores:", traced.recipient_score.tolist())
     print("source effects:", traced.source_effect.tolist())
     print("mediated effects:", traced.mediated_effect.tolist())
