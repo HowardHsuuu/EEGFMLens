@@ -130,6 +130,16 @@ from .spectral import (
     scale_frequency_band,
     welch_power_spectrum,
 )
+from .spectral_readout import (
+    SpectralReadout,
+    SpectralReadoutResult,
+    SpectralReadoutScope,
+    SpectralTargets,
+    SpectralTargetTransform,
+    activation_spectral_matrix,
+    amplitude_spectral_targets,
+    fit_spectral_readout,
+)
 from .sweep import MatchedReplacement, SweepResult, SweepTarget, patch_grid, patching_sweep
 from .types import Activation, ActivationSite, RunResult, SignalBatch, SignalTransform
 from .workflows import restoration_sweep
@@ -190,6 +200,14 @@ __all__ = [
     "scale_frequency_band",
     "patch_frequency_band",
     "welch_power_spectrum",
+    "SpectralTargets",
+    "SpectralReadoutScope",
+    "SpectralTargetTransform",
+    "SpectralReadout",
+    "SpectralReadoutResult",
+    "amplitude_spectral_targets",
+    "activation_spectral_matrix",
+    "fit_spectral_readout",
     "RidgeProbe",
     "ProbeScore",
     "LayerProbeResult",

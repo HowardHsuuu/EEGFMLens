@@ -235,6 +235,41 @@ inflate faithfulness. `attribution_cosine_consistency` reports a symmetric mean
 per-trial cosine matrix for already aligned maps and makes the signed/absolute choice
 explicit. Agreement is a stability diagnostic, not proof that either map is causal.
 
+## Activation-to-spectrum readouts
+
+`amplitude_spectral_targets` converts model-ready EEG into channel-mean one-sided
+amplitude targets. Patch rows use trial-major, patch-minor order; trial scope first
+requires contiguous nonoverlapping patches. The FFT uses explicit sample count and
+sampling rate, doubles the interior one-sided bins, and records the selected
+frequency coordinates, preprocessing identity and source-input hash. The optional
+`log1p_amplitude` transform improves dynamic range but remains specific to the input
+unit and preprocessing scale.
+
+`activation_spectral_matrix` aligns those rows with cached activation geometry.
+Physical `[batch, channel, patch, feature]` sites average their channel positions.
+`tokens` and `patch_tokens` are reshaped using the adapter's declared channel-major
+order, with CLS removed when present. Trial targets instead use an explicit ordinary,
+flattened or CLS activation pooling rule. Provenance or geometry mismatches fail.
+
+`fit_spectral_readout` fits a multi-output ridge map only on the supplied train mask
+and reports per-frequency and mean R² on both train and test rows. Create the masks at
+the subject or recording level before expanding trials into patch rows; neighboring
+patches from one recording are not independent held-out evidence. Constant target
+frequencies are rejected because their R² is undefined.
+
+`direction_signature` multiplies an activation-space direction by the fitted linear
+map. For a unit-norm SAE decoder row, the result is the readout's signed predicted
+amplitude or log-amplitude change for a one-unit move along that feature. It is not a
+measured power spectrum, and high held-out fidelity is required before interpretation.
+`band_signature` averages those predicted changes over a declared frequency band.
+
+For causal follow-up, `sae_feature_sweep` accepts ordinary output `metrics` and
+`run_metrics` over explicitly named `cache_sites`. A run metric can apply the fixed
+spectral readout to the post-intervention activation while an output metric measures
+task behavior. This tests whether a ranked feature set changes its predicted spectral
+property selectively; it does not turn the readout association into physiology by
+itself.
+
 ## Sparse features
 
 `TopKSAE` uses ReLU Top-K codes and unit-norm decoder directions. `train_sae` is a
@@ -268,10 +303,11 @@ include random-feature rankings.
 `sae_feature_sweep` implements that controlled comparison without assigning meaning to
 the metrics. It cumulatively ablates or target-centroid clamps a supplied feature
 ranking, executes each trial and feature count from the original activation, and stores
-the raw `[trial, step]` score curves. A mapping of named metric callbacks can therefore
-combine a task score with EEG-derived readouts, spectral-decoder outputs or other
-off-target behaviors in the same intervention experiment. Every callback must return
-one finite floating score for the current trial.
+the raw `[trial, step]` score curves. Output metrics receive the native model output;
+run metrics can inspect post-intervention activations in explicitly requested cache
+sites. The two forms can therefore combine a task score with an EEG-derived readout or
+another off-target behavior in the same intervention experiment. Every callback must
+return one finite floating score for the current trial.
 
 Seeded controls use uniform random permutations of the complete SAE dictionary at the
 same cumulative counts. The actual permutations and baseline column are retained.
@@ -322,7 +358,7 @@ papers and their public repositories:
 - [EEG Foundation Models for BCI Learn Diverse Features of Electrophysiology](https://arxiv.org/abs/2506.01867): probing of individual variability and electrophysiological features, including alpha activity. EEGFMLens keeps feature extraction and subject-aware splitting separate.
 - [LEACE: Perfect Linear Concept Erasure in Closed Form](https://arxiv.org/abs/2306.03819) and its [reference implementation](https://github.com/EleutherAI/concept-erasure): covariance-aware affine concept erasure and same-rank random-subspace controls. EEGFMLens implements the published closed-form operator independently and exposes explicit reference-fit and intervention objects.
 - [TCAV: Interpretability Beyond Feature Attribution](https://proceedings.mlr.press/v80/kim18d.html): linear concept directions and directional sensitivity of a class objective. EEGFMLens exposes a held-out ridge CAV, native-site gradients, raw sensitivities and a random-label null; study-level inference remains explicit.
-- [Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders](https://arxiv.org/abs/2605.13930) and its [companion repository](https://github.com/BrainCapture/mechanistic-interpretability-for-eeg-foundation-models): Top-K SAE, spectral decoding and feature interventions. The companion code is PolyForm Noncommercial; no code was copied into EEGFMLens.
+- [Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders](https://arxiv.org/abs/2605.13930) and its [companion repository](https://github.com/BrainCapture/mechanistic-interpretability-for-eeg-foundation-models): Top-K SAE, spectral decoding and feature interventions. EEGFMLens implements an independent held-out linear amplitude readout with explicit row alignment and direction effects; it does not claim the paper's nonlinear amplitude/phase decoder. The companion code is PolyForm Noncommercial; no code was copied into EEGFMLens.
 - [Beyond Accuracy: Robustness, Interpretability and Expressiveness of EEG Foundation Models](https://arxiv.org/abs/2605.17562) and its [repository](https://github.com/urbansirca/Beyond-Accuracy-Robustness-Interpretability-and-Expressiveness-of-EEG-Foundation-Models): channel perturbation, attribution and block-wise probing controls.
 - [EEG-PRISM](https://arxiv.org/abs/2608.13676): linear propagation of attribution into physiologically meaningful frequency and source coordinates. EEGFMLens exposes both mappings and makes inverse reconstruction error explicit.
 - [EEG-Xplain](https://arxiv.org/abs/2609.15687): gradient attribution, space/time/frequency summaries, progressive perturbation and cross-method consistency.

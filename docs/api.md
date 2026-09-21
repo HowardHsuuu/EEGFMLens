@@ -149,6 +149,13 @@ limits are in the [interpretability method guide](interpretability.md).
 `scale_frequency_band` and `patch_frequency_band` return new `SignalBatch` objects
 that can be passed directly to `EEGLens`. Spectral donor rows align by trial ID.
 
+`amplitude_spectral_targets` produces channel-mean one-sided amplitude or log-amplitude
+targets with explicit trial/patch coordinates and FFT geometry.
+`activation_spectral_matrix` aligns a cached physical or channel-major token layout
+to those rows. `fit_spectral_readout` fits on an explicit train mask, reports train
+and held-out per-frequency R², and exposes signed direction and band signatures in
+the declared target coordinate system.
+
 `time_domain_features` and `spectral_features` return named `EEGFeatureSet`
 records; `.matrix()` makes their aggregation explicit for probing. Sensor-space
 relationships are available through `channel_correlation` and `band_connectivity`.
@@ -179,7 +186,9 @@ concept rankings and residual-preserving interventions. `sae_feature_sweep` exec
 a prespecified cumulative feature ranking with ablation or reference-code clamping,
 retains `[trial, step]` scores for every named metric and evaluates seeded random
 feature rankings at the same counts. Metric scale, direction and scientific meaning
-remain caller declarations. `path_patch` composes
+remain caller declarations. Output metrics receive the native output; optional
+`run_metrics` receive the complete `RunResult` and may inspect only the sites named
+in `cache_sites`, including the post-intervention activation. `path_patch` composes
 two activation replacements to test a declared source-to-mediator route. Exact
 definitions and interpretation boundaries are in the
 [interpretability method guide](interpretability.md).

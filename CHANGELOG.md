@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.0a19 — activation-to-spectrum readouts
+
+- Add channel-mean one-sided amplitude and log-amplitude targets with explicit
+  trial/patch row coordinates, FFT geometry, input hash and preprocessing identity.
+- Align physical and channel-major token activations with patch targets, or use
+  explicit trial pooling for trial-level spectral readouts.
+- Fit multi-output ridge readouts on caller-declared disjoint masks and report
+  held-out per-frequency R² before interpreting activation or SAE directions.
+- Decode a direction as the signed predicted spectral change per activation-unit
+  step, including band summaries in the declared target coordinate system.
+- Extend SAE feature sweeps with `run_metrics` and explicit `cache_sites`, enabling
+  learned readouts to score post-intervention internal states alongside model outputs.
+- Add analytic alignment, readout, direction and composed intervention tests plus an
+  installed-wheel example.
+
+See [migration instructions](docs/migration-a19.md).
+
 ## 0.1.0a18 — controlled SAE feature sweeps
 
 - Add `sae_feature_sweep` for cumulative ranked feature ablation or reference-code

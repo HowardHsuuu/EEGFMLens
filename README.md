@@ -13,9 +13,9 @@ outputs, and applies trial-paired replacements, ablations and patching sweeps.
 Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
 Model implementations, checkpoints and data are supplied separately.
 
-**Status: 0.1.0a18, public source alpha.** CPU/float32 is the validated native-model
+**Status: 0.1.0a19, public source alpha.** CPU/float32 is the validated native-model
 execution target. This repository does not claim a PyPI release. See
-[what changed in a18](docs/migration-a18.md).
+[what changed in a19](docs/migration-a19.md).
 
 ## Install
 
@@ -100,6 +100,8 @@ also have strict checkpoint helpers accepting external constructors. See
 - Measure and patch EEG frequency bands in amplitude, phase or full complex spectrum.
 - Compute Welch PSDs, named time/frequency descriptors, channel correlation and
   band-limited PLI, PLV and magnitude-squared coherence.
+- Fit held-out activation-to-amplitude-spectrum readouts with exact trial/patch row
+  alignment, then decode activation or SAE directions into signed spectral changes.
 - Fit a periodic/aperiodic decomposition on a reference cohort and reuse it as a
   phase-preserving signal intervention through the optional dependency group.
 - Attribute objectives to input samples and declared internal sites with gradients,
@@ -150,6 +152,7 @@ caches, probes, SAE features, restoration sweeps or a hypothesized circuit path.
 |---|---|
 | Which signal property changes the model? | periodograms, band power, phase-preserving band scaling, trial-matched amplitude/phase/complex spectral patching |
 | Which named EEG properties are present? | Welch PSD, Hjorth/time descriptors, band power/entropy/centroid/edge, correlation, PLI, PLV, magnitude-squared coherence |
+| What amplitude structure can an activation or feature direction predict? | aligned trial/patch spectral targets, held-out ridge readout, per-frequency R² and direction/band signatures |
 | Does periodic or aperiodic structure carry an effect? | reference-fitted FOOOF decomposition and reusable component removal |
 | Which input coordinates support an objective? | gradient, input × gradient, integrated gradients, channel/time aggregation, additive frequency attribution |
 | Which estimated neural sources support an objective? | source-space propagation through a supplied source delta and EEG forward matrix, with inverse diagnostics |
@@ -189,6 +192,7 @@ python examples/cross_model_analysis.py
 python examples/concept_erasure.py
 python examples/concept_attribution.py
 python examples/feature_intervention_sweep.py
+python examples/spectral_readout.py
 python examples/source_attribution.py
 ```
 

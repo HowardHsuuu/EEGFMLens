@@ -105,7 +105,8 @@ def test_ranked_feature_ablation_has_known_effect_and_seeded_random_controls():
     assert repeated.random_rankings == result.random_rankings
     assert result.trial_ids == batch.trial_ids
     assert result.metadata["execution_batch_size"] == 1
-    assert result.metadata["metric_names"] == ("target", "off_target")
+    assert result.metadata["output_metric_names"] == ("target", "off_target")
+    assert result.metadata["run_metric_names"] == ()
     assert len(result.metadata["input_sha256"]) == 64
     assert len(result.metadata["sae"]["decoder_weight_sha256"]) == 64
     assert not lens.model.hidden._forward_hooks
@@ -212,3 +213,26 @@ def test_feature_sweep_rejects_read_only_sites_before_model_execution():
         assert calls == []
     finally:
         handle.remove()
+
+
+def test_feature_sweep_run_metric_reads_explicit_post_intervention_cache():
+    lens, batch, sae, _ = fixture()
+    result = sae_feature_sweep(
+        lens,
+        batch,
+        "hidden",
+        sae,
+        (0,),
+        (0, 1),
+        {},
+        run_metrics={"cached_feature": lambda run, current: run.cache["hidden"].tensor[:, 0, 0, 0]},
+        cache_sites=("hidden",),
+    )
+    torch.testing.assert_close(
+        result.scores["cached_feature"],
+        torch.tensor([[3.0, 0.0], [4.0, 0.0]], dtype=torch.float64),
+    )
+    assert result.metadata["output_metric_names"] == ()
+    assert result.metadata["run_metric_names"] == ("cached_feature",)
+    assert result.metadata["metric_names"] == ("cached_feature",)
+    assert result.metadata["cache_sites"] == ("hidden",)

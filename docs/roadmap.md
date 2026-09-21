@@ -9,13 +9,15 @@
 - Channel/time patching sweeps with per-trial matching and explicit invalid-control diagnostics.
 - A complete activation-restoration workflow with auditable reports and figures.
 - Trial- and patch-scope spectral measurement plus amplitude/phase/complex band interventions.
+- Held-out activation-to-amplitude-spectrum readouts with trial/patch alignment,
+  per-frequency fidelity and direction signatures.
 - Held-out ridge probes, Euclidean cross-covariance subspaces, covariance-aware
   LEACE with same-rank random controls, group-variance and contrast diagnostics.
 - Top-K sparse autoencoders with residual-preserving feature ablation and steering.
 - Held-out ridge CAVs, native-gradient TCAV with random-label nulls, descriptive SAE
   concept profiles and target-centroid code clamping.
 - Cumulative SAE feature ablation/clamping curves with named target/off-target metrics
-  and seeded full-dictionary random-ranking controls.
+  and seeded full-dictionary random-ranking controls, including cached-state metrics.
 - Identity-controlled source-to-mediator path patching for proposed circuits.
 - Trial-independent gradients, input × gradient, integrated gradients and nonlinear-site path conductance.
 - Additive inverse-DFT spectral and forward-model source attribution with explicit

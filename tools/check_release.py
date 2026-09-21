@@ -56,6 +56,7 @@ def audit_distributions(dist, version):
             "eegfmlens/catalog.py",
             "eegfmlens/workflows.py",
             "eegfmlens/spectral.py",
+            "eegfmlens/spectral_readout.py",
             "eegfmlens/attribution.py",
             "eegfmlens/perturbation.py",
             "eegfmlens/features.py",
@@ -90,12 +91,13 @@ def audit_distributions(dist, version):
             "/docs/assets/eegfmlens-hero.png",
             "/docs/restoration-workflow.md",
             "/docs/interpretability.md",
-            "/docs/migration-a18.md",
+            "/docs/migration-a19.md",
             "/examples/interpretability_methods.py",
             "/examples/cross_model_analysis.py",
             "/examples/concept_erasure.py",
             "/examples/concept_attribution.py",
             "/examples/feature_intervention_sweep.py",
+            "/examples/spectral_readout.py",
             "/examples/source_attribution.py",
             "/tools/check_release.py",
         ):
@@ -123,8 +125,9 @@ def check(repository, *, tag=None, dist=None):
         "examples/concept_erasure.py",
         "examples/concept_attribution.py",
         "examples/feature_intervention_sweep.py",
+        "examples/spectral_readout.py",
         "examples/source_attribution.py",
-        "docs/migration-a18.md",
+        "docs/migration-a19.md",
         "LICENSES/README.md",
     ):
         if not (repository / name).is_file():

@@ -16,7 +16,7 @@ from .sae import (
     SAEFeatureClamping,
     TopKSAE,
 )
-from .types import SignalBatch
+from .types import RunResult, SignalBatch
 
 SAESweepMode = Literal["ablate", "clamp"]
 
@@ -92,12 +92,28 @@ def _single(batch: SignalBatch, index: int) -> SignalBatch:
 
 
 def _score_metrics(
-    metrics: tuple[tuple[str, Callable], ...], output: Any, batch: SignalBatch
+    metrics: tuple[tuple[str, Callable], ...],
+    run_metrics: tuple[tuple[str, Callable], ...],
+    run: RunResult,
+    batch: SignalBatch,
 ) -> dict[str, torch.Tensor]:
     values = {}
     for name, metric in metrics:
         with torch.no_grad():
-            value = metric(output, batch)
+            value = metric(run.output, batch)
+        if (
+            not isinstance(value, torch.Tensor)
+            or value.shape != (1,)
+            or not value.is_floating_point()
+            or not torch.isfinite(value).all()
+        ):
+            raise ValidationError(
+                f"SAE sweep metric {name!r} must return one finite floating value per trial"
+            )
+        values[name] = value.detach().clone()
+    for name, metric in run_metrics:
+        with torch.no_grad():
+            value = metric(run, batch)
         if (
             not isinstance(value, torch.Tensor)
             or value.shape != (1,)
@@ -133,22 +149,25 @@ def _run_ranking(
     ranking: tuple[int, ...],
     counts: tuple[int, ...],
     metrics: tuple[tuple[str, Callable], ...],
+    run_metrics: tuple[tuple[str, Callable], ...],
+    cache_sites: tuple[str, ...],
     mode: SAESweepMode,
     reference: SAECodeReference | None,
     selection: Selection | AxisSelection,
     kwargs: dict[str, Any],
     baseline: dict[str, torch.Tensor] | None = None,
 ) -> dict[str, torch.Tensor]:
-    rows: dict[str, list[torch.Tensor]] = {name: [] for name, _ in metrics}
+    all_metrics = (*metrics, *run_metrics)
+    rows: dict[str, list[torch.Tensor]] = {name: [] for name, _ in all_metrics}
     for trial_index in range(len(batch.trial_ids)):
         current = _single(batch, trial_index)
-        trial_values: dict[str, list[torch.Tensor]] = {name: [] for name, _ in metrics}
+        trial_values: dict[str, list[torch.Tensor]] = {name: [] for name, _ in all_metrics}
         if baseline is None:
-            run = lens.run_with_cache(current, sites=[], **kwargs)
-            values = _score_metrics(metrics, run.output, current)
+            run = lens.run_with_cache(current, sites=cache_sites, **kwargs)
+            values = _score_metrics(metrics, run_metrics, run, current)
         else:
-            values = {name: baseline[name][trial_index, :1] for name, _ in metrics}
-        for name, _ in metrics:
+            values = {name: baseline[name][trial_index, :1] for name, _ in all_metrics}
+        for name, _ in all_metrics:
             trial_values[name].append(values[name])
         for count in counts[1:]:
             edit = _intervention(
@@ -159,11 +178,16 @@ def _run_ranking(
                 reference,
                 selection,
             )
-            run = lens.run_with_interventions(current, interventions=(edit,), **kwargs)
-            values = _score_metrics(metrics, run.output, current)
-            for name, _ in metrics:
+            run = lens.run_with_interventions(
+                current,
+                interventions=(edit,),
+                sites=cache_sites,
+                **kwargs,
+            )
+            values = _score_metrics(metrics, run_metrics, run, current)
+            for name, _ in all_metrics:
                 trial_values[name].append(values[name])
-        for name, _ in metrics:
+        for name, _ in all_metrics:
             rows[name].append(torch.cat(trial_values[name]))
     return {name: torch.stack(values) for name, values in rows.items()}
 
@@ -183,6 +207,8 @@ def sae_feature_sweep(
     feature_counts: tuple[int, ...],
     metrics: Mapping[str, Callable],
     *,
+    run_metrics: Mapping[str, Callable] | None = None,
+    cache_sites: tuple[str, ...] = (),
     mode: SAESweepMode = "ablate",
     reference: SAECodeReference | None = None,
     selection: Selection | AxisSelection = Selection(),
@@ -193,8 +219,9 @@ def sae_feature_sweep(
     """Evaluate cumulative ranked SAE edits and same-count random rankings.
 
     Every trial executes independently and every step starts from the original
-    activation. Metric names and score directions are caller declarations. Fit
-    feature rankings, SAE parameters, code references and any downstream
+    activation. Output and run metric names and score directions are caller
+    declarations. Run metrics can inspect explicitly requested post-intervention
+    caches. Fit feature rankings, SAE parameters, code references and downstream
     readouts without using the evaluation trials.
     """
 
@@ -231,16 +258,31 @@ def sae_feature_sweep(
         raise ValidationError(
             "SAE feature counts must start at zero, increase, and fit the ranking"
         )
-    if (
-        not isinstance(metrics, Mapping)
-        or not metrics
-        or any(
-            not isinstance(name, str) or not name or not callable(metric)
-            for name, metric in metrics.items()
-        )
+    if not isinstance(metrics, Mapping) or any(
+        not isinstance(name, str) or not name or not callable(metric)
+        for name, metric in metrics.items()
     ):
         raise ValidationError("SAE feature sweep metrics require unique names and callables")
+    run_metrics = {} if run_metrics is None else run_metrics
+    if not isinstance(run_metrics, Mapping) or any(
+        not isinstance(name, str) or not name or not callable(metric)
+        for name, metric in run_metrics.items()
+    ):
+        raise ValidationError("SAE feature sweep run_metrics require unique names and callables")
+    if not metrics and not run_metrics:
+        raise ValidationError("SAE feature sweep requires at least one metric")
+    if set(metrics) & set(run_metrics):
+        raise ValidationError("SAE feature sweep metric names must be unique across metric kinds")
+    if (
+        not isinstance(cache_sites, tuple)
+        or len(set(cache_sites)) != len(cache_sites)
+        or any(not isinstance(name, str) or not name for name in cache_sites)
+    ):
+        raise ValidationError("SAE feature sweep cache_sites must be unique nonempty names")
+    for cache_site in cache_sites:
+        lens.adapter.require(cache_site)
     metric_items = tuple(metrics.items())
+    run_metric_items = tuple(run_metrics.items())
     if mode not in {"ablate", "clamp"}:
         raise ValidationError("SAE feature sweep mode must be ablate or clamp")
     if mode == "clamp" and not isinstance(reference, SAECodeReference):
@@ -267,6 +309,8 @@ def sae_feature_sweep(
         feature_ranking,
         feature_counts,
         metric_items,
+        run_metric_items,
+        cache_sites,
         mode,
         reference,
         selection,
@@ -286,6 +330,8 @@ def sae_feature_sweep(
             ranking,
             feature_counts,
             metric_items,
+            run_metric_items,
+            cache_sites,
             mode,
             reference,
             selection,
@@ -325,7 +371,10 @@ def sae_feature_sweep(
                 **parameter_hashes,
             },
             "reference_sha256": tensor_digest(reference.values) if reference is not None else None,
-            "metric_names": tuple(name for name, _ in metric_items),
+            "output_metric_names": tuple(name for name, _ in metric_items),
+            "run_metric_names": tuple(name for name, _ in run_metric_items),
+            "metric_names": tuple(name for name, _ in (*metric_items, *run_metric_items)),
+            "cache_sites": cache_sites,
             "selection": _selection_metadata(selection),
             "execution_kwargs": kwargs,
             "execution_batch_size": 1,
