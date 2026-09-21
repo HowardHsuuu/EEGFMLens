@@ -46,7 +46,7 @@ dev = [
 packages = ["src/eeglens"]
 
 [tool.hatch.build.targets.sdist]
-include = ["/src", "/tests", "/tools", "/examples", "/docs", "/validation/README.md", "/LICENSES", "/README.md", "/LICENSE", "/SECURITY.md", "/CONTRIBUTING.md", "/CHANGELOG.md", "/pyproject.toml"]
+include = ["/src", "/tests", "/tools", "/examples", "/docs", "/validation/README.md", "/LICENSES", "/README.md", "/LICENSE", "/CONTRIBUTING.md", "/CHANGELOG.md", "/pyproject.toml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

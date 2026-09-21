@@ -71,7 +71,6 @@ def audit_distributions(dist, version):
         _audit_names(names)
         for suffix in (
             "/README.md",
-            "/SECURITY.md",
             "/LICENSE",
             "/LICENSES/README.md",
             "/docs/restoration-workflow.md",
@@ -92,7 +91,6 @@ def check(repository, *, tag=None, dist=None):
     for name in (
         "README.md",
         "LICENSE",
-        "SECURITY.md",
         "CONTRIBUTING.md",
         "docs/releasing.md",
         "docs/restoration-workflow.md",
