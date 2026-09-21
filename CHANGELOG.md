@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.0a16 — concept attribution and selective SAE intervention
+
+- Add leakage-explicit ridge concept directions with held-out balanced accuracy.
+- Add TCAV from native internal-site gradients, including raw directional
+  sensitivities, explicit trial/position sampling units and a same-split
+  random-label permutation null.
+- Add descriptive SAE concept profiles combining feature firing-rate contrast
+  with decoder/concept-direction alignment.
+- Add reference-fitted target-centroid SAE code clamping that changes only
+  selected decoder contributions while preserving the native SAE residual.
+- Add a known-answer concept-attribution example and rejection evidence for
+  overlapping splits, partial feature-axis clamping and stale SAE references.
+
+See [migration instructions](docs/migration-a16.md).
+
 ## 0.1.0a15 — covariance-aware concept erasure
 
 - Add an independently implemented closed-form LEACE fit with explicit empirical

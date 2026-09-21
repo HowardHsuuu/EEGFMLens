@@ -12,6 +12,8 @@
 - Held-out ridge probes, Euclidean cross-covariance subspaces, covariance-aware
   LEACE with same-rank random controls, group-variance and contrast diagnostics.
 - Top-K sparse autoencoders with residual-preserving feature ablation and steering.
+- Held-out ridge CAVs, native-gradient TCAV with random-label nulls, descriptive SAE
+  concept profiles and target-centroid code clamping.
 - Identity-controlled source-to-mediator path patching for proposed circuits.
 - Trial-independent gradients, input × gradient, integrated gradients and nonlinear-site path conductance.
 - Additive inverse-DFT spectral attribution, progressive input/frequency perturbation, AOPC and cross-method consistency.

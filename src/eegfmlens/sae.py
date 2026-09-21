@@ -193,6 +193,141 @@ def train_sae(
     return SAETrainingResult(tuple(losses), sae_metrics(sae, activations))
 
 
+def _sae_parameter_hashes(sae: TopKSAE) -> tuple[tuple[str, str], ...]:
+    return tuple((name, tensor_digest(value)) for name, value in sae.state_dict().items())
+
+
+def _sae_activation_matrix(sae: TopKSAE, activations: torch.Tensor, name: str) -> torch.Tensor:
+    sae._validate(activations)
+    if activations.ndim != 2:
+        raise ValidationError(f"{name} must have shape [sample, feature]")
+    parameter = next(sae.parameters())
+    if parameter.device != activations.device or parameter.dtype != activations.dtype:
+        raise ValidationError(f"{name} must match the SAE device and dtype")
+    return activations
+
+
+def sae_feature_firing_rates(sae: TopKSAE, activations: torch.Tensor) -> torch.Tensor:
+    """Return the fraction of declared activation rows firing each SAE feature."""
+
+    if not isinstance(sae, TopKSAE):
+        raise ValidationError("sae_feature_firing_rates expects a TopKSAE")
+    activations = _sae_activation_matrix(sae, activations, "SAE firing-rate activations")
+    with torch.no_grad():
+        return (sae.encode(activations) > 0).to(activations.dtype).mean(dim=0)
+
+
+def sae_feature_alignment(sae: TopKSAE, direction: torch.Tensor) -> torch.Tensor:
+    """Cosine-align every decoder direction with one activation-space direction."""
+
+    if not isinstance(sae, TopKSAE):
+        raise ValidationError("sae_feature_alignment expects a TopKSAE")
+    parameter = next(sae.parameters())
+    if (
+        not isinstance(direction, torch.Tensor)
+        or not direction.is_floating_point()
+        or direction.shape != (sae.input_dim,)
+        or direction.device != parameter.device
+        or direction.dtype != parameter.dtype
+        or not torch.isfinite(direction).all()
+    ):
+        raise ValidationError("SAE concept direction must match the input feature axis")
+    direction_norm = torch.linalg.vector_norm(direction)
+    decoder_norms = torch.linalg.vector_norm(sae.decoder_weight, dim=1)
+    epsilon = torch.finfo(direction.dtype).eps
+    if float(direction_norm) <= epsilon or bool((decoder_norms <= epsilon).any()):
+        raise ValidationError("SAE feature alignment is undefined for a zero direction")
+    return (sae.decoder_weight @ direction) / (decoder_norms * direction_norm)
+
+
+@dataclass(frozen=True)
+class SAEConceptProfile:
+    """Descriptive firing-rate enrichment and decoder/CAV alignment."""
+
+    positive_firing_rate: torch.Tensor
+    negative_firing_rate: torch.Tensor
+    firing_rate_difference: torch.Tensor
+    decoder_alignment: torch.Tensor
+    positive_rows: int
+    negative_rows: int
+
+
+def sae_concept_profile(
+    sae: TopKSAE,
+    positive_activations: torch.Tensor,
+    negative_activations: torch.Tensor,
+    direction: torch.Tensor,
+) -> SAEConceptProfile:
+    """Describe which SAE features fire for and align with a concept.
+
+    Rows are the caller's declared sampling units. This function reports no
+    p-values because independence and exchangeability depend on the study's
+    subject/window design.
+    """
+
+    positive_activations = _sae_activation_matrix(
+        sae, positive_activations, "Positive concept activations"
+    )
+    negative_activations = _sae_activation_matrix(
+        sae, negative_activations, "Negative concept activations"
+    )
+    positive = sae_feature_firing_rates(sae, positive_activations)
+    negative = sae_feature_firing_rates(sae, negative_activations)
+    return SAEConceptProfile(
+        positive,
+        negative,
+        positive - negative,
+        sae_feature_alignment(sae, direction),
+        positive_activations.shape[0],
+        negative_activations.shape[0],
+    )
+
+
+@dataclass(frozen=True)
+class SAECodeReference:
+    """Mean SAE code fitted on a declared target/reference cohort."""
+
+    values: torch.Tensor
+    fit_rows: int
+    sae_parameter_hashes: tuple[tuple[str, str], ...]
+
+    def __post_init__(self):
+        if (
+            not isinstance(self.values, torch.Tensor)
+            or not self.values.is_floating_point()
+            or self.values.ndim != 1
+            or self.values.numel() < 1
+            or not torch.isfinite(self.values).all()
+        ):
+            raise ValidationError("SAE code reference must be a finite floating vector")
+        if type(self.fit_rows) is not int or self.fit_rows < 1:
+            raise ValidationError("SAE code reference fit_rows must be positive")
+        if (
+            not isinstance(self.sae_parameter_hashes, tuple)
+            or not self.sae_parameter_hashes
+            or any(
+                not isinstance(item, tuple)
+                or len(item) != 2
+                or not isinstance(item[0], str)
+                or not isinstance(item[1], str)
+                or len(item[1]) != 64
+                for item in self.sae_parameter_hashes
+            )
+        ):
+            raise ValidationError("SAE code reference parameter hashes are invalid")
+
+
+def fit_sae_code_reference(sae: TopKSAE, activations: torch.Tensor) -> SAECodeReference:
+    """Fit a reusable mean code on target/reference activation rows."""
+
+    if not isinstance(sae, TopKSAE):
+        raise ValidationError("fit_sae_code_reference expects a TopKSAE")
+    activations = _sae_activation_matrix(sae, activations, "SAE reference activations")
+    with torch.no_grad():
+        values = sae.encode(activations).mean(dim=0)
+    return SAECodeReference(values, activations.shape[0], _sae_parameter_hashes(sae))
+
+
 def _validate_features(sae: TopKSAE, features: tuple[int, ...]):
     if (
         not isinstance(features, tuple)
@@ -269,5 +404,54 @@ class SAEFeatureSteering:
         return {
             "features": self.features,
             "coefficients": self.coefficients,
+            "sae": _sae_provenance(self.sae),
+        }
+
+
+@dataclass(frozen=True)
+class SAEFeatureClamping:
+    """Replace selected SAE codes by a fixed target-cohort centroid.
+
+    Only the selected decoder contributions change. The native activation's
+    SAE reconstruction residual is preserved exactly.
+    """
+
+    site: str
+    sae: TopKSAE
+    features: tuple[int, ...]
+    reference: SAECodeReference
+    selection: Selection | AxisSelection = Selection()
+
+    def apply(self, current, batch, layout, model_id):
+        _validate_features(self.sae, self.features)
+        if not isinstance(self.reference, SAECodeReference):
+            raise ValidationError("SAE feature clamping requires a fitted SAECodeReference")
+        self.sae._validate(current)
+        parameter = next(self.sae.parameters())
+        if parameter.device != current.device or parameter.dtype != current.dtype:
+            raise ValidationError("SAE parameters must match activation device and dtype")
+        if (
+            self.reference.values.shape != (self.sae.n_features,)
+            or self.reference.values.device != current.device
+            or self.reference.values.dtype != current.dtype
+        ):
+            raise ValidationError("SAE code reference differs from the intervention SAE")
+        if self.reference.sae_parameter_hashes != _sae_parameter_hashes(self.sae):
+            raise ValidationError("SAE parameters changed after fitting the code reference")
+        if isinstance(self.selection, AxisSelection) and self.selection.axis == current.ndim - 1:
+            raise ValidationError(
+                "SAE feature clamping cannot select only part of the decoded feature axis"
+            )
+        indices = list(self.features)
+        codes = self.sae.encode(current)
+        difference = self.reference.values[indices] - codes[..., indices]
+        edited = current + difference @ self.sae.decoder_weight[indices]
+        return torch.where(self.selection.mask(current, batch, layout), edited, current)
+
+    def provenance(self):
+        return {
+            "features": self.features,
+            "reference_fit_rows": self.reference.fit_rows,
+            "reference_sha256": tensor_digest(self.reference.values),
             "sae": _sae_provenance(self.sae),
         }

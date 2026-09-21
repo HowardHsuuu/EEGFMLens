@@ -39,6 +39,15 @@ from .attribution import (
 )
 from .catalog import IntegrationSpec, ModelSpec, connect, model_info, supported_models
 from .circuits import PathTraceResult, path_patch
+from .concepts import (
+    ConceptDirection,
+    ConceptSampleUnit,
+    TCAVPermutationResult,
+    TCAVScore,
+    fit_concept_direction,
+    tcav_permutation_test,
+    tcav_score,
+)
 from .diagnostics import (
     ContrastConsistency,
     GroupVariance,
@@ -90,13 +99,20 @@ from .probes import (
     r2_score,
 )
 from .sae import (
+    SAECodeReference,
+    SAEConceptProfile,
     SAEFeatureAblation,
+    SAEFeatureClamping,
     SAEFeatureSteering,
     SAEMetrics,
     SAEOutput,
     SAETrainingConfig,
     SAETrainingResult,
     TopKSAE,
+    fit_sae_code_reference,
+    sae_concept_profile,
+    sae_feature_alignment,
+    sae_feature_firing_rates,
     sae_metrics,
     train_sae,
 )
@@ -197,7 +213,21 @@ __all__ = [
     "sae_metrics",
     "train_sae",
     "SAEFeatureAblation",
+    "SAEFeatureClamping",
     "SAEFeatureSteering",
+    "SAECodeReference",
+    "SAEConceptProfile",
+    "fit_sae_code_reference",
+    "sae_feature_firing_rates",
+    "sae_feature_alignment",
+    "sae_concept_profile",
+    "ConceptDirection",
+    "ConceptSampleUnit",
+    "TCAVScore",
+    "TCAVPermutationResult",
+    "fit_concept_direction",
+    "tcav_score",
+    "tcav_permutation_test",
     "PathTraceResult",
     "path_patch",
     "AttributionResult",

@@ -158,13 +158,21 @@ geometry. The high-level API requires `Activation` records, aligns exact trial-I
 sets and reports the model/site identities. A `groups` argument removes group means
 before comparison; it does not estimate uncertainty or choose exchangeability blocks.
 
+`fit_concept_direction` fits a binary ridge CAV using explicit disjoint train and
+test masks and returns held-out balanced accuracy. `tcav_score` evaluates native-site
+objective gradients along that direction with an explicit trial or position sampling
+unit. `tcav_permutation_test` adds same-split random-label CAVs without rerunning the
+model. It returns raw sensitivities and null scores; it does not infer subject-level
+exchangeability or multiple-comparison correction.
+
 `activation_matrix`, `fit_ridge_probe`, `layerwise_ridge_probe`,
 `fit_cross_covariance_subspace`, `fit_leace_eraser`,
 `fit_random_subspace_control`, `group_variance_decomposition` and
 `within_group_contrast_consistency` provide representation diagnostics and
 controlled erasure without implicit splits. `TopKSAE`, `train_sae`,
-`SAEFeatureAblation` and
-`SAEFeatureSteering` expose sparse features and interventions. `path_patch` composes
+`sae_concept_profile`, `fit_sae_code_reference`, `SAEFeatureAblation`,
+`SAEFeatureSteering` and `SAEFeatureClamping` expose sparse features, descriptive
+concept rankings and residual-preserving interventions. `path_patch` composes
 two activation replacements to test a declared source-to-mediator route. Exact
 definitions and interpretation boundaries are in the
 [interpretability method guide](interpretability.md).

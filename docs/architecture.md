@@ -32,7 +32,8 @@ The runtime does not reconstruct attention or replace native forwards. Adapters 
 | `attribution.py` | Input gradients, integrated gradients, site path conductance and spectral propagation |
 | `perturbation.py` | Progressive input/frequency perturbation, AOPC and map consistency |
 | `probes.py`, `diagnostics.py` | Held-out linear probes, concept erasers and representation diagnostics |
-| `sae.py` | Top-K SAE training, metrics and feature interventions |
+| `concepts.py` | Held-out ridge CAVs and native-gradient TCAV diagnostics |
+| `sae.py` | Top-K SAE training, concept profiles and residual-preserving feature interventions |
 | `circuits.py` | Hypothesis-driven source-to-mediator path patching |
 | `loading.py` | Strict local checkpoints and provenance |
 | `io.py`, `provenance.py` | Local bundles and hashes |

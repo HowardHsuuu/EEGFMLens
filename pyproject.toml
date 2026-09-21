@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "eegfmlens"
-version = "0.1.0a15"
+version = "0.1.0a16"
 description = "Observe and intervene on EEG foundation models with explicit tensor semantics."
 readme = "README.md"
 requires-python = ">=3.10"

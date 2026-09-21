@@ -138,6 +138,37 @@ direction across groups and reports mean pairwise cosine plus a precisely define
 contrast SNR. For EEG-FM audits, groups will often be subjects. Both are descriptive;
 the study must estimate uncertainty at the subject level.
 
+## Concept attribution
+
+`fit_concept_direction` fits a binary ridge CAV on caller-supplied training rows and
+reports balanced accuracy on a disjoint test mask. Label one defines the positive
+direction. The fit centers its inputs and targets but performs no implicit feature
+standardization. A high validation score establishes linear separability of the
+provided concept examples; it does not establish that the model uses the direction.
+Split subjects or other dependent groups before calling the function.
+
+`tcav_score` takes an `AttributionResult` computed with `method="gradient"` and dots
+the native site's objective gradient with the fixed CAV along the final feature axis.
+With `sample_unit="trial"`, positional directional derivatives are averaged within
+each trial before scoring. With `"position"`, every non-feature coordinate is treated
+as a sample. The result includes every directional sensitivity, their mean and the
+classic TCAV score: the fraction that is strictly positive. The sign fraction is
+threshold-sensitive, so inspect the raw distribution and mean rather than reporting
+the fraction alone.
+
+`tcav_permutation_test` independently permutes concept labels within the declared
+train and test splits, refits same-procedure ridge CAVs and evaluates them using the
+already computed native gradients. It preserves split class counts and reports a
+finite-sample one-tailed p-value for the classic score. This is a method-level
+random-label diagnostic. It cannot infer whether trials, windows or positions are
+exchangeable, and it does not correct a search across layers, concepts, objectives or
+seeds. Those choices and subject-level uncertainty remain part of the study.
+
+TCAV is a local directional derivative at the observed activation. A large value
+supports objective sensitivity along the fitted direction. Combine it with a fixed
+intervention such as LEACE, subspace ablation or SAE feature editing when the claim
+concerns causal use.
+
 ## Gradient and spectral attribution
 
 `attribute` accepts an explicit scalar objective and runs each trial independently.
@@ -201,6 +232,22 @@ whole activation with an imperfect reconstruction. `SAEFeatureSteering` adds fix
 multiples of unit-norm decoder directions. Runs hash every SAE parameter and record
 feature IDs and steering coefficients.
 
+`sae_concept_profile` reports feature firing rates in caller-declared positive and
+negative activation rows, their difference, and cosine alignment between each
+decoder row and a supplied activation-space concept direction. These are descriptive
+rankings. The function deliberately reports no p-values because the independent unit
+and valid exchangeability scheme depend on the EEG cohort and windowing design.
+
+`fit_sae_code_reference` computes a fixed mean code on a declared target cohort.
+`SAEFeatureClamping` moves selected codes to those target means by adding only their
+changed decoder contributions to the native activation. It therefore preserves the
+SAE reconstruction residual exactly. The reference is bound to hashes of every SAE
+parameter, and application fails if the SAE changes after fitting. A fixed-coefficient
+`SAEFeatureSteering` tests a prescribed displacement; target-centroid clamping tests a
+reference-fitted edit. Scientific studies should prespecify feature ranking, compare
+target and off-target objectives across intervention strength or feature count, and
+include random-feature rankings.
+
 ## Proposed paths
 
 `path_patch` tests one source-to-mediator hypothesis. It first patches donor state at
@@ -234,6 +281,7 @@ papers and their public repositories:
 - [The Identity Trap in EEG Foundation Models: A Diagnostic Audit](https://arxiv.org/abs/2606.06647) and [FMScope](https://github.com/Jimmy110101013/fmscope): variance, subject-direction and spectral-ablation diagnostics.
 - [What Do EEG Foundation Models Capture from Human Brain Signals?](https://arxiv.org/abs/2605.11410) and [BrainPEC](https://github.com/Kian-Chen/BrainPEC): feature-family probing, cross-covariance erasure and residual controls.
 - [LEACE: Perfect Linear Concept Erasure in Closed Form](https://arxiv.org/abs/2306.03819) and its [reference implementation](https://github.com/EleutherAI/concept-erasure): covariance-aware affine concept erasure and same-rank random-subspace controls. EEGFMLens implements the published closed-form operator independently and exposes explicit reference-fit and intervention objects.
+- [TCAV: Interpretability Beyond Feature Attribution](https://proceedings.mlr.press/v80/kim18d.html): linear concept directions and directional sensitivity of a class objective. EEGFMLens exposes a held-out ridge CAV, native-site gradients, raw sensitivities and a random-label null; study-level inference remains explicit.
 - [Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders](https://arxiv.org/abs/2605.13930) and its [companion repository](https://github.com/BrainCapture/mechanistic-interpretability-for-eeg-foundation-models): Top-K SAE, spectral decoding and feature interventions. The companion code is PolyForm Noncommercial; no code was copied into EEGFMLens.
 - [Beyond Accuracy: Robustness, Interpretability and Expressiveness of EEG Foundation Models](https://arxiv.org/abs/2605.17562) and its [repository](https://github.com/urbansirca/Beyond-Accuracy-Robustness-Interpretability-and-Expressiveness-of-EEG-Foundation-Models): channel perturbation, attribution and block-wise probing controls.
 - [EEG-PRISM](https://arxiv.org/abs/2608.13676): linear propagation of attribution into physiologically meaningful signal coordinates, including Fourier components.
