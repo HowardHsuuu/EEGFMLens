@@ -82,6 +82,11 @@ def run(wheel, repository, output, *, coverage=False):
             [sys.executable, "-I", str(repository / "examples/cross_model_analysis.py")],
             [sys.executable, "-I", str(repository / "examples/concept_erasure.py")],
             [sys.executable, "-I", str(repository / "examples/concept_attribution.py")],
+            [
+                sys.executable,
+                "-I",
+                str(repository / "examples/feature_intervention_sweep.py"),
+            ],
             [sys.executable, "-I", str(repository / "examples/source_attribution.py")],
             [
                 sys.executable,
@@ -142,6 +147,7 @@ def run(wheel, repository, output, *, coverage=False):
             cross_model_analysis="passed",
             concept_erasure="passed",
             concept_attribution="passed",
+            feature_intervention_sweep="passed",
             source_attribution="passed",
             restoration_report_sha256=sha(restoration / "report.json"),
             restoration_sweep_sha256=sha(restoration / "sweep.json"),
@@ -157,6 +163,7 @@ def run(wheel, repository, output, *, coverage=False):
                     "cross_model_analysis.py",
                     "concept_erasure.py",
                     "concept_attribution.py",
+                    "feature_intervention_sweep.py",
                     "source_attribution.py",
                 )
             },

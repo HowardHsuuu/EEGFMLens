@@ -34,6 +34,7 @@ The runtime does not reconstruct attention or replace native forwards. Adapters 
 | `probes.py`, `diagnostics.py` | Held-out linear probes, concept erasers and representation diagnostics |
 | `concepts.py` | Held-out ridge CAVs and native-gradient TCAV diagnostics |
 | `sae.py` | Top-K SAE training, concept profiles and residual-preserving feature interventions |
+| `feature_sweep.py` | Cumulative ranked SAE interventions with named metrics and random-feature controls |
 | `circuits.py` | Hypothesis-driven source-to-mediator path patching |
 | `loading.py` | Strict local checkpoints and provenance |
 | `io.py`, `provenance.py` | Local bundles and hashes |

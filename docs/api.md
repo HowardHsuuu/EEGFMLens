@@ -175,7 +175,11 @@ exchangeability or multiple-comparison correction.
 controlled erasure without implicit splits. `TopKSAE`, `train_sae`,
 `sae_concept_profile`, `fit_sae_code_reference`, `SAEFeatureAblation`,
 `SAEFeatureSteering` and `SAEFeatureClamping` expose sparse features, descriptive
-concept rankings and residual-preserving interventions. `path_patch` composes
+concept rankings and residual-preserving interventions. `sae_feature_sweep` executes
+a prespecified cumulative feature ranking with ablation or reference-code clamping,
+retains `[trial, step]` scores for every named metric and evaluates seeded random
+feature rankings at the same counts. Metric scale, direction and scientific meaning
+remain caller declarations. `path_patch` composes
 two activation replacements to test a declared source-to-mediator route. Exact
 definitions and interpretation boundaries are in the
 [interpretability method guide](interpretability.md).

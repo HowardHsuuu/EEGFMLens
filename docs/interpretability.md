@@ -265,6 +265,28 @@ reference-fitted edit. Scientific studies should prespecify feature ranking, com
 target and off-target objectives across intervention strength or feature count, and
 include random-feature rankings.
 
+`sae_feature_sweep` implements that controlled comparison without assigning meaning to
+the metrics. It cumulatively ablates or target-centroid clamps a supplied feature
+ranking, executes each trial and feature count from the original activation, and stores
+the raw `[trial, step]` score curves. A mapping of named metric callbacks can therefore
+combine a task score with EEG-derived readouts, spectral-decoder outputs or other
+off-target behaviors in the same intervention experiment. Every callback must return
+one finite floating score for the current trial.
+
+Seeded controls use uniform random permutations of the complete SAE dictionary at the
+same cumulative counts. The actual permutations and baseline column are retained.
+`mean_delta` and `integrated_mean_delta` summarize signed change from the unmodified
+model; `area_between` and `random_area_between` integrate raw differences between two
+named curves. Compare areas only when both metrics have a commensurate scale and a
+declared direction. The result does not label a feature as selective, entangled or
+causal, and random draws alone are not a valid subject-level null distribution.
+
+Fit the SAE, concept ranking, code reference and any learned metric on data disjoint
+from the evaluation trials. Preserve subject or recording blocks when estimating
+uncertainty outside the package. The sweep deliberately does not reset native model
+randomness: use an evaluated deterministic model, or control and document paired RNG
+when the native architecture is stochastic.
+
 ## Proposed paths
 
 `path_patch` tests one source-to-mediator hypothesis. It first patches donor state at

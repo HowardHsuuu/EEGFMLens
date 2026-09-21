@@ -13,9 +13,9 @@ outputs, and applies trial-paired replacements, ablations and patching sweeps.
 Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
 Model implementations, checkpoints and data are supplied separately.
 
-**Status: 0.1.0a17, public source alpha.** CPU/float32 is the validated native-model
+**Status: 0.1.0a18, public source alpha.** CPU/float32 is the validated native-model
 execution target. This repository does not claim a PyPI release. See
-[what changed in a17](docs/migration-a17.md).
+[what changed in a18](docs/migration-a18.md).
 
 ## Install
 
@@ -115,6 +115,8 @@ also have strict checkpoint helpers accepting external constructors. See
 - Audit group variance and cross-group condition-direction consistency.
 - Train Top-K sparse autoencoders, profile concept-related features, and ablate,
   steer or target-centroid clamp selected SAE codes.
+- Evaluate ranked SAE features with cumulative ablation or clamping curves, multiple
+  named output metrics and seeded random-feature rankings.
 - Test a hypothesized source-to-mediator path with identity-controlled path patching.
 - Compare trial-matched layers within or across models using linear CKA or RSA,
   with optional within-group centering to expose subject-identity similarity.
@@ -155,7 +157,7 @@ caches, probes, SAE features, restoration sweeps or a hypothesized circuit path.
 | Where is information represented? | layer-wise ridge probes, group-variance decomposition, condition-direction consistency |
 | Does the model use that representation? | Euclidean subspace removal, covariance-aware LEACE, same-rank controls, activation restoration |
 | Is an objective locally sensitive to a named concept? | held-out ridge CAV, native-site TCAV, raw directional sensitivity, random-label null |
-| Can a sparse feature mediate behavior? | Top-K SAE training/metrics, concept profiles, feature ablation, steering and target-centroid clamping |
+| Can a sparse feature mediate behavior selectively? | Top-K SAE training/metrics, concept profiles, feature ablation/steering/clamping, cumulative target/off-target curves and random-feature controls |
 | Does an effect travel through a proposed path? | source-to-mediator path patching with identity controls |
 | Do different models share trial geometry? | trial-ID-aligned linear CKA and RSA, optionally after within-group centering |
 
@@ -186,6 +188,7 @@ python examples/interpretability_methods.py
 python examples/cross_model_analysis.py
 python examples/concept_erasure.py
 python examples/concept_attribution.py
+python examples/feature_intervention_sweep.py
 python examples/source_attribution.py
 ```
 

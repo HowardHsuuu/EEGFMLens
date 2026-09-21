@@ -56,6 +56,7 @@ from .diagnostics import (
     group_variance_decomposition,
     within_group_contrast_consistency,
 )
+from .feature_sweep import SAEFeatureSweepResult, SAESweepMode, sae_feature_sweep
 from .features import (
     EEGConnectivity,
     EEGFeatureSet,
@@ -260,6 +261,9 @@ __all__ = [
     "spectral_features",
     "channel_correlation",
     "band_connectivity",
+    "SAESweepMode",
+    "SAEFeatureSweepResult",
+    "sae_feature_sweep",
     "AperiodicChannelFit",
     "AperiodicDecomposition",
     "fit_aperiodic_decomposition",

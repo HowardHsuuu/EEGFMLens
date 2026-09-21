@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0a18 — controlled SAE feature sweeps
+
+- Add `sae_feature_sweep` for cumulative ranked feature ablation or reference-code
+  clamping against any set of caller-declared native model metrics.
+- Preserve per-trial curves, run every trial and intervention count independently,
+  and compare the observed ranking with seeded full-dictionary random rankings.
+- Add signed mean-change integrals and target/off-target area summaries without
+  inferring score direction, feature meaning or a scientific taxonomy.
+- Record the exact ranking, feature counts, input/SAE/reference hashes, selector,
+  random rankings, metric names and one-trial execution contract.
+- Add analytic known-answer tests and an installed-wheel example.
+
+See [migration instructions](docs/migration-a18.md).
+
 ## 0.1.0a17 — source-space attribution
 
 - Add EEG-PRISM source-space propagation for input × gradient and integrated
