@@ -89,11 +89,12 @@ def audit_distributions(dist, version):
             "/docs/assets/eegfmlens-hero.png",
             "/docs/restoration-workflow.md",
             "/docs/interpretability.md",
-            "/docs/migration-a16.md",
+            "/docs/migration-a17.md",
             "/examples/interpretability_methods.py",
             "/examples/cross_model_analysis.py",
             "/examples/concept_erasure.py",
             "/examples/concept_attribution.py",
+            "/examples/source_attribution.py",
             "/tools/check_release.py",
         ):
             _require_suffix(names, suffix)
@@ -119,7 +120,8 @@ def check(repository, *, tag=None, dist=None):
         "examples/cross_model_analysis.py",
         "examples/concept_erasure.py",
         "examples/concept_attribution.py",
-        "docs/migration-a16.md",
+        "examples/source_attribution.py",
+        "docs/migration-a17.md",
         "LICENSES/README.md",
     ):
         if not (repository / name).is_file():

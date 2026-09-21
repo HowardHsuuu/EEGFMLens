@@ -13,6 +13,7 @@ from eegfmlens import (
     attribute,
     channel_attribution,
     patch_attribution,
+    source_attribution,
     spectral_attribution,
     spectral_band_attribution,
     temporal_attribution,
@@ -51,6 +52,11 @@ class FoldedSpatial(nn.Module):
         folded = self.spatial(folded)
         restored = folded.reshape(batch, patches, channels, features).permute(0, 2, 1, 3)
         return restored.square().flatten(1).sum(1)
+
+
+class LinearObjective(nn.Module):
+    def forward(self, data):
+        return data.flatten(1).sum(1)
 
 
 def fixture():
@@ -130,6 +136,82 @@ def test_prism_spectral_mapping_conserves_ig_and_localizes_carrier():
     outside = spectral_band_attribution(spectrum, FrequencyBand(1, 8))
     assert bool((alpha > outside * 1e6).all())
     assert spectrum.mean_over_channels().shape == (2, 33)
+
+
+def test_prism_source_mapping_conserves_exact_forward_model_and_reports_inverse_error():
+    source_delta = torch.tensor(
+        [
+            [[[1.0, -2.0, 3.0, 0.5]], [[-1.0, 4.0, 2.0, -0.5]]],
+            [[[2.0, 1.0, -1.0, 3.0]], [[0.5, -2.0, 1.0, 2.0]]],
+        ],
+        dtype=torch.float64,
+    )
+    forward = torch.tensor([[1.0, 2.0], [3.0, -1.0]], dtype=torch.float64)
+    sensor = torch.einsum("cm,bmpt->bcpt", forward, source_delta)
+    batch = SignalBatch(
+        sensor,
+        ("a", "b"),
+        ("C3", "C4"),
+        64,
+        "source-attribution-test",
+    )
+    lens = EEGLens(LinearObjective().double().eval(), Adapter([]))
+    attributed = attribute(lens, batch, objective, method="input_x_gradient")
+    mapped = source_attribution(attributed, source_delta, forward, ("left", "right"))
+
+    expected_multiplier = torch.einsum("cm,bcpt->bmpt", forward, torch.ones_like(sensor))
+    torch.testing.assert_close(mapped.source_multiplier, expected_multiplier)
+    torch.testing.assert_close(mapped.attribution, source_delta * expected_multiplier)
+    torch.testing.assert_close(
+        mapped.reconstruction_rmse,
+        torch.zeros(2, dtype=torch.float64),
+    )
+    torch.testing.assert_close(
+        mapped.relative_reconstruction_error,
+        torch.zeros(2, dtype=torch.float64),
+    )
+    torch.testing.assert_close(
+        mapped.conservation_error,
+        torch.zeros(2, dtype=torch.float64),
+    )
+    torch.testing.assert_close(
+        mapped.sum_over_time().sum(dim=1),
+        attributed.input_attribution.flatten(1).sum(dim=1),
+    )
+    assert mapped.mean_over_time().shape == (2, 2)
+    assert len(mapped.forward_sha256) == len(mapped.source_delta_sha256) == 64
+
+    approximate = source_attribution(
+        attributed,
+        source_delta * 0.5,
+        forward,
+        ("left", "right"),
+    )
+    torch.testing.assert_close(
+        approximate.relative_reconstruction_error,
+        torch.full((2,), 0.5, dtype=torch.float64),
+    )
+    assert bool((approximate.conservation_error.abs() > 0).all())
+
+
+def test_source_mapping_rejects_nonadditive_method_or_misaligned_forward_model():
+    source_delta = torch.ones(1, 2, 1, 4, dtype=torch.float64)
+    forward = torch.eye(2, dtype=torch.float64)
+    batch = SignalBatch(
+        torch.einsum("cm,bmpt->bcpt", forward, source_delta),
+        ("trial",),
+        ("C3", "C4"),
+        64,
+        "source-attribution-contract",
+    )
+    lens = EEGLens(LinearObjective().double().eval(), Adapter([]))
+    gradient = attribute(lens, batch, objective, method="gradient")
+    with pytest.raises(ValidationError, match="requires input×gradient"):
+        source_attribution(gradient, source_delta, forward, ("left", "right"))
+
+    product = attribute(lens, batch, objective, method="input_x_gradient")
+    with pytest.raises(ValidationError, match="dimensions differ"):
+        source_attribution(product, source_delta, torch.ones(1, 2), ("left", "right"))
 
 
 def test_site_integrated_attribution_follows_nonlinear_activation_path():

@@ -29,7 +29,7 @@ The runtime does not reconstruct attention or replace native forwards. Adapters 
 | `spectral.py` | EEG frequency measurement and trial-matched signal edits |
 | `features.py`, `aperiodic.py` | Named EEG descriptors, connectivity and optional fitted spectral components |
 | `alignment.py` | Trial-matched CKA/RSA within and across model representations |
-| `attribution.py` | Input gradients, integrated gradients, site path conductance and spectral propagation |
+| `attribution.py` | Input gradients, integrated gradients, site path conductance, spectral and source propagation |
 | `perturbation.py` | Progressive input/frequency perturbation, AOPC and map consistency |
 | `probes.py`, `diagnostics.py` | Held-out linear probes, concept erasers and representation diagnostics |
 | `concepts.py` | Held-out ridge CAVs and native-gradient TCAV diagnostics |

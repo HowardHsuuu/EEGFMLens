@@ -13,9 +13,9 @@ outputs, and applies trial-paired replacements, ablations and patching sweeps.
 Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
 Model implementations, checkpoints and data are supplied separately.
 
-**Status: 0.1.0a16, public source alpha.** CPU/float32 is the validated native-model
+**Status: 0.1.0a17, public source alpha.** CPU/float32 is the validated native-model
 execution target. This repository does not claim a PyPI release. See
-[what changed in a16](docs/migration-a16.md).
+[what changed in a17](docs/migration-a17.md).
 
 ## Install
 
@@ -106,6 +106,8 @@ also have strict checkpoint helpers accepting external constructors. See
   input × gradient, integrated gradients and path conductance.
 - Propagate additive attribution into EEG frequency coordinates and evaluate it with
   progressive channel/patch or frequency-band perturbation curves.
+- Propagate additive attribution into a caller-supplied EEG source solution while
+  reporting forward reconstruction and attribution-conservation error.
 - Fit held-out layer-wise ridge probes, Euclidean concept subspaces and
   covariance-aware LEACE erasers with same-rank random controls.
 - Fit held-out ridge concept directions and measure objective sensitivity with
@@ -148,6 +150,7 @@ caches, probes, SAE features, restoration sweeps or a hypothesized circuit path.
 | Which named EEG properties are present? | Welch PSD, Hjorth/time descriptors, band power/entropy/centroid/edge, correlation, PLI, PLV, magnitude-squared coherence |
 | Does periodic or aperiodic structure carry an effect? | reference-fitted FOOOF decomposition and reusable component removal |
 | Which input coordinates support an objective? | gradient, input × gradient, integrated gradients, channel/time aggregation, additive frequency attribution |
+| Which estimated neural sources support an objective? | source-space propagation through a supplied source delta and EEG forward matrix, with inverse diagnostics |
 | Is an attribution map behaviorally faithful? | progressive channel/patch occlusion, spectral-band removal, AOPC, cross-method cosine consistency |
 | Where is information represented? | layer-wise ridge probes, group-variance decomposition, condition-direction consistency |
 | Does the model use that representation? | Euclidean subspace removal, covariance-aware LEACE, same-rank controls, activation restoration |
@@ -161,6 +164,8 @@ The implementations draw method definitions and controls from
 [BrainPEC / *What Do EEG Foundation Models Capture?*](https://arxiv.org/abs/2605.11410),
 [*Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders*](https://arxiv.org/abs/2605.13930),
 [*Beyond Accuracy*](https://arxiv.org/abs/2605.17562),
+[EEG Foundation Models for BCI Learn Diverse Features of Electrophysiology](https://arxiv.org/abs/2506.01867),
+[From Clever Hans to Scientific Discovery](https://arxiv.org/abs/2605.11885),
 [EEG-PRISM](https://arxiv.org/abs/2608.13676), and
 [EEG-Xplain](https://arxiv.org/abs/2609.15687). Circuit design also follows the
 replacement-fidelity boundary made explicit by
@@ -181,6 +186,7 @@ python examples/interpretability_methods.py
 python examples/cross_model_analysis.py
 python examples/concept_erasure.py
 python examples/concept_attribution.py
+python examples/source_attribution.py
 ```
 
 ## Learn more

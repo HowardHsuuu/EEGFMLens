@@ -13,6 +13,7 @@ python examples/model_catalog.py
 python examples/cross_model_analysis.py
 python examples/concept_erasure.py
 python examples/concept_attribution.py
+python examples/source_attribution.py
 python examples/restoration_workflow.py --demo --output /tmp/eegfmlens-restoration
 python -m build
 python tools/check_release.py --dist dist
@@ -41,7 +42,7 @@ coverage to that commit. Weights are not silently downloaded in CI.
 To verify a built wheel in a separate environment with pytest installed:
 
 ```bash
-python -m pip install /path/to/eegfmlens-0.1.0a16-py3-none-any.whl pytest
+python -m pip install /path/to/eegfmlens-0.1.0a17-py3-none-any.whl pytest
 python -I tools/check_installed.py --dist /path/to/dist --output /path/to/new-report.json
 ```
 

@@ -135,7 +135,10 @@ averaged gradient. `patch_attribution`, `channel_attribution` and
 `temporal_attribution` aggregate input coordinates.
 
 `spectral_attribution` maps additive input × gradient or integrated-gradient results
-through an inverse-DFT basis and reports conservation error. `occlusion_curve` and
+through an inverse-DFT basis and reports conservation error. `source_attribution`
+uses a caller-supplied source delta and `[channel, source]` EEG forward matrix and
+reports forward reconstruction plus attribution-conservation error; it does not solve
+the inverse problem. `occlusion_curve` and
 `spectral_perturbation_curve` evaluate ordered spatial/temporal or frequency targets
 with full per-trial score curves and AOPC. `attribution_cosine_consistency` compares
 aligned maps across methods. Definitions, leakage boundaries and native-evidence

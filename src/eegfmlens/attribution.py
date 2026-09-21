@@ -57,6 +57,38 @@ class SpectralAttribution:
         return self.attribution.mean(dim=1)
 
 
+@dataclass(frozen=True)
+class SourceAttribution:
+    """Additive attribution in a caller-supplied EEG source space.
+
+    Tensors use ``[trial, source, patch, sample]``. The supplied forward model
+    maps source deltas back to the channel order recorded by the attribution
+    result; EEGFMLens does not estimate the inverse solution.
+    """
+
+    attribution: torch.Tensor
+    source_delta: torch.Tensor
+    source_multiplier: torch.Tensor
+    source_names: tuple[str, ...]
+    channels: tuple[str, ...]
+    trial_ids: tuple[str, ...]
+    reconstruction_rmse: torch.Tensor
+    relative_reconstruction_error: torch.Tensor
+    conservation_error: torch.Tensor
+    forward_sha256: str
+    source_delta_sha256: str
+
+    def sum_over_time(self) -> torch.Tensor:
+        """Return signed additive attribution with shape ``[trial, source]``."""
+
+        return self.attribution.flatten(2).sum(dim=-1)
+
+    def mean_over_time(self) -> torch.Tensor:
+        """Return signed mean attribution with shape ``[trial, source]``."""
+
+        return self.attribution.flatten(2).mean(dim=-1)
+
+
 def _single(batch: SignalBatch, index: int) -> SignalBatch:
     return replace(batch, data=batch.data[index : index + 1], trial_ids=(batch.trial_ids[index],))
 
@@ -315,6 +347,94 @@ def spectral_attribution(
         result.trial_ids,
         result.channels,
         conservation_error,
+    )
+
+
+def source_attribution(
+    result: AttributionResult,
+    source_delta: torch.Tensor,
+    forward_matrix: torch.Tensor,
+    source_names: tuple[str, ...],
+) -> SourceAttribution:
+    """Propagate additive input attribution through an EEG forward model.
+
+    ``forward_matrix`` has shape ``[channel, source]`` and must use
+    ``result.channels`` order. ``source_delta`` is the source estimate relative
+    to zero for input×gradient, or observed minus baseline source estimates for
+    integrated gradients. Its forward projection need only approximate
+    ``result.input_delta``; per-trial reconstruction and conservation errors
+    make inverse-model limitations visible rather than silently accepting them.
+    """
+
+    if not isinstance(result, AttributionResult) or result.method not in {
+        "input_x_gradient",
+        "integrated_gradients",
+    }:
+        raise ValidationError("Source attribution requires input×gradient or integrated gradients")
+    if (
+        not isinstance(source_delta, torch.Tensor)
+        or not source_delta.is_floating_point()
+        or source_delta.ndim != 4
+        or not torch.isfinite(source_delta).all()
+    ):
+        raise ValidationError(
+            "Source delta must be a finite floating [trial, source, patch, sample] tensor"
+        )
+    if (
+        not isinstance(forward_matrix, torch.Tensor)
+        or not forward_matrix.is_floating_point()
+        or forward_matrix.ndim != 2
+        or not torch.isfinite(forward_matrix).all()
+    ):
+        raise ValidationError(
+            "EEG forward matrix must be a finite floating [channel, source] tensor"
+        )
+    if (
+        not isinstance(source_names, tuple)
+        or not source_names
+        or any(not isinstance(name, str) or not name for name in source_names)
+        or len(set(source_names)) != len(source_names)
+    ):
+        raise ValidationError("Source names must be a nonempty tuple of unique nonempty strings")
+    delta, multiplier = result.input_delta, result.input_multiplier
+    if delta.ndim != 4 or multiplier.shape != delta.shape:
+        raise ValidationError("Input attribution tensors must use [trial, channel, patch, sample]")
+    if forward_matrix.shape != (delta.shape[1], source_delta.shape[1]):
+        raise ValidationError("Forward matrix dimensions differ from channel and source axes")
+    if len(result.channels) != delta.shape[1] or len(source_names) != source_delta.shape[1]:
+        raise ValidationError("Channel or source names differ from their tensor axes")
+    if source_delta.shape[0] != delta.shape[0] or source_delta.shape[2:] != delta.shape[2:]:
+        raise ValidationError("Source delta differs from attribution trial or time geometry")
+    if any(
+        value.device != delta.device or value.dtype != delta.dtype
+        for value in (source_delta, forward_matrix)
+    ):
+        raise ValidationError(
+            "Source delta and forward matrix must match attribution device and dtype"
+        )
+
+    reconstructed = torch.einsum("cm,bmpt->bcpt", forward_matrix, source_delta)
+    residual = reconstructed - delta
+    reconstruction_rmse = residual.square().flatten(1).mean(dim=1).sqrt()
+    input_rms = delta.square().flatten(1).mean(dim=1).sqrt()
+    relative_error = reconstruction_rmse / input_rms.clamp_min(torch.finfo(delta.dtype).eps)
+    source_multiplier = torch.einsum("cm,bcpt->bmpt", forward_matrix, multiplier)
+    attribution = source_delta * source_multiplier
+    conservation_error = attribution.flatten(1).sum(dim=1) - result.input_attribution.flatten(
+        1
+    ).sum(dim=1)
+    return SourceAttribution(
+        attribution.detach().clone(),
+        source_delta.detach().clone(),
+        source_multiplier.detach().clone(),
+        source_names,
+        result.channels,
+        result.trial_ids,
+        reconstruction_rmse.detach().clone(),
+        relative_error.detach().clone(),
+        conservation_error.detach().clone(),
+        tensor_digest(forward_matrix),
+        tensor_digest(source_delta),
     )
 
 

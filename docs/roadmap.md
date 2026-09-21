@@ -16,7 +16,9 @@
   concept profiles and target-centroid code clamping.
 - Identity-controlled source-to-mediator path patching for proposed circuits.
 - Trial-independent gradients, input × gradient, integrated gradients and nonlinear-site path conductance.
-- Additive inverse-DFT spectral attribution, progressive input/frequency perturbation, AOPC and cross-method consistency.
+- Additive inverse-DFT spectral and forward-model source attribution with explicit
+  conservation/inverse diagnostics; progressive input/frequency perturbation, AOPC
+  and cross-method consistency.
 - Welch spectra, named time/frequency concepts, correlation, PLI, PLV and band
   magnitude-squared coherence.
 - Reference-fitted periodic/aperiodic component intervention through an optional dependency.
@@ -30,6 +32,8 @@
 - Bounded cache storage driven by actual user workflows.
 - Additional BrainOmni configurations with independent native validation.
 - Native gradient conformance across exact model components/checkpoints and functional attention/QKV interfaces.
+- Architecture-specific attention-aware LRP after exact replacement-forward parity
+  and relevance-conservation tests are available for each supported family.
 - Additional validated EEG concept estimators beyond the current transparent core.
 - Circuit graph discovery and component-level Q/K/V/MLP paths after native sites are validated.
 - Cross-layer transcoder support after feature transport and reconstruction controls are specified.

@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0a17 — source-space attribution
+
+- Add EEG-PRISM source-space propagation for input × gradient and integrated
+  gradients using a caller-supplied source delta and EEG forward matrix.
+- Return raw signed source attribution and source multipliers with explicit
+  source/channel/trial coordinates and stable input hashes.
+- Report per-trial forward reconstruction RMSE, relative reconstruction error
+  and attribution conservation error instead of hiding inverse-model mismatch.
+- Add exact and approximate inverse known-answer evidence plus an offline
+  source-attribution example.
+
+See [migration instructions](docs/migration-a17.md).
+
 ## 0.1.0a16 — concept attribution and selective SAE intervention
 
 - Add leakage-explicit ridge concept directions with held-out balanced accuracy.

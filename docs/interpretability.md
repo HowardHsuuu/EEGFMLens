@@ -195,6 +195,23 @@ into a one-sided result, and `conservation_error` compares its sum with time-dom
 attribution. Trial scope requires contiguous, nonoverlapping patches; patch scope
 keeps each patch separate.
 
+`source_attribution` applies the same linear propagation rule to a caller-supplied
+EEG source delta and forward matrix. The forward matrix has `[channel, source]`
+geometry in the exact channel order recorded by the attribution result. Source deltas
+have `[trial, source, patch, sample]` geometry. For input × gradient they are source
+estimates relative to zero; for integrated gradients they are observed-minus-baseline
+source estimates. The function maps input multipliers through the transpose of the
+forward operator and multiplies them by the source delta, retaining raw signed
+source contributions.
+
+EEGFMLens does not estimate cortical activity or choose an inverse solver. The result
+reports forward reconstruction RMSE, relative reconstruction error and attribution
+conservation error for every trial. Exact synthesis conserves additive attribution;
+an approximate inverse transfers its mismatch into the source explanation. Head
+model, reference, orientation, regularization and source parcellation remain part of
+the study and must be held fixed before comparing source maps. Source localization is
+not validated merely because the propagation step conserves attribution.
+
 Gradient evidence in this release consists of analytic synthetic cases for input
 completeness, nonlinear-site conductance, semantic hook restoration and spectral
 conservation. A declared adapter site does not by itself certify that every upstream
@@ -280,12 +297,14 @@ papers and their public repositories:
 
 - [The Identity Trap in EEG Foundation Models: A Diagnostic Audit](https://arxiv.org/abs/2606.06647) and [FMScope](https://github.com/Jimmy110101013/fmscope): variance, subject-direction and spectral-ablation diagnostics.
 - [What Do EEG Foundation Models Capture from Human Brain Signals?](https://arxiv.org/abs/2605.11410) and [BrainPEC](https://github.com/Kian-Chen/BrainPEC): feature-family probing, cross-covariance erasure and residual controls.
+- [EEG Foundation Models for BCI Learn Diverse Features of Electrophysiology](https://arxiv.org/abs/2506.01867): probing of individual variability and electrophysiological features, including alpha activity. EEGFMLens keeps feature extraction and subject-aware splitting separate.
 - [LEACE: Perfect Linear Concept Erasure in Closed Form](https://arxiv.org/abs/2306.03819) and its [reference implementation](https://github.com/EleutherAI/concept-erasure): covariance-aware affine concept erasure and same-rank random-subspace controls. EEGFMLens implements the published closed-form operator independently and exposes explicit reference-fit and intervention objects.
 - [TCAV: Interpretability Beyond Feature Attribution](https://proceedings.mlr.press/v80/kim18d.html): linear concept directions and directional sensitivity of a class objective. EEGFMLens exposes a held-out ridge CAV, native-site gradients, raw sensitivities and a random-label null; study-level inference remains explicit.
 - [Mechanistic Interpretability of EEG Foundation Models via Sparse Autoencoders](https://arxiv.org/abs/2605.13930) and its [companion repository](https://github.com/BrainCapture/mechanistic-interpretability-for-eeg-foundation-models): Top-K SAE, spectral decoding and feature interventions. The companion code is PolyForm Noncommercial; no code was copied into EEGFMLens.
 - [Beyond Accuracy: Robustness, Interpretability and Expressiveness of EEG Foundation Models](https://arxiv.org/abs/2605.17562) and its [repository](https://github.com/urbansirca/Beyond-Accuracy-Robustness-Interpretability-and-Expressiveness-of-EEG-Foundation-Models): channel perturbation, attribution and block-wise probing controls.
-- [EEG-PRISM](https://arxiv.org/abs/2608.13676): linear propagation of attribution into physiologically meaningful signal coordinates, including Fourier components.
+- [EEG-PRISM](https://arxiv.org/abs/2608.13676): linear propagation of attribution into physiologically meaningful frequency and source coordinates. EEGFMLens exposes both mappings and makes inverse reconstruction error explicit.
 - [EEG-Xplain](https://arxiv.org/abs/2609.15687): gradient attribution, space/time/frequency summaries, progressive perturbation and cross-method consistency.
+- [From Clever Hans to Scientific Discovery: Interpreting EEG Foundational Transformers with LRP](https://arxiv.org/abs/2605.11885): model-specific attention-aware LRP for EEG transformers. EEGFMLens does not relabel ordinary gradients as LRP; native LRP support requires exact replacement forwards and relevance-conservation evidence per architecture.
 - [CLT-Forge](https://arxiv.org/abs/2603.21014) and its [repository](https://github.com/LLM-Interp/CLT-Forge): cross-layer replacement models and attribution graphs. EEGFMLens does not label an ordinary SAE or hook graph as a CLT; a future implementation requires adapters to expose compatible residual inputs and component outputs plus replacement-fidelity tests.
 - [Similarity of Neural Network Representations Revisited](https://arxiv.org/abs/1905.00414): linear centered-kernel alignment for representations with different feature dimensions.
 - [SVCCA](https://arxiv.org/abs/1706.05806): motivates cross-network representation comparison; EEGFMLens currently exposes CKA and RSA rather than claiming SVCCA without its truncation and regularization choices.
