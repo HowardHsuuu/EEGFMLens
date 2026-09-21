@@ -1,5 +1,9 @@
 # EEGFMLens
 
+<p align="center">
+  <img src="docs/assets/eegfmlens-hero.png" alt="EEG signals passing through a foundation model while a lens reveals a sparse internal causal circuit." width="100%">
+</p>
+
 [![Tests](https://github.com/HowardHsuuu/EEGFMLens/actions/workflows/tests.yml/badge.svg)](https://github.com/HowardHsuuu/EEGFMLens/actions/workflows/tests.yml)
 
 Inspect and intervene on EEG foundation models with explicit sensor and time axes.

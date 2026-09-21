@@ -76,6 +76,7 @@ def audit_distributions(dist, version):
             "/README.md",
             "/LICENSE",
             "/LICENSES/README.md",
+            "/docs/assets/eegfmlens-hero.png",
             "/docs/restoration-workflow.md",
             "/tools/check_release.py",
         ):
