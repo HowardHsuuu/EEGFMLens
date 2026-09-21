@@ -84,7 +84,7 @@ jobs:
           - model: csbrain
             repository: yuchen2199/CSBrain
             revision: 185aee55b24d0410a830df8dd08d03f675616998
-            dependencies: matplotlib einops
+            dependencies: matplotlib einops threadpoolctl
           - model: steegformer
             repository: LiuyinYang1101/STEEGFormer
             revision: 542ee17918c3c2c36ba1d4ea02bedff5eb149370
