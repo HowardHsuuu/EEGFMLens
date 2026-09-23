@@ -224,14 +224,14 @@ def _objective(output, batch):
 
 
 def test_pinned_native_catalog_observation_identity_and_ablation():
-    family = os.environ.get("EEGLENS_NATIVE_MODEL")
+    family = os.environ.get("EEGFMLENS_NATIVE_MODEL")
     if family is None:
-        pytest.skip("Set EEGLENS_NATIVE_MODEL for one pinned-source matrix job")
+        pytest.skip("Set EEGFMLENS_NATIVE_MODEL for one pinned-source matrix job")
     if family not in BUILDERS:
         pytest.fail(f"Unknown live-source smoke family: {family}")
-    source_value = os.environ.get("EEGLENS_NATIVE_SOURCE")
+    source_value = os.environ.get("EEGFMLENS_NATIVE_SOURCE")
     if source_value is None:
-        pytest.fail("Set EEGLENS_NATIVE_SOURCE to the selected upstream checkout")
+        pytest.fail("Set EEGFMLENS_NATIVE_SOURCE to the selected upstream checkout")
 
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
     from native_sources import REVISIONS, verified_source

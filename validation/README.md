@@ -6,18 +6,18 @@ resources implicitly. Follow [model setup](../docs/models.md) to obtain pinned s
 
 ```bash
 python -m pip install -e '.[dev,labram]'
-EEGLENS_CBRAMOD_SOURCE=/path/to/CBraMod \
-EEGLENS_LABRAM_SOURCE=/path/to/LaBraM \
+EEGFMLENS_CBRAMOD_SOURCE=/path/to/CBraMod \
+EEGFMLENS_LABRAM_SOURCE=/path/to/LaBraM \
 pytest -m native
 ```
 
 To add official checkpoint tests:
 
 ```bash
-EEGLENS_CBRAMOD_SOURCE=/path/to/CBraMod \
-EEGLENS_LABRAM_SOURCE=/path/to/LaBraM \
-EEGLENS_CBRAMOD_CHECKPOINT=/path/to/cbramod.pth \
-EEGLENS_LABRAM_CHECKPOINT=/path/to/labram-base.pth \
+EEGFMLENS_CBRAMOD_SOURCE=/path/to/CBraMod \
+EEGFMLENS_LABRAM_SOURCE=/path/to/LaBraM \
+EEGFMLENS_CBRAMOD_CHECKPOINT=/path/to/cbramod.pth \
+EEGFMLENS_LABRAM_CHECKPOINT=/path/to/labram-base.pth \
 pytest -m 'native or integration'
 ```
 
@@ -37,8 +37,8 @@ CI also checks EEGPT, BIOT, CSBrain, DIVER-1 and ST-EEGFormer one checkout per
 job. To reproduce one job locally:
 
 ```bash
-EEGLENS_NATIVE_MODEL=eegpt \
-EEGLENS_NATIVE_SOURCE=/path/to/EEGPT \
+EEGFMLENS_NATIVE_MODEL=eegpt \
+EEGFMLENS_NATIVE_SOURCE=/path/to/EEGPT \
 pytest -q tests/test_native_catalog.py
 ```
 

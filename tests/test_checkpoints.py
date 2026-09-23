@@ -13,9 +13,9 @@ from eegfmlens.errors import ValidationError
 @pytest.mark.integration
 @pytest.mark.parametrize("name,loader", [("cbramod", load_cbramod), ("labram", load_labram)])
 def test_official_checkpoint_strict_load_and_identity(name, loader, request):
-    path = os.environ.get(f"EEGLENS_{name.upper()}_CHECKPOINT")
+    path = os.environ.get(f"EEGFMLENS_{name.upper()}_CHECKPOINT")
     if not path:
-        pytest.skip(f"Set EEGLENS_{name.upper()}_CHECKPOINT for checkpoint integration")
+        pytest.skip(f"Set EEGFMLENS_{name.upper()}_CHECKPOINT for checkpoint integration")
     assert Path(path).is_file()
     torch.set_num_threads(2)
     factory = request.getfixturevalue("native_" + name)

@@ -8,9 +8,9 @@ import pytest
 
 
 def _native(name):
-    source = os.environ.get(f"EEGLENS_{name.upper()}_SOURCE")
+    source = os.environ.get(f"EEGFMLENS_{name.upper()}_SOURCE")
     if not source:
-        pytest.fail(f"Set EEGLENS_{name.upper()}_SOURCE or deselect native/integration tests")
+        pytest.fail(f"Set EEGFMLENS_{name.upper()}_SOURCE or deselect native/integration tests")
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
     from native_sources import native_module
 
