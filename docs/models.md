@@ -95,7 +95,7 @@ from eegfmlens import load_cbramod
 lens = load_cbramod("cbramod.pth", model_factory=CBraMod, output="features", device="cpu")
 ```
 
-The official 12-block state dictionary is loaded strictly. `features` removes only the reconstruction projection after strict loading; output is `[B,C,P,200]`. `reconstruction` retains the projection. Neither is a task classifier. Site names are `embedding.output` and `blocks.i.{output,spatial.output,temporal.output,mlp.output}`. Spatial/temporal features have width 100 in this checkpoint; block features have width 200.
+The official 12-block state dictionary is loaded strictly. `features` removes only the reconstruction projection after strict loading; output is `[B,C,P,200]`. `reconstruction` retains the projection. Neither is a task classifier. Site names are `waveform.code`, `embedding.output` and `blocks.i.{output,spatial.output,temporal.output,mlp.output}`. `waveform.code` exposes the native waveform convolution's channel-major positions as `[B,C,P,features]`, so `Selection(sensors=..., patches=...)` can target it without indexing native convolution axes. Spatial/temporal features have width 100 in this checkpoint; block features have width 200.
 
 Weights: [pinned official Hugging Face file](https://huggingface.co/weighting666/CBraMod/resolve/500543c7e30bda1b22bfd51a49301b238dee21fd/pretrained_weights.pth), Apache-2.0 according to its repository metadata.
 

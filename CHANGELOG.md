@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0a23 — CBraMod physical waveform code
+
+- Declare the native waveform-convolution output as a stable `waveform.code`
+  site. Its folded convolution positions are exposed as sensor/patch/feature
+  coordinates, allowing named physical selections without mutating an adapter
+  after construction or indexing the native convolution axis in study code.
+- Check exact native reconstruction, reversible coordinates, source ablation,
+  and output equivalence to the former raw-axis edit on pinned upstream source.
+
 ## 0.1.0a22 — native ST decoder attention inputs
 
 - Expose each ST-EEGFormer MAE decoder attention input at a named physical
