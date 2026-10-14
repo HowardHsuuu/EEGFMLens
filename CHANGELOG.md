@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0a21 — DIVER physical operation coordinates
+
+- Expose DIVER's augmented token grid as named sensor/patch coordinates while
+  excluding its prepended special row and column from selective edits.
+- Declare native DIVER attention and feed-forward outputs alongside block
+  outputs, so the same physical selector can trace their operation paths.
+- Check native-output equality, selected replacement and untouched coordinates
+  against pinned upstream source; no DIVER checkpoint is bundled.
+
 ## 0.1.0a20 — native masked reconstruction paths
 
 - Accept explicit physical `[batch, sensor, patch]` masks on CBraMod's native
