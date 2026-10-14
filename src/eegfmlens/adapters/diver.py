@@ -36,10 +36,19 @@ class DIVERAdapter(Adapter):
         self.positions = positions.detach().clone()
         self.position_hash = tensor_digest(self.positions)
         sites = [ActivationSite("embedding.output", "embedding", "bcpd")]
-        sites += [
-            ActivationSite(f"blocks.{i}.output", f"encoder.encoder.layers.{i}", "augmented_tokens")
-            for i in range(len(model.encoder.encoder.layers))
-        ]
+        for i in range(len(model.encoder.encoder.layers)):
+            prefix = f"encoder.encoder.layers.{i}"
+            # Native attention is before layer dropout/residual; FFN is before
+            # its residual addition. Keep both separate from the block state.
+            sites.extend(
+                (
+                    ActivationSite(
+                        f"blocks.{i}.attention.output", prefix + ".self_attn", "augmented_tokens"
+                    ),
+                    ActivationSite(f"blocks.{i}.ffn.output", prefix + ".ffn", "augmented_tokens"),
+                    ActivationSite(f"blocks.{i}.output", prefix, "augmented_tokens"),
+                )
+            )
         sites.append(ActivationSite("encoder.output", "encoder", "augmented_grid"))
         if output == "features":
             sites.append(ActivationSite("features.output", "head", "bcpd"))

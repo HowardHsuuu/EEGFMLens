@@ -261,7 +261,12 @@ def test_pinned_native_catalog_observation_identity_and_ablation():
 
     if family == "diver":
         selected = Selection(sensors=("C3",), patches=(1,))
-        for physical_site in ("blocks.0.output", "encoder.output"):
+        for physical_site in (
+            "blocks.0.attention.output",
+            "blocks.0.ffn.output",
+            "blocks.0.output",
+            "encoder.output",
+        ):
             declared = lens.adapter.require(physical_site)
             activation = observed.cache[physical_site]
             assert activation.layout == declared.layout

@@ -29,12 +29,22 @@ class Encoder(nn.Module):
     def __init__(self):
         super().__init__()
         self.encoder = nn.Module()
-        self.encoder.layers = nn.ModuleList([nn.Identity()])
+        self.encoder.layers = nn.ModuleList([EncoderLayer()])
 
     def forward(self, x):
         b, c, p, d = x.shape
         flattened = self.encoder.layers[0](x.reshape(b, c * p, d))
         return flattened.reshape(b, c, p, d)
+
+
+class EncoderLayer(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.self_attn = nn.Identity()
+        self.ffn = nn.Identity()
+
+    def forward(self, x):
+        return self.ffn(self.self_attn(x))
 
 
 class NativeFixture(nn.Module):
@@ -145,9 +155,13 @@ def test_mask_failures_and_exception_restore_native_bookkeeping():
 def test_augmented_native_sites_map_named_coordinates_without_touching_special_tokens():
     lens, batch, mask = fixture()
     run = lens.run_with_cache(batch, mask=mask.tolist())
-    token_site = "blocks.0.output"
+    token_sites = (
+        "blocks.0.attention.output",
+        "blocks.0.ffn.output",
+        "blocks.0.output",
+    )
     grid_site = "encoder.output"
-    tokens = run.cache[token_site]
+    tokens = run.cache[token_sites[0]]
     grid = run.cache[grid_site]
     assert tokens.layout == "augmented_tokens"
     assert grid.layout == "augmented_grid"
@@ -162,7 +176,10 @@ def test_augmented_native_sites_map_named_coordinates_without_touching_special_t
     assert Selection().mask(tokens.tensor, batch, tokens.layout).all()
     assert Selection().mask(grid.tensor, batch, grid.layout).all()
 
-    for site in (token_site, grid_site):
+    for site in (*token_sites, grid_site):
+        if site in token_sites:
+            assert run.cache[site].layout == "augmented_tokens"
+            torch.testing.assert_close(run.cache[site].tensor, tokens.tensor, rtol=0, atol=0)
         own = lens.run_with_interventions(
             batch,
             mask=mask.tolist(),

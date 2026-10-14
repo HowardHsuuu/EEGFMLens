@@ -157,8 +157,12 @@ upstream attention dropout remains active in evaluation, and the native mask
 generator still consumes its ordinary RNG draw before the explicit override.
 The temporary override is removed even if a downstream hook fails.
 
-`blocks.*.output` retains the native flattened `(C+1)×(P+1)` grid, while
-`encoder.output` retains the unflattened grid. Their `augmented_tokens` and
+`blocks.*.attention.output` captures the projected native attention output
+before the layer's dropout and residual addition;
+`blocks.*.ffn.output` captures the feed-forward output before its residual
+addition. These and `blocks.*.output` retain the native flattened
+`(C+1)×(P+1)` grid, while `encoder.output` retains the unflattened grid.
+Their `augmented_tokens` and
 `augmented_grid` layouts map `Selection(sensors=("C3",), patches=(1,))` to the
 physical C3/patch-1 position and exclude the prepended row and column.
 `Selection()` without coordinates selects the entire native activation,
@@ -176,5 +180,8 @@ explanation.
 Checkpoint-backed validation used official weights, synthetic three-sensor
 inputs, batches 1/2 and paired CPU float32 runs. Thirty site/batch identity and
 independent native-zero checks passed, including physical time-head selection
-and cleanup. Generated reports and environment-specific runners are not shipped
-with the reusable package.
+and cleanup. A separate pinned-upstream, random-weight test checks named
+sensor/patch edits at attention, feed-forward, block and encoder outputs
+against direct native hooks, including cleanup. The random-weight test is a
+tool-contract check, not evidence of a scientific mechanism. Generated reports
+and environment-specific runners are not shipped with the reusable package.
