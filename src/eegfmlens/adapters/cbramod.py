@@ -1,5 +1,7 @@
 """Native CBraMod block and branch outputs; no reconstructed attention."""
 
+import torch
+
 from ..errors import ValidationError
 from ..types import ActivationSite, SignalBatch
 from .base import Adapter
@@ -29,8 +31,14 @@ class CBraModAdapter(Adapter):
             raise ValidationError("CBraMod requires 200-sample patches at 200 Hz")
 
     def forward(self, model, batch, **kwargs):
-        if kwargs:
-            raise ValidationError(
-                "CBraMod adapter does not accept execution kwargs; supply model-ready data"
-            )
-        return model(batch.data)
+        if not kwargs:
+            return model(batch.data)
+        if set(kwargs) != {"mask"}:
+            raise ValidationError("CBraMod accepts only an explicit native mask")
+        try:
+            mask = torch.as_tensor(kwargs["mask"], device=batch.data.device)
+        except (TypeError, ValueError, RuntimeError) as error:
+            raise ValidationError("Invalid CBraMod mask") from error
+        if mask.dtype != torch.bool or mask.shape != batch.data.shape[:-1]:
+            raise ValidationError("CBraMod mask must be boolean B,C,P in input coordinates")
+        return model(batch.data, mask=mask)

@@ -10,6 +10,7 @@ from eegfmlens import (
     SignalBatch,
     attribute,
 )
+from eegfmlens.errors import ValidationError
 
 pytestmark = pytest.mark.native
 
@@ -48,3 +49,30 @@ def test_native_blocks_and_folded_branch_replacement(native_cbramod):
     assert attributed.site_attributions[site].shape == baseline.cache[site].tensor.shape
     assert torch.isfinite(attributed.input_attribution).all()
     assert all(parameter.grad is None for parameter in model.parameters())
+
+
+def test_native_explicit_masked_reconstruction_path(native_cbramod):
+    torch.manual_seed(19)
+    model = native_cbramod.CBraMod(n_layer=2).eval()
+    batch = SignalBatch(
+        torch.randn(2, 3, 4, 200), ("a", "b"), ("C3", "Cz", "C4"), 200, "synthetic"
+    )
+    mask = torch.zeros(batch.data.shape[:-1], dtype=torch.bool)
+    mask[:, 0, 1] = True
+    lens = EEGLens(model, CBraModAdapter(model))
+    run = lens.run_with_cache(batch, mask=mask.tolist())
+    with torch.no_grad():
+        native = model(batch.data, mask=mask)
+    torch.testing.assert_close(run.output, native, atol=0, rtol=0)
+
+    hidden = batch.data.clone()
+    hidden[:, 0, 1] += 1000
+    altered = SignalBatch(hidden, batch.trial_ids, batch.channels, 200, "synthetic")
+    hidden_run = lens.run_with_cache(altered, mask=mask.tolist())
+    torch.testing.assert_close(hidden_run.output, run.output, atol=0, rtol=0)
+    assert torch.isfinite(run.output).all()
+
+    with pytest.raises(ValidationError, match="boolean B,C,P"):
+        lens.run_with_cache(batch, mask=mask.int().tolist())
+    with pytest.raises(ValidationError, match="boolean B,C,P"):
+        lens.run_with_cache(batch, mask=mask[:, :, 0].tolist())

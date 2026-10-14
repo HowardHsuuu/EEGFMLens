@@ -12,7 +12,7 @@ from .adapters.generic import GenericAdapter, ModuleInfo, inspect_modules
 from .adapters.labram import LaBraMAdapter
 from .adapters.neurorvq import NeuroRVQAdapter
 from .adapters.signaljepa import SignalJEPAAdapter
-from .adapters.steegformer import STEEGFormerAdapter
+from .adapters.steegformer import STEEGFormerAdapter, STEEGFormerMAEAdapter
 from .alignment import (
     CrossModelSimilarity,
     center_within_groups,
@@ -155,6 +155,7 @@ __all__ = [
     "NeuroRVQAdapter",
     "SignalJEPAAdapter",
     "STEEGFormerAdapter",
+    "STEEGFormerMAEAdapter",
     "DIVERAdapter",
     "BrainOmniAdapter",
     "CSBrainAdapter",

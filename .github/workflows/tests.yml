@@ -124,3 +124,7 @@ jobs:
         env:
           EEGFMLENS_NATIVE_MODEL: ${{ matrix.model }}
           EEGFMLENS_NATIVE_SOURCE: ${{ github.workspace }}/external/native
+      - if: matrix.model == 'steegformer'
+        run: pytest -q tests/test_steegformer_mae.py
+        env:
+          EEGFMLENS_STEEGFORMER_SOURCE: ${{ github.workspace }}/external/native

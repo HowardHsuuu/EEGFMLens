@@ -46,3 +46,25 @@ Custom intervention objects must expose a site name, a `Selection`, and a callab
 Compare cached and unhooked native predictions on the same batch, then run an intervention with an analytically known effect and verify hook cleanup. Check token ordering and sensor/time selection explicitly before using those semantics scientifically. `tests/test_generic.py` exercises a continuous CNN with dictionary/namedtuple outputs; it is a runtime contract test, not evidence that a third EEG foundation model has been validated.
 
 For native models that fold a batch axis, a dedicated `Adapter` may override `expose(tensor, site, batch)` and `restore(tensor, site, native_shape)`. The pair must preserve all values and restore the exact native geometry; exposed axis zero must remain the trial axis. EEGPTAdapter demonstrates a validated window-folded mapping.
+
+## Native masked reconstruction
+
+`CBraModAdapter` accepts an explicit boolean `mask` with `[batch, sensor,
+patch]` coordinates when the supplied native model has a reconstruction head.
+`DIVERAdapter(output="reconstruction")` executes the native EEG time head with
+the same explicit mask contract and preserves the upstream mask generator's
+RNG draw. Both return the native model's prediction, without a surrogate
+decoder. Supply JSON-serializable mask values such as `mask.tolist()` to
+`run_with_cache` or `run_with_interventions`.
+
+For ST-EEGFormer's **pretraining MAE model**, use
+`STEEGFormerMAEAdapter(model, channels=..., channel_mapping=...)` with a
+caller-loaded native checkpoint. This adapter calls `forward_demo` with a
+deterministic visible-token order and returns the native masked waveform
+prediction in `[batch, sensor, patch, sample]` order. Its full-length decoder
+sites are exposed in physical sensor/patch coordinates even though upstream
+tokens are time-major; visible-only encoder sites deliberately remain in
+`batch` layout. The existing `STEEGFormerAdapter` is for the separate
+`forward_features` encoder path and is not a masked reconstruction adapter.
+The MAE path requires an explicit boolean `[batch, sensor, patch]` mask with
+the same visible-token count in every trial of a batch.
