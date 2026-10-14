@@ -48,7 +48,11 @@ def test_native_mae_forward_and_selected_decoder_token():
     lens = EEGLens(model, adapter)
 
     with torch.no_grad():
-        observed = lens.run_with_cache(batch, sites=("decoder.0.output",), mask=mask.tolist())
+        observed = lens.run_with_cache(
+            batch,
+            sites=("decoder.0.attention_input", "decoder.0.output"),
+            mask=mask.tolist(),
+        )
         flat = mask.transpose(1, 2).flatten(1)
         visible = torch.where(~flat[0])[0]
         hidden = torch.where(flat[0])[0]
@@ -79,6 +83,11 @@ def test_native_mae_forward_and_selected_decoder_token():
             native_site["output"] = output.detach().clone()
 
         handle = model.decoder_blocks[0].register_forward_hook(capture)
+        norm_handle = model.decoder_blocks[0].norm1.register_forward_hook(
+            lambda _module, _args, output: native_site.__setitem__(
+                "attention_input", output.detach().clone()
+            )
+        )
         try:
             model.forward_demo(
                 batch.data.flatten(2),
@@ -88,6 +97,7 @@ def test_native_mae_forward_and_selected_decoder_token():
                 ids_restore=restore,
             )
         finally:
+            norm_handle.remove()
             handle.remove()
         physical_index = 1 + 0 * 4 + 1
         native_index = 1 + 1 * 3 + 0
@@ -97,8 +107,42 @@ def test_native_mae_forward_and_selected_decoder_token():
             atol=0,
             rtol=0,
         )
+        torch.testing.assert_close(
+            observed.cache["decoder.0.attention_input"].tensor[:, physical_index],
+            native_site["attention_input"][:, native_index],
+            atol=0,
+            rtol=0,
+        )
 
         selected = Selection(sensors=("C3",), patches=(1,))
+        input_ablated = lens.run_with_interventions(
+            batch,
+            interventions=[Ablation("decoder.0.attention_input", selected)],
+            mask=mask.tolist(),
+        ).output
+
+        def native_input_zero(_module, _args, output):
+            altered = output.clone()
+            altered[:, native_index] = 0
+            return altered
+
+        handle = model.decoder_blocks[0].norm1.register_forward_hook(native_input_zero)
+        try:
+            input_oracle = (
+                model.forward_demo(
+                    batch.data.flatten(2),
+                    channel_ids,
+                    ids_keep=keep,
+                    mask=flat.float(),
+                    ids_restore=restore,
+                )[1]
+                .reshape(1, 4, 3, 16)
+                .transpose(1, 2)
+            )
+        finally:
+            handle.remove()
+        torch.testing.assert_close(input_ablated, input_oracle, atol=0, rtol=0)
+
         ablated = lens.run_with_interventions(
             batch,
             interventions=[Ablation("decoder.0.output", selected)],

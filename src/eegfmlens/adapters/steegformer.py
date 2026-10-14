@@ -113,6 +113,7 @@ class STEEGFormerMAEAdapter(Adapter):
             prefix = f"decoder_blocks.{index}"
             sites.extend(
                 (
+                    ActivationSite(f"decoder.{index}.attention_input", prefix + ".norm1", "tokens"),
                     ActivationSite(f"decoder.{index}.attention", prefix + ".attn.proj", "tokens"),
                     ActivationSite(f"decoder.{index}.native_attention", prefix + ".attn", "tokens"),
                     ActivationSite(f"decoder.{index}.mlp", prefix + ".mlp.fc2", "tokens"),

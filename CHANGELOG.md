@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0a22 — native ST decoder attention inputs
+
+- Expose each ST-EEGFormer MAE decoder attention input at a named physical
+  sensor/patch site, using the same reversible time-major mapping as its
+  attention output. Study code can cache projected-component donors through
+  EEGFMLens without installing a separate input-capture hook.
+- Verify exact native attention-input coordinates and selected intervention
+  parity against pinned upstream MAE source.
+
 ## 0.1.0a21 — DIVER physical operation coordinates
 
 - Expose DIVER's augmented token grid as named sensor/patch coordinates while
