@@ -25,7 +25,7 @@ selector is implied.
 | BENDR encoder/context | 256 Hz | Container patches concatenate, with stride equal to sample length | Exact configured input channels, including any auxiliary scale input. No automatic DN3 preprocessing. Downsampled time is not input patch index. |
 | BrainOmni | 256 Hz | Container patches concatenate, with stride equal to sample length | Exact configured channels, explicit native position/direction vectors and sensor-type IDs. Latent sensor units are not electrodes. |
 | SignalJEPA | Native `sfreq` (128 Hz tested) | Container patches concatenate; contiguous; total length must survive every native convolution width/stride | Exact configured channel order and unchanged native channel-index mapping. |
-| DIVER EEG | 500 Hz | Contiguous 500-sample patches | Exact configured channel order and unchanged explicit xyz geometry. Augmented tokens have no physical selector. |
+| DIVER EEG | 500 Hz | Contiguous 500-sample patches | Exact configured channel order and unchanged explicit xyz geometry. Block and encoder sites retain the special row/column but map named selections only to physical positions. |
 | ST-EEGFormer | 128 Hz | Contiguous container patches; total length must be divisible by native patch size and fit native time vocabulary | Exact configured channels mapped through supplied native lookup. Tested patch size is 16. |
 | NeuroRVQ | 200 Hz | Contiguous 200-sample patches; time count fits native vocabulary | Case-normalized channel lookup; no general alias mapping. Native time indices align to the end of its vocabulary. |
 
@@ -41,7 +41,8 @@ The final exposed activation axis is the feature axis used by
 a dense direction is not the same as deleting an input sensor. Sensor/patch
 selectors are supported only on verified physical layouts. EEGPT, BIOT, BENDR,
 SignalJEPA, BrainOmni and ST-EEGFormer conservatively reject physical selectors.
-DIVER permits them at physical embedding/head sites only. Use
+DIVER permits them at physical embedding/head sites and at its augmented
+block/encoder sites after the one-row/one-column native mapping is verified. Use
 `lens.capabilities()` on the connected model to inspect each site's layout,
 writability and permitted selectors.
 

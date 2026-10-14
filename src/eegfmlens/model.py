@@ -81,7 +81,15 @@ class EEGLens:
     def capabilities(self) -> tuple[SiteCapability, ...]:
         """Describe usable operations without running the native model."""
 
-        physical = {"bcpd", "spatial", "temporal", "tokens", "patch_tokens"}
+        physical = {
+            "bcpd",
+            "spatial",
+            "temporal",
+            "tokens",
+            "patch_tokens",
+            "augmented_tokens",
+            "augmented_grid",
+        }
         return tuple(
             SiteCapability(
                 site.name,

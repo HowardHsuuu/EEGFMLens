@@ -62,6 +62,16 @@ def test_log_amplitude_targets_and_patch_activation_alignment_have_known_geometr
         activation_spectral_matrix(activation(tokens, "tokens"), targets), expected
     )
 
+    augmented = torch.full((2, 3, 3, 2), 999.0, dtype=torch.float64)
+    augmented[:, 1:, 1:] = bcpd
+    for tensor, layout in (
+        (augmented, "augmented_grid"),
+        (augmented.reshape(2, 9, 2), "augmented_tokens"),
+    ):
+        torch.testing.assert_close(
+            activation_spectral_matrix(activation(tensor, layout), targets), expected
+        )
+
 
 def test_spectral_readout_recovers_linear_targets_and_direction_signatures():
     generator = torch.Generator().manual_seed(31)

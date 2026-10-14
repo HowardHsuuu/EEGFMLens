@@ -157,12 +157,21 @@ upstream attention dropout remains active in evaluation, and the native mask
 generator still consumes its ordinary RNG draw before the explicit override.
 The temporary override is removed even if a downstream hook fails.
 
+`blocks.*.output` retains the native flattened `(C+1)×(P+1)` grid, while
+`encoder.output` retains the unflattened grid. Their `augmented_tokens` and
+`augmented_grid` layouts map `Selection(sensors=("C3",), patches=(1,))` to the
+physical C3/patch-1 position and exclude the prepended row and column.
+`Selection()` without coordinates selects the entire native activation,
+including the special positions. The adapter rejects an unexpected shape
+instead of silently interpreting a different token geometry as EEG channels.
+
 In reconstruction mode, `reconstruction.output` exposes the native time head
 and supports sensor/patch selection. Its last axis is waveform samples, not a
 latent feature basis. `features.output` is intentionally absent: the original
-encoder `head` output does not feed the native time head. Other internal sites
-retain their existing geometry restrictions. Output replacement at a final head
-is a tool control, not evidence of a mechanistic explanation.
+encoder `head` output does not feed the native time head. Consult
+`lens.capabilities()` for each internal site's declared geometry. Output
+replacement at a final head is a tool control, not evidence of a mechanistic
+explanation.
 
 Checkpoint-backed validation used official weights, synthetic three-sensor
 inputs, batches 1/2 and paired CPU float32 runs. Thirty site/batch identity and

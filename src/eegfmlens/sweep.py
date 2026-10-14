@@ -145,6 +145,11 @@ def _patch_change(clean, recipient, batch):
             a[:, prefix:].reshape(1, len(batch.channels), batch.data.shape[2], -1),
             b[:, prefix:].reshape(1, len(batch.channels), batch.data.shape[2], -1),
         )
+    elif clean.layout == "augmented_tokens":
+        shape = (1, len(batch.channels) + 1, batch.data.shape[2] + 1, -1)
+        a, b = a.reshape(shape)[:, 1:, 1:], b.reshape(shape)[:, 1:, 1:]
+    elif clean.layout == "augmented_grid":
+        a, b = a[:, 1:, 1:], b[:, 1:, 1:]
     if a.ndim != 4:
         raise ValidationError("Patching sweep requires channel/time/feature sites")
     return (
@@ -247,7 +252,17 @@ def patching_sweep(
         tuple(
             s.name
             for s in lens.sites()
-            if s.writable and s.layout in {"bcpd", "spatial", "temporal", "tokens", "patch_tokens"}
+            if s.writable
+            and s.layout
+            in {
+                "bcpd",
+                "spatial",
+                "temporal",
+                "tokens",
+                "patch_tokens",
+                "augmented_tokens",
+                "augmented_grid",
+            }
         )
         if sites is None
         else tuple(sites)
@@ -265,6 +280,8 @@ def patching_sweep(
             "temporal",
             "tokens",
             "patch_tokens",
+            "augmented_tokens",
+            "augmented_grid",
         }:
             raise ValidationError("Sweep requires writable channel/time/feature sites")
     # Check selector validity and equal, disjoint control supports before execution.

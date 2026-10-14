@@ -44,7 +44,7 @@ repository.
 | CSBrain | official pretrained encoder | sensor/patch after reversing native region sort | contract + pinned source | declared channel order only |
 | NeuroRVQ | raw four-branch pretrained backbone features | sensor/patch on all branch invocations | contract | pretraining heads and absent downstream norms excluded explicitly |
 | SignalJEPA | local and contextual encoder with full channel embeddings | none on local/context features | contract | decoder is loaded but not executed |
-| DIVER-1 | official EEG features and native time reconstruction | embedding and final physical outputs | contract + pinned source | synthetic xyz geometry; pair RNG for native eval dropout |
+| DIVER-1 | official EEG features and native time reconstruction | embedding, augmented block/encoder sites, and final physical outputs | contract + pinned source | special row/column excluded by named selections; synthetic xyz geometry; pair RNG for native eval dropout |
 | ST-EEGFormer | official small `forward_features` encoder; separately, caller-supplied native MAE reconstruction model through `STEEGFormerMAEAdapter` | decoder sites reorder time-major tokens into physical sensor/patch coordinates; visible-only encoder sites remain whole-activation | encoder contract + pinned source; MAE native-source test | no classifier or bundled MAE checkpoint; study-checkpoint replay must be verified separately |
 
 All checkpoint-backed integration runs used eager CPU float32. The recorded

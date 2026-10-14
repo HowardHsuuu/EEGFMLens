@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 import torch
 
-from eegfmlens import Ablation, Replacement, SignalBatch, attribute, connect, model_info
+from eegfmlens import Ablation, Replacement, Selection, SignalBatch, attribute, connect, model_info
 
 pytestmark = pytest.mark.native
 
@@ -258,6 +258,45 @@ def test_pinned_native_catalog_observation_identity_and_ablation():
         )
     )
     torch.testing.assert_close(identity, native, rtol=0, atol=0)
+
+    if family == "diver":
+        selected = Selection(sensors=("C3",), patches=(1,))
+        for physical_site in ("blocks.0.output", "encoder.output"):
+            declared = lens.adapter.require(physical_site)
+            activation = observed.cache[physical_site]
+            assert activation.layout == declared.layout
+            assert (
+                int(selected.mask(activation.tensor, batch, declared.layout).sum())
+                == activation.tensor.shape[-1]
+            )
+            own = _seeded(
+                lambda: (
+                    lens.run_with_interventions(
+                        batch, interventions=[Replacement(physical_site, activation, selected)]
+                    ).output
+                )
+            )
+            torch.testing.assert_close(own, native, rtol=0, atol=0)
+
+            physical_module = lens.model.get_submodule(declared.module_path)
+            handle = physical_module.register_forward_hook(
+                lambda module, inputs, output: output.masked_fill(
+                    selected.mask(output, batch, declared.layout), 0
+                )
+            )
+            try:
+                native_selected_zero = _seeded(native_call)
+            finally:
+                handle.remove()
+            package_selected_zero = _seeded(
+                lambda: (
+                    lens.run_with_interventions(
+                        batch, interventions=[Ablation(physical_site, selected)]
+                    ).output
+                )
+            )
+            torch.testing.assert_close(package_selected_zero, native_selected_zero, rtol=0, atol=0)
+            assert not torch.equal(package_selected_zero, native)
 
     handle = module.register_forward_hook(lambda module, inputs, output: torch.zeros_like(output))
     try:

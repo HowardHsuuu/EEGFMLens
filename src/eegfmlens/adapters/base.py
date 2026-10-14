@@ -81,7 +81,22 @@ def expose(tensor: torch.Tensor, site: ActivationSite, batch: SignalBatch) -> to
         tensor.ndim != 3 or tensor.shape[:2] != (b, int(site.layout == "tokens") + c * p)
     ):
         raise ValidationError(f"Unexpected CLS/token shape at {site.name}: {tensor.shape}")
-    if site.layout not in {"bcpd", "tokens", "patch_tokens", "batch"}:
+    if site.layout == "augmented_tokens" and (
+        tensor.ndim != 3 or tensor.shape[:2] != (b, (c + 1) * (p + 1))
+    ):
+        raise ValidationError(f"Unexpected augmented token shape at {site.name}: {tensor.shape}")
+    if site.layout == "augmented_grid" and (
+        tensor.ndim != 4 or tensor.shape[:3] != (b, c + 1, p + 1)
+    ):
+        raise ValidationError(f"Unexpected augmented grid shape at {site.name}: {tensor.shape}")
+    if site.layout not in {
+        "bcpd",
+        "tokens",
+        "patch_tokens",
+        "augmented_tokens",
+        "augmented_grid",
+        "batch",
+    }:
         raise ValidationError(f"Unknown layout: {site.layout}")
     if tensor.shape[0] != b:
         raise ValidationError("First exposed axis must match batch")

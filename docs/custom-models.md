@@ -27,11 +27,13 @@ result = lens.run_with_cache(batch)
 | `bcpd` | `[B,C,P,D]` | sensor and patch |
 | `patch_tokens` | `[B,C*P,D]`, channel-major tokens | sensor and patch |
 | `tokens` | `[B,1+C*P,D]`, leading CLS then channel-major tokens | sensor and patch; unrestricted edits include CLS |
+| `augmented_grid` | `[B,1+C,1+P,D]`, one prepended sensor row and time column | sensor and patch at physical row/column `+1`; unrestricted edits include special positions |
+| `augmented_tokens` | `[B,(1+C)*(1+P),D]`, the same grid flattened sensor-major | sensor and patch at index `(sensor+1)*(P+1)+patch+1`; unrestricted edits include special positions |
 | `spatial` | `[B*P,C,D]` | sensor and patch after unfolding |
 | `temporal` | `[B*C,P,D]` | sensor and patch after unfolding |
 | `batch` | any batch-first tensor | whole activation only |
 
-Use `batch` for downsampled convolution features, pooled outputs, unfamiliar token order or multiple special tokens. It supports caching and whole-activation interventions without claiming electrode/time coordinates. Sensor/patch sweeps require a verified semantic layout. Arbitrary geometry is not automatically mapped.
+Use `batch` for downsampled convolution features, pooled outputs, unfamiliar token order or unverified special-token geometry. It supports caching and whole-activation interventions without claiming electrode/time coordinates. The augmented layouts are for DIVER's specific one-row/one-column native grid, not an inference that other models share that geometry. Sensor/patch sweeps require a verified semantic layout. Arbitrary geometry is not automatically mapped.
 
 Sites refer to module **outputs**. For tuple/list outputs, set `tensor_index=0` (or another index). For dictionary outputs, use a key such as `tensor_index="hidden_states"`. Standard dicts, tuples, lists and namedtuples preserve their untargeted values when edited. Nested output paths and arbitrary custom output containers are not supported.
 

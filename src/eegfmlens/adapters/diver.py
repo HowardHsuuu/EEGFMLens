@@ -12,8 +12,9 @@ class DIVERAdapter(Adapter):
     """Use the 500 Hz EEG path; coordinates follow the author's xyz_id convention.
 
     The transformer prepends both a special channel and a special time position.
-    Its internal caches use batch layout. Embedding and original-position output
-    retain physical channel/patch axes. This does not validate iEEG preprocessing.
+    Its transformer blocks flatten the native augmented (C+1)x(P+1) grid;
+    named physical selections skip the special channel and time positions.
+    This does not validate iEEG preprocessing.
     """
 
     def __init__(self, model, *, channels, positions, output="features"):
@@ -36,10 +37,10 @@ class DIVERAdapter(Adapter):
         self.position_hash = tensor_digest(self.positions)
         sites = [ActivationSite("embedding.output", "embedding", "bcpd")]
         sites += [
-            ActivationSite(f"blocks.{i}.output", f"encoder.encoder.layers.{i}", "batch")
+            ActivationSite(f"blocks.{i}.output", f"encoder.encoder.layers.{i}", "augmented_tokens")
             for i in range(len(model.encoder.encoder.layers))
         ]
-        sites.append(ActivationSite("encoder.output", "encoder", "batch"))
+        sites.append(ActivationSite("encoder.output", "encoder", "augmented_grid"))
         if output == "features":
             sites.append(ActivationSite("features.output", "head", "bcpd"))
         else:
