@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0a20 — native masked reconstruction paths
+
+- Accept explicit physical `[batch, sensor, patch]` masks on CBraMod's native
+  waveform path while preserving its existing unmasked encoder execution.
+- Add a separate ST-EEGFormer MAE adapter that calls the native decoder and
+  exposes full decoder tokens in physical sensor/time coordinates. Visible-only
+  encoder sites remain whole-activation because they have no full-grid mapping.
+- Check native-output parity, hidden-target independence, physical selection
+  and hook cleanup against pinned upstream source; no MAE checkpoint is bundled.
+
 ## 0.1.0a19 — activation-to-spectrum readouts
 
 - Add channel-mean one-sided amplitude and log-amplitude targets with explicit

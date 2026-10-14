@@ -13,9 +13,9 @@ outputs, and applies trial-paired replacements, ablations and patching sweeps.
 Adapters cover eleven EEG model families within the [documented scope](docs/model-coverage.md).
 Model implementations, checkpoints and data are supplied separately.
 
-**Status: 0.1.0a19, public source alpha.** CPU/float32 is the validated native-model
-execution target. This repository does not claim a PyPI release. See
-[what changed in a19](docs/migration-a19.md).
+**Status: 0.1.0a20, public source alpha.** CPU/float32 is the validated native-model
+execution target. This repository does not claim a PyPI release. See the
+[changelog](CHANGELOG.md) for the current adapter scope.
 
 ## Install
 
