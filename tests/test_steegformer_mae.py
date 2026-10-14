@@ -41,18 +41,14 @@ def test_native_mae_forward_and_selected_decoder_token():
     torch.set_num_threads(2)
     model = upstream.mae_vit_small_patch16(norm_pix_loss=False).eval()
     channels = ("C3", "CZ", "C4")
-    batch = SignalBatch(
-        torch.randn(1, 3, 4, 16), ("trial-a",), channels, 128, "native-mae-fixture"
-    )
+    batch = SignalBatch(torch.randn(1, 3, 4, 16), ("trial-a",), channels, 128, "native-mae-fixture")
     mask = torch.zeros(batch.data.shape[:-1], dtype=torch.bool)
     mask[:, 0, 1] = True
     adapter = STEEGFormerMAEAdapter(model, channels=channels, channel_mapping=mapping)
     lens = EEGLens(model, adapter)
 
     with torch.no_grad():
-        observed = lens.run_with_cache(
-            batch, sites=("decoder.0.output",), mask=mask.tolist()
-        )
+        observed = lens.run_with_cache(batch, sites=("decoder.0.output",), mask=mask.tolist())
         flat = mask.transpose(1, 2).flatten(1)
         visible = torch.where(~flat[0])[0]
         hidden = torch.where(flat[0])[0]
@@ -60,8 +56,11 @@ def test_native_mae_forward_and_selected_decoder_token():
         restore = torch.argsort(torch.cat((visible, hidden))).unsqueeze(0)
         channel_ids = torch.tensor([mapping[channel] for channel in channels]).unsqueeze(0)
         native_prediction = model.forward_demo(
-            batch.data.flatten(2), channel_ids, ids_keep=keep,
-            mask=flat.float(), ids_restore=restore,
+            batch.data.flatten(2),
+            channel_ids,
+            ids_keep=keep,
+            mask=flat.float(),
+            ids_restore=restore,
         )[1]
         expected = native_prediction.reshape(1, 4, 3, 16).transpose(1, 2)
         torch.testing.assert_close(observed.output, expected, atol=0, rtol=0)
@@ -82,8 +81,11 @@ def test_native_mae_forward_and_selected_decoder_token():
         handle = model.decoder_blocks[0].register_forward_hook(capture)
         try:
             model.forward_demo(
-                batch.data.flatten(2), channel_ids, ids_keep=keep,
-                mask=flat.float(), ids_restore=restore,
+                batch.data.flatten(2),
+                channel_ids,
+                ids_keep=keep,
+                mask=flat.float(),
+                ids_restore=restore,
             )
         finally:
             handle.remove()
@@ -91,7 +93,9 @@ def test_native_mae_forward_and_selected_decoder_token():
         native_index = 1 + 1 * 3 + 0
         torch.testing.assert_close(
             observed.cache["decoder.0.output"].tensor[:, physical_index],
-            native_site["output"][:, native_index], atol=0, rtol=0,
+            native_site["output"][:, native_index],
+            atol=0,
+            rtol=0,
         )
 
         selected = Selection(sensors=("C3",), patches=(1,))
@@ -108,10 +112,17 @@ def test_native_mae_forward_and_selected_decoder_token():
 
         handle = model.decoder_blocks[0].register_forward_hook(native_zero)
         try:
-            oracle = model.forward_demo(
-                batch.data.flatten(2), channel_ids, ids_keep=keep,
-                mask=flat.float(), ids_restore=restore,
-            )[1].reshape(1, 4, 3, 16).transpose(1, 2)
+            oracle = (
+                model.forward_demo(
+                    batch.data.flatten(2),
+                    channel_ids,
+                    ids_keep=keep,
+                    mask=flat.float(),
+                    ids_restore=restore,
+                )[1]
+                .reshape(1, 4, 3, 16)
+                .transpose(1, 2)
+            )
         finally:
             handle.remove()
         torch.testing.assert_close(ablated, oracle, atol=0, rtol=0)

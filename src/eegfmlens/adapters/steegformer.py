@@ -84,9 +84,9 @@ class STEEGFormerMAEAdapter(Adapter):
         try:
             vocabulary_size = model.enc_channel_emd.channel_transformation.num_embeddings
             patch_size = model.patch_embed.p
-            max_patches = min(
-                model.enc_temporal_emd.pe.shape[1], model.dec_temporal_emd.pe.shape[1]
-            ) - 1
+            max_patches = (
+                min(model.enc_temporal_emd.pe.shape[1], model.dec_temporal_emd.pe.shape[1]) - 1
+            )
             decoder_depth = len(model.decoder_blocks)
             encoder_depth = len(model.blocks)
             model.forward_demo
@@ -171,14 +171,17 @@ class STEEGFormerMAEAdapter(Adapter):
         if not torch.all(visible == visible[0]) or not 0 < visible[0] < flat.shape[1]:
             raise ValidationError("MAE trials need equal nonzero visible and masked counts")
         shuffle = torch.argsort(flat.int(), dim=1, stable=True)
-        keep = shuffle[:, :int(visible[0])]
+        keep = shuffle[:, : int(visible[0])]
         restore = torch.argsort(shuffle, dim=1)
         indices = torch.tensor(self.channel_indices, device=batch.data.device).expand(
             batch.data.shape[0], -1
         )
         native = model.forward_demo(
-            batch.data.flatten(2), indices, ids_keep=keep,
-            mask=flat.float(), ids_restore=restore,
+            batch.data.flatten(2),
+            indices,
+            ids_keep=keep,
+            mask=flat.float(),
+            ids_restore=restore,
         )
         prediction = native[1]
         batch_size, channels, patches, width = batch.data.shape

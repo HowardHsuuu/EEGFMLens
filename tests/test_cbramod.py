@@ -54,9 +54,7 @@ def test_native_blocks_and_folded_branch_replacement(native_cbramod):
 def test_native_explicit_masked_reconstruction_path(native_cbramod):
     torch.manual_seed(19)
     model = native_cbramod.CBraMod(n_layer=2).eval()
-    batch = SignalBatch(
-        torch.randn(2, 3, 4, 200), ("a", "b"), ("C3", "Cz", "C4"), 200, "synthetic"
-    )
+    batch = SignalBatch(torch.randn(2, 3, 4, 200), ("a", "b"), ("C3", "Cz", "C4"), 200, "synthetic")
     mask = torch.zeros(batch.data.shape[:-1], dtype=torch.bool)
     mask[:, 0, 1] = True
     lens = EEGLens(model, CBraModAdapter(model))
