@@ -113,6 +113,15 @@ def test_native_mae_forward_and_selected_decoder_token():
             atol=0,
             rtol=0,
         )
+        attention_input = observed.cache["decoder.0.attention_input"]
+        restored_input = adapter.restore(
+            attention_input.tensor,
+            adapter.require("decoder.0.attention_input"),
+            attention_input.native_shape,
+        )
+        torch.testing.assert_close(
+            restored_input, native_site["attention_input"], atol=0, rtol=0
+        )
 
         selected = Selection(sensors=("C3",), patches=(1,))
         input_ablated = lens.run_with_interventions(
