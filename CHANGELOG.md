@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0a24 — public native-model integrity check
+
+- Add `lens.assert_model_unchanged()` so study code can verify native tensor
+  and module state after custom operations without accessing a private method.
+  The check does not alter model execution or replace a separate hook inventory.
+
 ## 0.1.0a23 — CBraMod physical waveform code
 
 - Declare the native waveform-convolution output as a stable `waveform.code`
