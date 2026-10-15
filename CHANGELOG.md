@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0a24 — fixed adapter site declarations
+
+- Prevent edits to an adapter's declared site mapping after construction.
+  EEGLens also checks its original site inventory before and after each run,
+  so replacing the mapping or changing it inside a custom intervention fails
+  with scoped hooks cleaned up.
+- Keep new model-specific sites in adapters or construct a new adapter and
+  wrapper; experiments no longer need to register native sites at runtime.
+
 ## 0.1.0a23 — CBraMod physical waveform code
 
 - Declare the native waveform-convolution output as a stable `waveform.code`

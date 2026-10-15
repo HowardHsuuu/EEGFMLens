@@ -62,6 +62,29 @@ def test_observation_identity_and_trial_reordering(lens, batch):
     assert not lens.model.signal._forward_hooks
 
 
+def test_adapter_sites_cannot_change_after_wrapping(lens, batch):
+    with pytest.raises(TypeError):
+        lens.adapter.sites["extra"] = ActivationSite("extra", "signal")
+    lens.adapter.sites = dict(lens.adapter.sites)
+    with pytest.raises(ValidationError, match="Adapter site declarations changed"):
+        lens.run_with_cache(batch)
+    assert not lens.model.signal._forward_hooks
+
+
+def test_intervention_cannot_change_adapter_sites_during_run(lens, batch):
+    class MutatingEdit:
+        site = "signal"
+        selection = Selection()
+
+        def apply(self, current, batch, layout, model_id):
+            lens.adapter.sites = {}
+            return current
+
+    with pytest.raises(ValidationError, match="Adapter site declarations changed"):
+        lens.run_with_interventions(batch, interventions=(MutatingEdit(),))
+    assert not lens.model.signal._forward_hooks
+
+
 def test_semantic_selection_has_exact_known_effect(lens, batch):
     site = Ablation("signal", Selection(sensors=("C4",), patches=(1,)))
     result = lens.run_with_interventions(batch, interventions=[site])
