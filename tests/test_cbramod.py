@@ -1,6 +1,7 @@
+from dataclasses import replace
+
 import pytest
 import torch
-from dataclasses import replace
 
 from eegfmlens import (
     Ablation,
