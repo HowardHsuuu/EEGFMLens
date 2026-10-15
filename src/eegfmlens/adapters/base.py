@@ -1,7 +1,5 @@
 """Adapter contracts; adapters own semantic mapping, not research hypotheses."""
 
-from types import MappingProxyType
-
 import torch
 from torch import nn
 
@@ -38,10 +36,9 @@ class Adapter:
                 or not 0 <= s.call_index < s.expected_calls
             ):
                 raise ValidationError("Invalid site call_index/expected_calls")
-        declared = {s.name: s for s in sites}
-        if len(declared) != len(sites):
+        self.sites = {s.name: s for s in sites}
+        if len(self.sites) != len(sites):
             raise ValidationError("Duplicate site names")
-        self.sites = MappingProxyType(declared)
 
     def require(self, name: str) -> ActivationSite:
         try:

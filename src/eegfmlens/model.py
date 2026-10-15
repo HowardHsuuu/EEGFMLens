@@ -59,8 +59,6 @@ class EEGLens:
         self._lock = threading.Lock()
         for site in adapter.sites.values():
             model.get_submodule(site.module_path)
-        self._site_mapping = adapter.sites
-        self._initial_sites = tuple(adapter.sites.items())
         owner = getattr(model, "_eegfmlens_owner", None)
         if owner is not None and owner() is not None:
             raise ValidationError("Native model already has a live EEGLens wrapper")
@@ -78,17 +76,7 @@ class EEGLens:
         )
 
     def sites(self):
-        self._check_sites()
         return tuple(self.adapter.sites.values())
-
-    def _check_sites(self):
-        if (
-            self.adapter.sites is not self._site_mapping
-            or tuple(self.adapter.sites.items()) != self._initial_sites
-        ):
-            raise ValidationError(
-                "Adapter site declarations changed after wrapping; create a fresh adapter and wrapper"
-            )
 
     def capabilities(self) -> tuple[SiteCapability, ...]:
         """Describe usable operations without running the native model."""
@@ -142,7 +130,6 @@ class EEGLens:
             raise ValidationError("Concurrent or reentrant execution is unsupported")
         handles = []
         try:
-            self._check_sites()
             if self._state() != self._initial_state:
                 raise ValidationError(
                     "Model state changed after wrapping; create a fresh model and wrapper"
@@ -220,7 +207,6 @@ class EEGLens:
                 )
             with torch.enable_grad():
                 output = self.adapter.forward(self.model, differentiable_batch, **kwargs)
-                self._check_sites()
                 missing = [
                     name
                     for name, count in calls.items()
@@ -248,7 +234,6 @@ class EEGLens:
                 ]
                 raise ValidationError(f"Objective is disconnected from gradient targets: {unused}")
             resolved_gradients = tuple(gradient for gradient in gradients if gradient is not None)
-            self._check_sites()
             if self._state() != self._initial_state:
                 raise ValidationError("Model state mutated during gradient execution")
             return _DifferentiatedRun(
@@ -272,7 +257,6 @@ class EEGLens:
             raise ValidationError("Concurrent or reentrant execution is unsupported")
         handles = []
         try:
-            self._check_sites()
             if self._state() != self._initial_state:
                 raise ValidationError(
                     "Model state changed after wrapping; create a fresh model and wrapper"
@@ -412,7 +396,6 @@ class EEGLens:
                 )
             with torch.no_grad():
                 output = self.adapter.forward(self.model, batch, **kwargs)
-            self._check_sites()
             missing = [
                 name
                 for name, count in calls.items()
@@ -420,7 +403,6 @@ class EEGLens:
             ]
             if missing:
                 raise HookExecutionError(f"Declared sites did not execute: {missing}")
-            self._check_sites()
             if self._state() != self._initial_state:
                 raise ValidationError("Model state mutated during execution")
             records = []

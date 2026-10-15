@@ -29,10 +29,6 @@ counts. Custom adapters use `Adapter([ActivationSite(...)])`; override `validate
 and `forward` as needed. The generic `batch` layout does not infer sensor or patch
 coordinates. Use whole-activation selection or `AxisSelection` for raw axes whose
 meaning you have verified. Custom adapters are not automatically certified model support.
-Site declarations are fixed when the adapter is constructed; add a site in an
-adapter before wrapping the native model, then create a fresh wrapper. Runs
-reject any later replacement of the site mapping, including changes made
-inside a custom intervention.
 
 ## Execution
 
