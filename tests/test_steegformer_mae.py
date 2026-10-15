@@ -50,7 +50,11 @@ def test_native_mae_forward_and_selected_decoder_token():
     with torch.no_grad():
         observed = lens.run_with_cache(
             batch,
-            sites=("decoder.0.attention_input", "decoder.0.output"),
+            sites=(
+                "decoder.0.attention_input",
+                "decoder.1.attention_input",
+                "decoder.0.output",
+            ),
             mask=mask.tolist(),
         )
         flat = mask.transpose(1, 2).flatten(1)
@@ -88,6 +92,11 @@ def test_native_mae_forward_and_selected_decoder_token():
                 "attention_input", output.detach().clone()
             )
         )
+        late_norm_handle = model.decoder_blocks[1].norm1.register_forward_hook(
+            lambda _module, _args, output: native_site.__setitem__(
+                "late_attention_input", output.detach().clone()
+            )
+        )
         try:
             model.forward_demo(
                 batch.data.flatten(2),
@@ -97,6 +106,7 @@ def test_native_mae_forward_and_selected_decoder_token():
                 ids_restore=restore,
             )
         finally:
+            late_norm_handle.remove()
             norm_handle.remove()
             handle.remove()
         physical_index = 1 + 0 * 4 + 1
@@ -121,6 +131,15 @@ def test_native_mae_forward_and_selected_decoder_token():
         )
         torch.testing.assert_close(
             restored_input, native_site["attention_input"], atol=0, rtol=0
+        )
+        late_input = observed.cache["decoder.1.attention_input"]
+        restored_late_input = adapter.restore(
+            late_input.tensor,
+            adapter.require("decoder.1.attention_input"),
+            late_input.native_shape,
+        )
+        torch.testing.assert_close(
+            restored_late_input, native_site["late_attention_input"], atol=0, rtol=0
         )
 
         selected = Selection(sensors=("C3",), patches=(1,))
