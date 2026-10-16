@@ -39,8 +39,13 @@ evidence that an overlapping recipe matches a checkpoint's pretraining.
 The final exposed activation axis is the feature axis used by
 `SubspaceAblation`; its orthonormal basis has shape `[features, rank]`. Changing
 a dense direction is not the same as deleting an input sensor. Sensor/patch
-selectors are supported only on verified physical layouts. EEGPT, BIOT, BENDR,
-SignalJEPA, BrainOmni and ST-EEGFormer conservatively reject physical selectors.
+selectors are supported only on verified physical layouts. The EEGPT
+encoder-only adapter, BIOT, BENDR, SignalJEPA and BrainOmni conservatively
+reject physical selectors. The separate EEGPT masked-reconstruction adapter
+accepts time-patch selection at `predictor.combined`, but its learned summary
+tokens have no electrode identity and reject sensor selection. ST-EEGFormer
+encoder sites reject physical selectors; its separate native MAE decoder
+adapter supports checked sensor/patch selection at named decoder sites.
 DIVER permits them at physical embedding/head sites and at its augmented
 block/encoder sites after the one-row/one-column native mapping is verified. Use
 `lens.capabilities()` on the connected model to inspect each site's layout,

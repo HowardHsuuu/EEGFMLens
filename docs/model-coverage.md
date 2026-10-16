@@ -37,7 +37,7 @@ repository.
 | --- | --- | --- | --- | --- |
 | CBraMod | official pretrained 12-block model, including explicit-mask waveform reconstruction | sensor/patch, including folded branches | contract + pinned source; masked-call native test | no task classifier |
 | LaBraM | official pretrained student encoder and learned final norm | channel-major sensor/patch tokens | contract + pinned source | no functional QKV hook; at most 16 native patches |
-| EEGPT | EEGTransformer encoder with converted pretrained weights | none on summary/window token sites | contract + pinned source | 256 Hz configured geometry only |
+| EEGPT | EEGTransformer encoder; separately, a strictly loaded native masked encoder/predictor/reconstructor checkpoint | time patches at `predictor.combined` in the masked variant; no electrode identity for summary tokens | encoder contract + pinned source; full-checkpoint local admission | 256 Hz configured geometry; the masked endpoint and time-only selection are separate from the encoder-only contract |
 | BIOT | PREST 16-channel and six-dataset 18-channel encoders | none on STFT sequence | contract + pinned source | checkpoint channel vocabulary must be declared |
 | BENDR | convolutional encoder and encoder/contextualizer composition | none on downsampled/context sequence | contract | no DN3 preprocessing or classifier |
 | BrainOmni | tiny checkpoint native `encode` path | none on latent sensor units | contract | synthetic geometry; pair RNG for native eval dropout |

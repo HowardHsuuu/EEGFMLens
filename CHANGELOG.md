@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0a25 — EEGPT native masked-reconstruction adapter
+
+- Add a separate EEGPT encoder/predictor/reconstructor adapter for a strictly
+  loaded full native checkpoint and masked-waveform output. The existing
+  encoder-only adapter and its selection limits remain available.
+- Expose the combined predictor input as physically addressed time patches;
+  learned summary tokens have no electrode identity and cannot be selected
+  as sensors. Check native output, masked-input independence, selected-state
+  replacement, and hook cleanup with an actual checkpoint. No model weights
+  or participant data are bundled.
+
 ## 0.1.0a24 — public native-model integrity check
 
 - Add `lens.assert_model_unchanged()` so study code can verify native tensor
