@@ -9,6 +9,14 @@ Before the first release, configure a PyPI trusted publisher for this repository
 workflow `release.yml`, and environment `pypi`. Protect that GitHub environment
 with the desired reviewer policy. No long-lived PyPI token is required.
 
+The reviewed a25 wheel used for the EEGPT cohort has SHA-256
+`b805c6286e35d425167dcb99f99adc93a0fb75454d8e032ee0e6d9e9069a1407`.
+Its 40 package Python files match this release source, but its embedded README
+predates the a25 documentation update. Keep that digest as scientific execution
+provenance; build a separate release wheel from the final clean source. Before
+publishing, verify that the release wheel's Python files match the reviewed
+scientific wheel and its metadata description matches this README.
+
 1. Update the version in `pyproject.toml` and add a matching changelog heading.
 2. Run the local release gates:
 
