@@ -33,7 +33,11 @@ class Selection:
             if self.sensors is not None:
                 raise ValidationError("This site has time patches but no sensor identity")
             patches = self.patches if self.patches is not None else tuple(range(p))
-            if not patches or len(set(patches)) != len(patches) or any(k < 0 or k >= p for k in patches):
+            if (
+                not patches
+                or len(set(patches)) != len(patches)
+                or any(k < 0 or k >= p for k in patches)
+            ):
                 raise ValidationError("Unknown or duplicate time patch")
             if tensor.ndim != 4 or tensor.shape[:2] != (b, p):
                 raise ValidationError("Unexpected time-patch activation geometry")

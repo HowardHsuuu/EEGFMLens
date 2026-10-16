@@ -84,11 +84,13 @@ class EEGPTMaskedReconstructionAdapter(Adapter):
         self.summary_tokens = model.encoder.embed_num
         if model.encoder.patch_embed.patch_stride not in (None, self.patch_size):
             raise ValidationError("Overlapping EEGPT tokenization is unsupported")
-        super().__init__([
-            ActivationSite("encoder.output", "encoder", "batch"),
-            ActivationSite("predictor.combined", "predictor", "bpfd", tensor_index=1),
-            ActivationSite("reconstruction.output", "reconstructor", "batch"),
-        ])
+        super().__init__(
+            [
+                ActivationSite("encoder.output", "encoder", "batch"),
+                ActivationSite("predictor.combined", "predictor", "bpfd", tensor_index=1),
+                ActivationSite("reconstruction.output", "reconstructor", "batch"),
+            ]
+        )
 
     def validate(self, batch):
         if (
@@ -105,12 +107,17 @@ class EEGPTMaskedReconstructionAdapter(Adapter):
         mx = torch.as_tensor(mask_x, dtype=torch.long, device=batch.data.device)
         my = torch.as_tensor(mask_y, dtype=torch.long, device=batch.data.device)
         if (
-            mx.ndim != 2 or mx.shape[0] != p - 1 or mx.shape[1] != c - 1
-            or my.ndim != 1 or my.numel() == 0
+            mx.ndim != 2
+            or mx.shape[0] != p - 1
+            or mx.shape[1] != c - 1
+            or my.ndim != 1
+            or my.numel() == 0
             or mx.numel() != mx.unique().numel()
             or my.numel() != my.unique().numel()
-            or (mx < 0).any() or (mx >= c * p).any()
-            or (my < 0).any() or (my >= c * p).any()
+            or (mx < 0).any()
+            or (mx >= c * p).any()
+            or (my < 0).any()
+            or (my >= c * p).any()
             or torch.isin(my, mx.flatten()).any()
         ):
             raise ValidationError("EEGPT masks must be unique, disjoint native physical tokens")
@@ -124,7 +131,9 @@ class EEGPTMaskedReconstructionAdapter(Adapter):
         try:
             channel_ids = model.encoder.prepare_chan_ids(batch.channels)
         except (AssertionError, KeyError, ValueError) as exc:
-            raise ValidationError("EEGPT channel name is absent from the native vocabulary") from exc
+            raise ValidationError(
+                "EEGPT channel name is absent from the native vocabulary"
+            ) from exc
         if (
             not isinstance(channel_ids, torch.Tensor)
             or channel_ids.dtype != torch.long

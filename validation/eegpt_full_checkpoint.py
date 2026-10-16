@@ -18,7 +18,11 @@ import torch
 from safetensors.torch import load_file
 
 from eegfmlens import (
-    EEGLens, EEGPTMaskedReconstructionAdapter, Replacement, Selection, SignalBatch,
+    EEGLens,
+    EEGPTMaskedReconstructionAdapter,
+    Replacement,
+    Selection,
+    SignalBatch,
 )
 
 CHECKPOINT_SHA = "d27f2b2d728224fde538d82d84d2804cfebcc162f2ffa6c0c67f559ae8bb2460"
@@ -38,22 +42,32 @@ def main() -> None:
     args = p.parse_args()
     if args.output.exists() or not args.output.resolve().is_relative_to(args.research.resolve()):
         raise ValueError("fresh local-only EEGPT technical admission required")
-    checkpoint = args.research / "context-mechanisms/eegpt-full-admission/tensors-v1/state.safetensors"
+    checkpoint = (
+        args.research / "context-mechanisms/eegpt-full-admission/tensors-v1/state.safetensors"
+    )
     if digest(checkpoint) != CHECKPOINT_SHA:
         raise AssertionError("actual EEGPT full checkpoint changed")
     sys.path.insert(0, str(args.findings_root / "experiments/context_mechanisms"))
     from eegmat_data import CHANNELS  # noqa: E402
 
     torch.set_num_threads(2)
-    native_path = args.research / "eeglens_model_validation/repos/EEGPT/pretrain/modeling_pretraining.py"
+    native_path = (
+        args.research / "eeglens_model_validation/repos/EEGPT/pretrain/modeling_pretraining.py"
+    )
     if digest(native_path) != NATIVE_SOURCE_SHA:
         raise AssertionError("pinned native EEGPT pretraining source changed")
-    spec = importlib.util.spec_from_file_location("native_eegpt_pretraining_components", native_path)
+    spec = importlib.util.spec_from_file_location(
+        "native_eegpt_pretraining_components", native_path
+    )
     native = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(native)
     config = dict(
-        embed_dim=512, embed_num=4, depth=8, num_heads=8,
-        mlp_ratio=4.0, qkv_bias=True,
+        embed_dim=512,
+        embed_num=4,
+        depth=8,
+        num_heads=8,
+        mlp_ratio=4.0,
+        qkv_bias=True,
         norm_layer=partial(torch.nn.LayerNorm, eps=1e-6),
     )
     model = torch.nn.Module()
@@ -71,13 +85,16 @@ def main() -> None:
     torch.manual_seed(847)
     baseline_data = torch.randn(2, 19, 16, 64)
     original = SignalBatch(
-        baseline_data, ("synthetic-a", "synthetic-b"), CHANNELS, 256,
-        "eegpt-package-actual-checkpoint-a25", "model_scaled",
+        baseline_data,
+        ("synthetic-a", "synthetic-b"),
+        CHANNELS,
+        256,
+        "eegpt-package-actual-checkpoint-a25",
+        "model_scaled",
     )
     c3, c4 = CHANNELS.index("C3"), CHANNELS.index("C4")
     mask_x = [
-        [time * 19 + sensor for sensor in range(19)
-         if sensor != (c3 if 4 <= time < 8 else c4)]
+        [time * 19 + sensor for sensor in range(19) if sensor != (c3 if 4 <= time < 8 else c4)]
         for time in range(15)
     ]
     mask_y = [time * 19 + c3 for time in range(4, 8)]
@@ -87,14 +104,22 @@ def main() -> None:
     donor_data = baseline_data.clone()
     donor_data[:, c3, :4] += 0.2
     donor = SignalBatch(
-        donor_data, original.trial_ids, CHANNELS, 256,
-        original.preprocessing_id, "model_scaled",
+        donor_data,
+        original.trial_ids,
+        CHANNELS,
+        256,
+        original.preprocessing_id,
+        "model_scaled",
     )
     hidden_data = baseline_data.transpose(1, 2).flatten(1, 2).clone()
     hidden_data[:, ~observed] += 1000
     hidden = SignalBatch(
         hidden_data.reshape(2, 16, 19, 64).transpose(1, 2),
-        original.trial_ids, CHANNELS, 256, original.preprocessing_id, "model_scaled",
+        original.trial_ids,
+        CHANNELS,
+        256,
+        original.preprocessing_id,
+        "model_scaled",
     )
     # Admit the same remote-time state frozen for the cohort study. The donor
     # perturbation is at times 0-3, while target times 4-7 remain untouched.
@@ -108,8 +133,13 @@ def main() -> None:
     with torch.inference_mode():
         baseline = lens.run_with_cache(original, **kwargs)
         source_run = lens.run_with_cache(donor, **kwargs)
-        if not bool((source_run.cache[site].tensor[:, selected.patches]
-                     - baseline.cache[site].tensor[:, selected.patches]).norm() > 0):
+        if not bool(
+            (
+                source_run.cache[site].tensor[:, selected.patches]
+                - baseline.cache[site].tensor[:, selected.patches]
+            ).norm()
+            > 0
+        ):
             raise AssertionError("visible remote donor did not change selected state")
         channels = model.encoder.prepare_chan_ids(CHANNELS)
         encoded = model.encoder(original.data.flatten(2), channels, mask_x=torch.tensor(mask_x))
@@ -119,8 +149,10 @@ def main() -> None:
         if tuple(baseline.cache[site].tensor.shape) != (2, 16, 4, 512):
             raise AssertionError("actual predictor time/summary/feature geometry differs")
         torch.testing.assert_close(
-            lens.run_with_cache(hidden, **kwargs).output, baseline.output,
-            rtol=0, atol=0,
+            lens.run_with_cache(hidden, **kwargs).output,
+            baseline.output,
+            rtol=0,
+            atol=0,
         )
         own = lens.run_with_interventions(
             original, interventions=(Replacement(site, baseline.cache[site], selected),), **kwargs
@@ -154,23 +186,29 @@ def main() -> None:
     ):
         raise AssertionError("native EEGPT hooks remain after package intervention")
     result = {
-        "status": "pass", "scope": "actual-checkpoint technical admission; no participant effects",
+        "status": "pass",
+        "scope": "actual-checkpoint technical admission; no participant effects",
         "checkpoint_sha256": CHECKPOINT_SHA,
         "native_source_sha256": NATIVE_SOURCE_SHA,
-        "adapter_source_sha256": digest(Path(sys.modules[
-            EEGPTMaskedReconstructionAdapter.__module__
-        ].__file__)),
+        "adapter_source_sha256": digest(
+            Path(sys.modules[EEGPTMaskedReconstructionAdapter.__module__].__file__)
+        ),
         "package_adapter": "EEGPTMaskedReconstructionAdapter",
         "predictor_combined_shape": [2, 16, 4, 512],
         "physical_selection": {"time_patches": list(selected.patches), "sensor_selection": False},
-        "native_output_exact": True, "hidden_input_independence_exact": True,
-        "own_state_exact": True, "native_intervention_exact": True,
-        "unselected_state_exact": True, "hook_and_model_integrity_exact": True,
+        "native_output_exact": True,
+        "hidden_input_independence_exact": True,
+        "own_state_exact": True,
+        "native_intervention_exact": True,
+        "unselected_state_exact": True,
+        "hook_and_model_integrity_exact": True,
         "script_sha256": digest(Path(__file__)),
         "participant_or_trial_effects_included": False,
     }
     args.output.mkdir(parents=True)
-    (args.output / "admission.json").write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
+    (args.output / "admission.json").write_text(
+        json.dumps(result, indent=2, allow_nan=False) + "\n"
+    )
     print(json.dumps({"status": "pass", "checkpoint_sha256": CHECKPOINT_SHA}))
 
 

@@ -129,9 +129,7 @@ def test_native_mae_forward_and_selected_decoder_token():
             adapter.require("decoder.0.attention_input"),
             attention_input.native_shape,
         )
-        torch.testing.assert_close(
-            restored_input, native_site["attention_input"], atol=0, rtol=0
-        )
+        torch.testing.assert_close(restored_input, native_site["attention_input"], atol=0, rtol=0)
         late_input = observed.cache["decoder.1.attention_input"]
         restored_late_input = adapter.restore(
             late_input.tensor,

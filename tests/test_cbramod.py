@@ -75,15 +75,15 @@ def test_native_explicit_masked_reconstruction_path(native_cbramod):
     source = run.cache["waveform.code"]
     assert source.layout == "bcpd"
     assert source.tensor.shape[:3] == (2, 3, 4)
-    raw = lens.adapter.restore(source.tensor, lens.adapter.require(source.site), source.native_shape)
+    raw = lens.adapter.restore(
+        source.tensor, lens.adapter.require(source.site), source.native_shape
+    )
     assert raw.shape[2] == 3 * 4
     physical = Selection(sensors=("Cz", "C4"), patches=(0, 3))
     selected = physical.mask(source.tensor, batch, source.layout)
     edited_raw = raw.clone()
     edited_raw[:, :, [4, 7, 8, 11], :] = 0
-    edited_physical = lens.adapter.expose(
-        edited_raw, lens.adapter.require(source.site), batch
-    )
+    edited_physical = lens.adapter.expose(edited_raw, lens.adapter.require(source.site), batch)
     torch.testing.assert_close(
         edited_physical, source.tensor.masked_fill(selected, 0), atol=0, rtol=0
     )
@@ -93,9 +93,7 @@ def test_native_explicit_masked_reconstruction_path(native_cbramod):
         sites=(source.site,),
         mask=mask.tolist(),
     )
-    torch.testing.assert_close(
-        ablated.cache[source.site].tensor, edited_physical, atol=0, rtol=0
-    )
+    torch.testing.assert_close(ablated.cache[source.site].tensor, edited_physical, atol=0, rtol=0)
     replay = lens.run_with_interventions(
         batch,
         interventions=(Replacement(source.site, replace(source, tensor=edited_physical)),),

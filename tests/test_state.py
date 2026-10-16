@@ -34,9 +34,7 @@ def test_public_model_integrity_check_detects_native_changes():
         lens.assert_model_unchanged()
 
     replacement_model = nn.Sequential(nn.Linear(2, 2)).eval()
-    replacement_lens = EEGLens(
-        replacement_model, Adapter([ActivationSite("layer", "0")])
-    )
+    replacement_lens = EEGLens(replacement_model, Adapter([ActivationSite("layer", "0")]))
     replacement_model[0] = nn.Linear(2, 2).eval()
     with pytest.raises(ValidationError, match="state changed"):
         replacement_lens.assert_model_unchanged()

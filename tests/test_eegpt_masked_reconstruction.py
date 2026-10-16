@@ -7,7 +7,11 @@ import torch
 from torch import nn
 
 from eegfmlens import (
-    EEGLens, EEGPTMaskedReconstructionAdapter, Replacement, Selection, SignalBatch,
+    EEGLens,
+    EEGPTMaskedReconstructionAdapter,
+    Replacement,
+    Selection,
+    SignalBatch,
 )
 from eegfmlens.errors import ValidationError
 
@@ -48,7 +52,10 @@ class FullPipeline(nn.Module):
 
 def _batch(value):
     return SignalBatch(
-        torch.full((2, 3, 2, 4), value), ("one", "two"), ("C3", "C4", "P3"), 256,
+        torch.full((2, 3, 2, 4), value),
+        ("one", "two"),
+        ("C3", "C4", "P3"),
+        256,
         "fixed-native-preprocessing",
     )
 
@@ -65,10 +72,13 @@ def test_masked_pipeline_patch_replacement_matches_native_hook_and_rejects_senso
     assert capability.selectors == ("whole", "axis", "patch")
     patched = lens.run_with_interventions(
         recipient,
-        interventions=[Replacement(
-            "predictor.combined", source.cache["predictor.combined"],
-            Selection(patches=(1,)),
-        )],
+        interventions=[
+            Replacement(
+                "predictor.combined",
+                source.cache["predictor.combined"],
+                Selection(patches=(1,)),
+            )
+        ],
         **kwargs,
     )
     torch.testing.assert_close(patched.output, source.output, rtol=0, atol=0)
@@ -78,10 +88,13 @@ def test_masked_pipeline_patch_replacement_matches_native_hook_and_rejects_senso
     with pytest.raises(ValidationError, match="no sensor identity"):
         lens.run_with_interventions(
             recipient,
-            interventions=[Replacement(
-                "predictor.combined", source.cache["predictor.combined"],
-                Selection(sensors=("C3",)),
-            )],
+            interventions=[
+                Replacement(
+                    "predictor.combined",
+                    source.cache["predictor.combined"],
+                    Selection(sensors=("C3",)),
+                )
+            ],
             **kwargs,
         )
     with pytest.raises(ValidationError, match="ordered physical time rows"):
