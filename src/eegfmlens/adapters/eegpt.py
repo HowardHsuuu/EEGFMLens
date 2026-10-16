@@ -101,7 +101,9 @@ class EEGPTMaskedReconstructionAdapter(Adapter):
         ):
             raise ValidationError("EEGPT masked reconstruction requires native 256 Hz geometry")
 
-    def forward(self, model, batch, *, mask_x, mask_y):
+    # Adapter kwargs are model-specific. This native path requires both masks;
+    # retaining required keywords prevents an accidental unmasked experiment.
+    def forward(self, model, batch, *, mask_x, mask_y):  # type: ignore[override]
         self.validate(batch)
         c, p = self.num_patches
         mx = torch.as_tensor(mask_x, dtype=torch.long, device=batch.data.device)
