@@ -8,17 +8,21 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import sys
+from functools import partial
 from pathlib import Path
 
 import torch
+from safetensors.torch import load_file
 
 from eegfmlens import (
     EEGLens, EEGPTMaskedReconstructionAdapter, Replacement, Selection, SignalBatch,
 )
 
 CHECKPOINT_SHA = "d27f2b2d728224fde538d82d84d2804cfebcc162f2ffa6c0c67f559ae8bb2460"
+NATIVE_SOURCE_SHA = "4d40c2e5ce5de7a45e9a4ad7c93cab21d22a47d3e43228eb7699186706ae88c6"
 
 
 def digest(path: Path) -> str:
@@ -39,12 +43,30 @@ def main() -> None:
         raise AssertionError("actual EEGPT full checkpoint changed")
     sys.path.insert(0, str(args.findings_root / "experiments/context_mechanisms"))
     from eegmat_data import CHANNELS  # noqa: E402
-    from eegpt_native import build  # noqa: E402
 
     torch.set_num_threads(2)
-    model, native, source = build(args.research)
-    if source["tensor_checkpoint_sha256"] != CHECKPOINT_SHA or source["strict_all_components"] is not True:
-        raise AssertionError("actual EEGPT component load differs")
+    native_path = args.research / "eeglens_model_validation/repos/EEGPT/pretrain/modeling_pretraining.py"
+    if digest(native_path) != NATIVE_SOURCE_SHA:
+        raise AssertionError("pinned native EEGPT pretraining source changed")
+    spec = importlib.util.spec_from_file_location("native_eegpt_pretraining_components", native_path)
+    native = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(native)
+    config = dict(
+        embed_dim=512, embed_num=4, depth=8, num_heads=8,
+        mlp_ratio=4.0, qkv_bias=True,
+        norm_layer=partial(torch.nn.LayerNorm, eps=1e-6),
+    )
+    model = torch.nn.Module()
+    model.encoder = native.EEGTransformer(img_size=(19, 1024), patch_size=64, **config)
+    model.target_encoder = native.EEGTransformer(img_size=(19, 1024), patch_size=64, **config)
+    model.predictor = native.EEGTransformerPredictor(
+        num_patches=(19, 16), predictor_embed_dim=512, use_part_pred=True, **config
+    )
+    model.reconstructor = native.EEGTransformerReconstructor(
+        num_patches=(19, 16), patch_size=64, reconstructor_embed_dim=512, **config
+    )
+    model.load_state_dict(load_file(str(checkpoint)), strict=True)
+    model.eval().requires_grad_(False)
     lens = EEGLens(model, EEGPTMaskedReconstructionAdapter(model))
     torch.manual_seed(847)
     baseline_data = torch.randn(2, 19, 16, 64)
@@ -129,7 +151,7 @@ def main() -> None:
     result = {
         "status": "pass", "scope": "actual-checkpoint technical admission; no participant effects",
         "checkpoint_sha256": CHECKPOINT_SHA,
-        "native_source_sha256": source["native_source_sha256"],
+        "native_source_sha256": NATIVE_SOURCE_SHA,
         "adapter_source_sha256": digest(Path(sys.modules[
             EEGPTMaskedReconstructionAdapter.__module__
         ].__file__)),
