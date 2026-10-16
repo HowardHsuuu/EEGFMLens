@@ -85,7 +85,7 @@ def main() -> None:
     observed = torch.zeros(16 * 19, dtype=torch.bool)
     observed[torch.tensor(mask_x).flatten()] = True
     donor_data = baseline_data.clone()
-    donor_data[:, c4, :4] += 0.2
+    donor_data[:, c3, :4] += 0.2
     donor = SignalBatch(
         donor_data, original.trial_ids, CHANNELS, 256,
         original.preprocessing_id, "model_scaled",
@@ -96,7 +96,9 @@ def main() -> None:
         hidden_data.reshape(2, 16, 19, 64).transpose(1, 2),
         original.trial_ids, CHANNELS, 256, original.preprocessing_id, "model_scaled",
     )
-    selected = Selection(patches=(4, 5, 6, 7))
+    # Admit the same remote-time state frozen for the cohort study. The donor
+    # perturbation is at times 0-3, while target times 4-7 remain untouched.
+    selected = Selection(patches=(0, 1, 2, 3, 12, 13, 14))
     site = "predictor.combined"
     hooks_before = tuple(
         (name, tuple(module._forward_hooks), tuple(module._forward_pre_hooks))
@@ -106,6 +108,9 @@ def main() -> None:
     with torch.inference_mode():
         baseline = lens.run_with_cache(original, **kwargs)
         source_run = lens.run_with_cache(donor, **kwargs)
+        if not bool((source_run.cache[site].tensor[:, selected.patches]
+                     - baseline.cache[site].tensor[:, selected.patches]).norm() > 0):
+            raise AssertionError("visible remote donor did not change selected state")
         channels = model.encoder.prepare_chan_ids(CHANNELS)
         encoded = model.encoder(original.data.flatten(2), channels, mask_x=torch.tensor(mask_x))
         _, combined = model.predictor(encoded, mask_x=torch.tensor(mask_x))
@@ -138,8 +143,8 @@ def main() -> None:
         torch.testing.assert_close(edited.output, oracle, rtol=0, atol=0)
         changed = baseline.cache[site].tensor.clone()
         changed[:, selected.patches] = source_run.cache[site].tensor[:, selected.patches]
-        assert torch.equal(changed[:, :4], baseline.cache[site].tensor[:, :4])
-        assert torch.equal(changed[:, 8:], baseline.cache[site].tensor[:, 8:])
+        assert torch.equal(changed[:, 4:12], baseline.cache[site].tensor[:, 4:12])
+        assert torch.equal(changed[:, 15:], baseline.cache[site].tensor[:, 15:])
         if not (edited.output - baseline.output).norm() > 0:
             raise AssertionError("actual checkpoint selected patch has no effect")
     lens.assert_model_unchanged()
