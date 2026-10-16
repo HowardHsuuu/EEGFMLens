@@ -33,7 +33,7 @@ consistent:
 | --- | --- | --- | --- | --- |
 | `cbramod` | pretrained encoder/reconstruction model | none | 200 Hz, 200 samples/patch | all declared sites |
 | `labram` | pretrained student encoder | optional `output` | 200 Hz, 200 samples/patch, native channel names | all declared sites |
-| `eegpt` | EEGTransformer encoder | none | 256 Hz, configured channels/windows/patches | no; raw axis only |
+| `eegpt` | EEGTransformer encoder; optional native encoder/predictor/reconstructor | `variant="masked_reconstruction"` for the full pipeline | 256 Hz, contiguous native patches; explicit `mask_x` and `mask_y` for reconstruction | physical time patches at `predictor.combined`; summary tokens have no sensor identity |
 | `biot` | BIOTEncoder | `channels` | 200 Hz, checkpoint channel vocabulary | no; raw axis only |
 | `bendr` | encoder + contextualizer | `channels`; optional `variant="encoder"` | 256 Hz, ordered inputs | no; raw axis only |
 | `brainomni` | tiny checkpoint `encode` path | `channels`, `positions`, `sensor_types` | 256 Hz, native geometry | no; raw axis only |
@@ -46,6 +46,15 @@ consistent:
 After connection, `lens.capabilities()` lists the exact sites, layouts,
 writability, invocation counts and allowed selectors for that model instance.
 This is more precise than assuming a family-wide token meaning.
+
+For EEGPT masked reconstruction, pass the strictly loaded upstream encoder,
+target encoder, predictor and reconstructor as one model. The full-pipeline
+variant requires ordered, disjoint physical masks for every run and exposes
+`predictor.combined` as batch/time-patch/learned-summary/feature. Use
+`Selection(patches=(...))` for physical time-window edits there; sensor
+selection is rejected because the learned summary tokens are not electrodes.
+Its native target is a per-patch normalized waveform, so error estimates must
+be reported separately from other models' raw or standardized waveform errors.
 
 ```python
 for site in lens.capabilities():

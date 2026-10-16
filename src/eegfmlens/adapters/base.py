@@ -96,6 +96,7 @@ def expose(tensor: torch.Tensor, site: ActivationSite, batch: SignalBatch) -> to
         "augmented_tokens",
         "augmented_grid",
         "batch",
+        "bpfd",
     }:
         raise ValidationError(f"Unknown layout: {site.layout}")
     if tensor.shape[0] != b:

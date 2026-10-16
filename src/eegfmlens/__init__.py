@@ -7,7 +7,7 @@ from .adapters.cbramod import CBraModAdapter
 from .adapters.continuous import BENDREncoderAdapter, BIOTAdapter
 from .adapters.csbrain import CSBrainAdapter
 from .adapters.diver import DIVERAdapter
-from .adapters.eegpt import EEGPTAdapter
+from .adapters.eegpt import EEGPTAdapter, EEGPTMaskedReconstructionAdapter
 from .adapters.generic import GenericAdapter, ModuleInfo, inspect_modules
 from .adapters.labram import LaBraMAdapter
 from .adapters.neurorvq import NeuroRVQAdapter
@@ -161,6 +161,7 @@ __all__ = [
     "CSBrainAdapter",
     "GenericAdapter",
     "EEGPTAdapter",
+    "EEGPTMaskedReconstructionAdapter",
     "BIOTAdapter",
     "BENDREncoderAdapter",
     "BENDRAdapter",

@@ -114,6 +114,8 @@ class EEGLens:
                 site.writable,
                 ("whole", "axis", "sensor", "patch")
                 if site.layout in physical
+                else ("whole", "axis", "patch")
+                if site.layout == "bpfd"
                 else ("whole", "axis"),
                 site.call_index,
                 site.expected_calls,
