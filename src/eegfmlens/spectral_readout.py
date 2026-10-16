@@ -248,6 +248,15 @@ def activation_spectral_matrix(
             if tensor.ndim != 3 or tensor.shape[:2] != (b, offset + c * p):
                 raise ValidationError("Activation tokens do not match patch spectral geometry")
             matrix = tensor[:, offset:].reshape(b, c, p, -1).mean(dim=1).reshape(b * p, -1)
+        elif activation.layout == "augmented_tokens":
+            if tensor.ndim != 3 or tensor.shape[:2] != (b, (c + 1) * (p + 1)):
+                raise ValidationError("Augmented tokens do not match patch spectral geometry")
+            physical = tensor.reshape(b, c + 1, p + 1, -1)[:, 1:, 1:]
+            matrix = physical.mean(dim=1).reshape(b * p, -1)
+        elif activation.layout == "augmented_grid":
+            if tensor.ndim != 4 or tensor.shape[1:3] != (c + 1, p + 1) or tensor.shape[0] != b:
+                raise ValidationError("Augmented grid does not match patch spectral geometry")
+            matrix = tensor[:, 1:, 1:].mean(dim=1).reshape(b * p, -1)
         else:
             raise ValidationError("Patch spectral alignment requires a physical token layout")
     if matrix.shape[0] != targets.values.shape[0] or not torch.isfinite(matrix).all():

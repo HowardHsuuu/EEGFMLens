@@ -1,5 +1,59 @@
 # Changelog
 
+## 0.1.0a25 — EEGPT native masked-reconstruction adapter
+
+- Add a separate EEGPT encoder/predictor/reconstructor adapter for a strictly
+  loaded full native checkpoint and masked-waveform output. The existing
+  encoder-only adapter and its selection limits remain available.
+- Expose the combined predictor input as physically addressed time patches;
+  learned summary tokens have no electrode identity and cannot be selected
+  as sensors. Check native output, masked-input independence, selected-state
+  replacement, and hook cleanup with an actual checkpoint. No model weights
+  or participant data are bundled.
+
+## 0.1.0a24 — public native-model integrity check
+
+- Add `lens.assert_model_unchanged()` so study code can verify native tensor
+  and module state after custom operations without accessing a private method.
+  The check does not alter model execution or replace a separate hook inventory.
+
+## 0.1.0a23 — CBraMod physical waveform code
+
+- Declare the native waveform-convolution output as a stable `waveform.code`
+  site. Its folded convolution positions are exposed as sensor/patch/feature
+  coordinates, allowing named physical selections without mutating an adapter
+  after construction or indexing the native convolution axis in study code.
+- Check exact native reconstruction, reversible coordinates, source ablation,
+  and output equivalence to the former raw-axis edit on pinned upstream source.
+
+## 0.1.0a22 — native ST decoder attention inputs
+
+- Expose each ST-EEGFormer MAE decoder attention input at a named physical
+  sensor/patch site, using the same reversible time-major mapping as its
+  attention output. Study code can cache projected-component donors through
+  EEGFMLens without installing a separate input-capture hook.
+- Verify exact native attention-input coordinates and selected intervention
+  parity against pinned upstream MAE source.
+
+## 0.1.0a21 — DIVER physical operation coordinates
+
+- Expose DIVER's augmented token grid as named sensor/patch coordinates while
+  excluding its prepended special row and column from selective edits.
+- Declare native DIVER attention and feed-forward outputs alongside block
+  outputs, so the same physical selector can trace their operation paths.
+- Check native-output equality, selected replacement and untouched coordinates
+  against pinned upstream source; no DIVER checkpoint is bundled.
+
+## 0.1.0a20 — native masked reconstruction paths
+
+- Accept explicit physical `[batch, sensor, patch]` masks on CBraMod's native
+  waveform path while preserving its existing unmasked encoder execution.
+- Add a separate ST-EEGFormer MAE adapter that calls the native decoder and
+  exposes full decoder tokens in physical sensor/time coordinates. Visible-only
+  encoder sites remain whole-activation because they have no full-grid mapping.
+- Check native-output parity, hidden-target independence, physical selection
+  and hook cleanup against pinned upstream source; no MAE checkpoint is bundled.
+
 ## 0.1.0a19 — activation-to-spectrum readouts
 
 - Add channel-mean one-sided amplitude and log-amplitude targets with explicit

@@ -117,6 +117,9 @@ class ActivationSite:
 
     Layout bcpd is batch/sensor/patch/feature; spatial and temporal restore
     CBraMod's folded batch axes to bcpd. Tokens retain LaBraM's CLS token.
+    Augmented grid/tokens retain DIVER's prepended channel and time positions;
+    physical coordinates begin at row and column one.
+    Layout bpfd is batch/time-patch/learned-summary/feature and has no sensor axis.
     """
 
     name: str

@@ -33,7 +33,7 @@ consistent:
 | --- | --- | --- | --- | --- |
 | `cbramod` | pretrained encoder/reconstruction model | none | 200 Hz, 200 samples/patch | all declared sites |
 | `labram` | pretrained student encoder | optional `output` | 200 Hz, 200 samples/patch, native channel names | all declared sites |
-| `eegpt` | EEGTransformer encoder | none | 256 Hz, configured channels/windows/patches | no; raw axis only |
+| `eegpt` | EEGTransformer encoder; optional native encoder/predictor/reconstructor | `variant="masked_reconstruction"` for the full pipeline | 256 Hz, contiguous native patches; explicit `mask_x` and `mask_y` for reconstruction | physical time patches at `predictor.combined`; summary tokens have no sensor identity |
 | `biot` | BIOTEncoder | `channels` | 200 Hz, checkpoint channel vocabulary | no; raw axis only |
 | `bendr` | encoder + contextualizer | `channels`; optional `variant="encoder"` | 256 Hz, ordered inputs | no; raw axis only |
 | `brainomni` | tiny checkpoint `encode` path | `channels`, `positions`, `sensor_types` | 256 Hz, native geometry | no; raw axis only |
@@ -46,6 +46,15 @@ consistent:
 After connection, `lens.capabilities()` lists the exact sites, layouts,
 writability, invocation counts and allowed selectors for that model instance.
 This is more precise than assuming a family-wide token meaning.
+
+For EEGPT masked reconstruction, pass the strictly loaded upstream encoder,
+target encoder, predictor and reconstructor as one model. The full-pipeline
+variant requires ordered, disjoint physical masks for every run and exposes
+`predictor.combined` as batch/time-patch/learned-summary/feature. Use
+`Selection(patches=(...))` for physical time-window edits there; sensor
+selection is rejected because the learned summary tokens are not electrodes.
+Its native target is a per-patch normalized waveform, so error estimates must
+be reported separately from other models' raw or standardized waveform errors.
 
 ```python
 for site in lens.capabilities():
@@ -95,7 +104,7 @@ from eegfmlens import load_cbramod
 lens = load_cbramod("cbramod.pth", model_factory=CBraMod, output="features", device="cpu")
 ```
 
-The official 12-block state dictionary is loaded strictly. `features` removes only the reconstruction projection after strict loading; output is `[B,C,P,200]`. `reconstruction` retains the projection. Neither is a task classifier. Site names are `embedding.output` and `blocks.i.{output,spatial.output,temporal.output,mlp.output}`. Spatial/temporal features have width 100 in this checkpoint; block features have width 200.
+The official 12-block state dictionary is loaded strictly. `features` removes only the reconstruction projection after strict loading; output is `[B,C,P,200]`. `reconstruction` retains the projection. Neither is a task classifier. Site names are `waveform.code`, `embedding.output` and `blocks.i.{output,spatial.output,temporal.output,mlp.output}`. `waveform.code` exposes the native waveform convolution's channel-major positions as `[B,C,P,features]`, so `Selection(sensors=..., patches=...)` can target it without indexing native convolution axes. Spatial/temporal features have width 100 in this checkpoint; block features have width 200.
 
 Weights: [pinned official Hugging Face file](https://huggingface.co/weighting666/CBraMod/resolve/500543c7e30bda1b22bfd51a49301b238dee21fd/pretrained_weights.pth), Apache-2.0 according to its repository metadata.
 
@@ -157,15 +166,31 @@ upstream attention dropout remains active in evaluation, and the native mask
 generator still consumes its ordinary RNG draw before the explicit override.
 The temporary override is removed even if a downstream hook fails.
 
+`blocks.*.attention.output` captures the projected native attention output
+before the layer's dropout and residual addition;
+`blocks.*.ffn.output` captures the feed-forward output before its residual
+addition. These and `blocks.*.output` retain the native flattened
+`(C+1)×(P+1)` grid, while `encoder.output` retains the unflattened grid.
+Their `augmented_tokens` and
+`augmented_grid` layouts map `Selection(sensors=("C3",), patches=(1,))` to the
+physical C3/patch-1 position and exclude the prepended row and column.
+`Selection()` without coordinates selects the entire native activation,
+including the special positions. The adapter rejects an unexpected shape
+instead of silently interpreting a different token geometry as EEG channels.
+
 In reconstruction mode, `reconstruction.output` exposes the native time head
 and supports sensor/patch selection. Its last axis is waveform samples, not a
 latent feature basis. `features.output` is intentionally absent: the original
-encoder `head` output does not feed the native time head. Other internal sites
-retain their existing geometry restrictions. Output replacement at a final head
-is a tool control, not evidence of a mechanistic explanation.
+encoder `head` output does not feed the native time head. Consult
+`lens.capabilities()` for each internal site's declared geometry. Output
+replacement at a final head is a tool control, not evidence of a mechanistic
+explanation.
 
 Checkpoint-backed validation used official weights, synthetic three-sensor
 inputs, batches 1/2 and paired CPU float32 runs. Thirty site/batch identity and
 independent native-zero checks passed, including physical time-head selection
-and cleanup. Generated reports and environment-specific runners are not shipped
-with the reusable package.
+and cleanup. A separate pinned-upstream, random-weight test checks named
+sensor/patch edits at attention, feed-forward, block and encoder outputs
+against direct native hooks, including cleanup. The random-weight test is a
+tool-contract check, not evidence of a scientific mechanism. Generated reports
+and environment-specific runners are not shipped with the reusable package.

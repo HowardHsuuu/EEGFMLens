@@ -10,7 +10,7 @@ from .adapters.cbramod import CBraModAdapter
 from .adapters.continuous import BENDREncoderAdapter, BIOTAdapter
 from .adapters.csbrain import CSBrainAdapter
 from .adapters.diver import DIVERAdapter
-from .adapters.eegpt import EEGPTAdapter
+from .adapters.eegpt import EEGPTAdapter, EEGPTMaskedReconstructionAdapter
 from .adapters.labram import LaBraMAdapter
 from .adapters.neurorvq import NeuroRVQAdapter
 from .adapters.signaljepa import SignalJEPAAdapter
@@ -76,12 +76,15 @@ _SPECS = (
     ModelSpec(
         "eegpt",
         "EEGPT",
-        "EEGTransformer encoder",
+        "EEGTransformer encoder or full masked reconstruction pipeline",
         "256 Hz; configured channels, windows and contiguous patch size",
-        "whole activation or explicit raw axis",
+        "whole activation, explicit raw axis, or physical time patch in masked reconstruction",
         "https://github.com/BINE022/EEGPT",
         "a0e0a8fad729e2ecf4eedb3a81548a6e6d48a705",
-        (IntegrationSpec("default", EEGPTAdapter),),
+        (
+            IntegrationSpec("default", EEGPTAdapter),
+            IntegrationSpec("masked_reconstruction", EEGPTMaskedReconstructionAdapter),
+        ),
         evidence=("contract-ci", "pinned-source-ci", "checkpoint-evaluated"),
     ),
     ModelSpec(

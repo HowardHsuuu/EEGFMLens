@@ -29,7 +29,30 @@ class Selection:
 
     def mask(self, tensor: torch.Tensor, batch: SignalBatch, layout: str):
         b, c, p, _ = batch.data.shape
-        if layout not in {"bcpd", "spatial", "temporal", "tokens", "patch_tokens"}:
+        if layout == "bpfd":
+            if self.sensors is not None:
+                raise ValidationError("This site has time patches but no sensor identity")
+            patches = self.patches if self.patches is not None else tuple(range(p))
+            if (
+                not patches
+                or len(set(patches)) != len(patches)
+                or any(k < 0 or k >= p for k in patches)
+            ):
+                raise ValidationError("Unknown or duplicate time patch")
+            if tensor.ndim != 4 or tensor.shape[:2] != (b, p):
+                raise ValidationError("Unexpected time-patch activation geometry")
+            selected = torch.zeros(p, device=tensor.device, dtype=torch.bool)
+            selected[list(patches)] = True
+            return selected[None, :, None, None].expand_as(tensor)
+        if layout not in {
+            "bcpd",
+            "spatial",
+            "temporal",
+            "tokens",
+            "patch_tokens",
+            "augmented_tokens",
+            "augmented_grid",
+        }:
             if self.sensors is not None or self.patches is not None:
                 raise ValidationError("This site has no sensor/patch selector")
             return torch.ones_like(tensor, dtype=torch.bool)
@@ -44,6 +67,14 @@ class Selection:
         grid = torch.zeros((c, p), device=tensor.device, dtype=torch.bool)
         for s in sensors:
             grid[batch.channels.index(s), list(patches)] = True
+        if layout in {"augmented_tokens", "augmented_grid"}:
+            if self.sensors is None and self.patches is None:
+                return torch.ones_like(tensor, dtype=torch.bool)
+            augmented = torch.zeros((c + 1, p + 1), device=tensor.device, dtype=torch.bool)
+            augmented[1:, 1:] = grid
+            if layout == "augmented_tokens":
+                return augmented.flatten()[None, :, None].expand_as(tensor)
+            return augmented[None, :, :, None].expand_as(tensor)
         if layout in {"tokens", "patch_tokens"}:
             if self.sensors is None and self.patches is None:
                 return torch.ones_like(tensor, dtype=torch.bool)

@@ -23,6 +23,23 @@ def test_mutated_weights_and_duplicate_wrapper_are_rejected():
     assert not model[0]._forward_hooks
 
 
+def test_public_model_integrity_check_detects_native_changes():
+    model = nn.Sequential(nn.Linear(2, 2)).eval()
+    model.register_buffer("offset", torch.zeros(1))
+    lens = EEGLens(model, Adapter([ActivationSite("layer", "0")]))
+    assert lens.assert_model_unchanged() is None
+    with torch.no_grad():
+        model.offset.add_(1)
+    with pytest.raises(ValidationError, match="state changed"):
+        lens.assert_model_unchanged()
+
+    replacement_model = nn.Sequential(nn.Linear(2, 2)).eval()
+    replacement_lens = EEGLens(replacement_model, Adapter([ActivationSite("layer", "0")]))
+    replacement_model[0] = nn.Linear(2, 2).eval()
+    with pytest.raises(ValidationError, match="state changed"):
+        replacement_lens.assert_model_unchanged()
+
+
 def test_configuration_mismatch_and_input_mutation_are_rejected():
     class Scaled(nn.Module):
         def __init__(self):

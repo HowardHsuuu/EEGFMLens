@@ -82,6 +82,7 @@ class TinyCBraMod(nn.Module):
     def __init__(self):
         super().__init__()
         self.patch_embedding = nn.Identity()
+        self.patch_embedding.proj_in = nn.Identity()
         block = nn.Module()
         block.self_attn_s = nn.Identity()
         block.self_attn_t = nn.Identity()

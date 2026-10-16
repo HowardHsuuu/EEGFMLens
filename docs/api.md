@@ -30,6 +30,13 @@ and `forward` as needed. The generic `batch` layout does not infer sensor or pat
 coordinates. Use whole-activation selection or `AxisSelection` for raw axes whose
 meaning you have verified. Custom adapters are not automatically certified model support.
 
+`lens.assert_model_unchanged()` checks that native parameter and buffer
+identities, storage pointers, mutation versions, dtypes and devices, plus the
+native module inventory, still match wrapper creation. It raises
+`ValidationError` on a change. Use it after custom native operations to avoid
+calling the wrapper's private state method. External hook inventories and
+training mode are separate checks; EEGFMLens validates eval mode on each run.
+
 ## Execution
 
 ```python

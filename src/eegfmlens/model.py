@@ -75,13 +75,37 @@ class EEGLens:
             tuple((name, id(m)) for name, m in self.model.named_modules()),
         )
 
+    def assert_model_unchanged(self) -> None:
+        """Check that native parameters, buffers and modules match wrapper creation.
+
+        This is a public integrity check for callers that use additional native
+        operations between EEGFMLens runs. It does not inspect external hooks.
+        """
+        if not self._lock.acquire(blocking=False):
+            raise ValidationError("Concurrent or reentrant execution is unsupported")
+        try:
+            if self._state() != self._initial_state:
+                raise ValidationError(
+                    "Model state changed after wrapping; create a fresh model and wrapper"
+                )
+        finally:
+            self._lock.release()
+
     def sites(self):
         return tuple(self.adapter.sites.values())
 
     def capabilities(self) -> tuple[SiteCapability, ...]:
         """Describe usable operations without running the native model."""
 
-        physical = {"bcpd", "spatial", "temporal", "tokens", "patch_tokens"}
+        physical = {
+            "bcpd",
+            "spatial",
+            "temporal",
+            "tokens",
+            "patch_tokens",
+            "augmented_tokens",
+            "augmented_grid",
+        }
         return tuple(
             SiteCapability(
                 site.name,
@@ -90,6 +114,8 @@ class EEGLens:
                 site.writable,
                 ("whole", "axis", "sensor", "patch")
                 if site.layout in physical
+                else ("whole", "axis", "patch")
+                if site.layout == "bpfd"
                 else ("whole", "axis"),
                 site.call_index,
                 site.expected_calls,

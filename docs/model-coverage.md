@@ -35,17 +35,17 @@ repository.
 
 | Family | Verified native component | Physical selection | Public CI evidence | Material limitation |
 | --- | --- | --- | --- | --- |
-| CBraMod | official pretrained 12-block model | sensor/patch, including folded branches | contract + pinned source | no task classifier |
+| CBraMod | official pretrained 12-block model, including explicit-mask waveform reconstruction | sensor/patch, including folded branches | contract + pinned source; masked-call native test | no task classifier |
 | LaBraM | official pretrained student encoder and learned final norm | channel-major sensor/patch tokens | contract + pinned source | no functional QKV hook; at most 16 native patches |
-| EEGPT | EEGTransformer encoder with converted pretrained weights | none on summary/window token sites | contract + pinned source | 256 Hz configured geometry only |
+| EEGPT | EEGTransformer encoder; separately, a strictly loaded native masked encoder/predictor/reconstructor checkpoint | time patches at `predictor.combined` in the masked variant; no electrode identity for summary tokens | encoder contract + pinned source; full-checkpoint local admission | 256 Hz configured geometry; the masked endpoint and time-only selection are separate from the encoder-only contract |
 | BIOT | PREST 16-channel and six-dataset 18-channel encoders | none on STFT sequence | contract + pinned source | checkpoint channel vocabulary must be declared |
 | BENDR | convolutional encoder and encoder/contextualizer composition | none on downsampled/context sequence | contract | no DN3 preprocessing or classifier |
 | BrainOmni | tiny checkpoint native `encode` path | none on latent sensor units | contract | synthetic geometry; pair RNG for native eval dropout |
 | CSBrain | official pretrained encoder | sensor/patch after reversing native region sort | contract + pinned source | declared channel order only |
 | NeuroRVQ | raw four-branch pretrained backbone features | sensor/patch on all branch invocations | contract | pretraining heads and absent downstream norms excluded explicitly |
 | SignalJEPA | local and contextual encoder with full channel embeddings | none on local/context features | contract | decoder is loaded but not executed |
-| DIVER-1 | official EEG features and native time reconstruction | embedding and final physical outputs | contract + pinned source | synthetic xyz geometry; pair RNG for native eval dropout |
-| ST-EEGFormer | official small `forward_features` encoder | none on time-major token sites | contract + pinned source | no classifier or base/large variants |
+| DIVER-1 | official EEG features and native time reconstruction | embedding, augmented block/encoder sites, and final physical outputs | contract + pinned source | special row/column excluded by named selections; synthetic xyz geometry; pair RNG for native eval dropout |
+| ST-EEGFormer | official small `forward_features` encoder; separately, caller-supplied native MAE reconstruction model through `STEEGFormerMAEAdapter` | decoder sites reorder time-major tokens into physical sensor/patch coordinates; visible-only encoder sites remain whole-activation | encoder contract + pinned source; MAE native-source test | no classifier or bundled MAE checkpoint; study-checkpoint replay must be verified separately |
 
 All checkpoint-backed integration runs used eager CPU float32. The recorded
 checks cover native observation, identity replacement, a separately implemented
