@@ -5,7 +5,7 @@ Use Python 3.10+ in a virtual environment:
 ```bash
 python -m pip install -e '.[dev]'
 ruff check .
-ruff format --check .
+ruff format --check src tests tools examples
 mypy
 pytest -m 'not integration and not native'
 python examples/quickstart.py
@@ -18,6 +18,10 @@ python examples/restoration_workflow.py --demo --output /tmp/eegfmlens-restorati
 python -m build
 python tools/check_release.py --dist dist
 ```
+
+Validation runners are bound byte-for-byte to published conformance reports.
+Formatting checks cover maintained runtime, tests, tools and examples; edits to
+validation runners require renewed evidence bindings.
 
 Run `pre-commit install` once to apply the same Ruff formatting/lint and mypy
 checks before each commit.
@@ -42,7 +46,7 @@ coverage to that commit. Weights are not silently downloaded in CI.
 To verify a built wheel in a separate environment with pytest installed:
 
 ```bash
-python -m pip install /path/to/eegfmlens-0.1.0a20-py3-none-any.whl pytest
+python -m pip install /path/to/eegfmlens-0.1.0a31-py3-none-any.whl pytest
 python -I tools/check_installed.py --dist /path/to/dist --output /path/to/new-report.json
 ```
 

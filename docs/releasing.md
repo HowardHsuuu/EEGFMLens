@@ -14,11 +14,11 @@ review policy. The workflow uses short-lived trusted-publisher credentials.
 
    ```sh
    ruff check .
-   ruff format --check .
+   ruff format --check src tests tools examples
    mypy
    pytest -m 'not integration and not native' --cov=eegfmlens --cov-fail-under=80
    python -m build
-   python tools/check_release.py --tag v0.1.0a30 --dist dist
+   python tools/check_release.py --tag v0.1.0a31 --dist dist
    twine check dist/*
    ```
 
