@@ -1,0 +1,500 @@
+{
+  "schema": "eegfmlens-checkpoint-report-v1",
+  "id": "eegpt",
+  "family": "eegpt",
+  "component": "EEGTransformer target encoder; converted checkpoint, not masked reconstruction",
+  "evidence_layer": "historical checkpoint-backed synthetic integration",
+  "version_scope": "Recorded historical implementation, identified by source digests; not a fresh checkpoint run of the distributed package. Current source CI and six-study admissions are separate.",
+  "checkpoint": {
+    "label": "braindecode/eegpt-pretrained converted target encoder",
+    "sha256": "fb34c20609983324679b9534f9d17a2289a232d0276dd2b8b7d5b088f876f621"
+  },
+  "implementation": {
+    "adapter_sha256": "467b5e1c9b104842742fe1fc9a88feff3201268bbe5c7b4d0e8f444c6ef98b51",
+    "native_component_source_sha256": "0371411f4c2bfc0d1d0999432c8cea82e1d0f76d2e89ac95089adfeb59ed2233"
+  },
+  "execution": {
+    "device": "cpu",
+    "dtype": "float32",
+    "mode": "eager eval",
+    "batch_sizes": [
+      1,
+      2
+    ],
+    "input_axes": [
+      "batch",
+      "channel",
+      "patch",
+      "sample"
+    ],
+    "input_shape_without_batch": [
+      4,
+      16,
+      64
+    ],
+    "sampling_rate_hz": 256,
+    "input_distribution": "torch.randn synthetic values; no participant input",
+    "initial_rng_seed": 4311,
+    "channels": [
+      "C3",
+      "C4",
+      "F3",
+      "F4"
+    ]
+  },
+  "oracle": {
+    "baseline": "Native execution through adapter.forward, compared with run_with_cache; shared input preparation, not an independent preparation oracle.",
+    "intervention": "Independent native forward hooks overwrite feature coordinates; no package intervention selector used to construct the expected native state.",
+    "output_comparison": {
+      "rtol": 0,
+      "atol": 0
+    },
+    "untouched_feature_comparison": {
+      "rtol": 0,
+      "atol": 0
+    },
+    "edited_feature_center_comparison": {
+      "rtol": 0,
+      "atol": 1e-06
+    },
+    "result_basis": "Completed runner assertions and retained per-site results. Separate native output arrays were not retained in these reports; exact comparisons are recorded assertions, not recomputed discrepancies.",
+    "whole_zero_and_identity": "Recorded exact own-state replacement and native all-zero hook comparisons, with finite outputs and cleanup."
+  },
+  "recorded_metadata": {
+    "torch_version": "2.14.0",
+    "strict_load": true,
+    "reordered_trial_recovery": true,
+    "feature_subspace_verified": true
+  },
+  "records": [
+    {
+      "batch_size": 1,
+      "site": "embedding.output",
+      "cache_shape": [
+        1,
+        16,
+        4,
+        512
+      ],
+      "native_shape": [
+        1,
+        16,
+        4,
+        512
+      ],
+      "output_change": 245.41372680664062,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 318.46575927734375,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 360.38531494140625,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 377.2548522949219,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 383.35760498046875,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 388.90093994140625,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 380.1290588378906,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 377.91754150390625,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        1,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        16,
+        8,
+        512
+      ],
+      "output_change": 239.6180419921875,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "norm.output",
+      "cache_shape": [
+        1,
+        16,
+        4,
+        512
+      ],
+      "native_shape": [
+        16,
+        4,
+        512
+      ],
+      "output_change": 241.1815185546875,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "embedding.output",
+      "cache_shape": [
+        2,
+        16,
+        4,
+        512
+      ],
+      "native_shape": [
+        2,
+        16,
+        4,
+        512
+      ],
+      "output_change": 350.5609130859375,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.0.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 450.1482849121094,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.1.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 510.16680908203125,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.2.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 534.0408935546875,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.3.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 541.9070434570312,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.4.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 548.6265869140625,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.5.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 534.2459106445312,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.6.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 533.8532104492188,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "blocks.7.output",
+      "cache_shape": [
+        2,
+        16,
+        8,
+        512
+      ],
+      "native_shape": [
+        32,
+        8,
+        512
+      ],
+      "output_change": 339.21624755859375,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "norm.output",
+      "cache_shape": [
+        2,
+        16,
+        4,
+        512
+      ],
+      "native_shape": [
+        32,
+        4,
+        512
+      ],
+      "output_change": 341.4588317871094,
+      "native_feature_axis": -1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    }
+  ],
+  "site_batch_records": 20,
+  "result": "recorded checks passed",
+  "limits": [
+    "Fixed synthetic geometries and recorded native component only.",
+    "Does not establish task accuracy, physiological interpretation, every checkpoint variant or every runtime.",
+    "Hash identity and report validation do not independently rerun neural inference."
+  ]
+}

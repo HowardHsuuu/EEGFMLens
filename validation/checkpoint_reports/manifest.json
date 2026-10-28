@@ -1,0 +1,105 @@
+{
+  "schema": "eegfmlens-checkpoint-manifest-v1",
+  "families": 11,
+  "components": 13,
+  "reports": [
+    {
+      "id": "cbramod",
+      "family": "cbramod",
+      "file": "cbramod.json",
+      "sha256": "6898c4d4f1b9ea96f0d433f1b7d45b0eb39575c3a7dd62f7f6c101b2431ffe48",
+      "site_batch_records": 98
+    },
+    {
+      "id": "labram",
+      "family": "labram",
+      "file": "labram.json",
+      "sha256": "6b8b03c9874cd04506ffb5bd831d418a938b78df3974eb187d1f7b890ab10289",
+      "site_batch_records": 74
+    },
+    {
+      "id": "eegpt",
+      "family": "eegpt",
+      "file": "eegpt.json",
+      "sha256": "7b26657c366b3f9e0e472e4ce471a0983463b22848f13983ad9f4ab6bede9cc7",
+      "site_batch_records": 20
+    },
+    {
+      "id": "biot",
+      "family": "biot",
+      "file": "biot.json",
+      "sha256": "bee5fa854165ab30edb27131f4337951f727f5375c9ef674dbf143231c2d3518",
+      "site_batch_records": 18
+    },
+    {
+      "id": "biot-prest",
+      "family": "biot",
+      "file": "biot-prest.json",
+      "sha256": "b840659ec2c875bac645f83961d306c634c3a8692b4f7107cf46cafbe85e4cea",
+      "site_batch_records": 18
+    },
+    {
+      "id": "bendr",
+      "family": "bendr",
+      "file": "bendr.json",
+      "sha256": "536ad81d1d2f7a7798f01a464a12eda48fa762b8e0df6fa161e0b156e954d640",
+      "site_batch_records": 12
+    },
+    {
+      "id": "bendr-context",
+      "family": "bendr",
+      "file": "bendr-context.json",
+      "sha256": "f91f1ec4135310a1540a0a97907f8c90e46960df437a7f5cb5b760d86422861d",
+      "site_batch_records": 22
+    },
+    {
+      "id": "brainomni-tiny",
+      "family": "brainomni",
+      "file": "brainomni-tiny.json",
+      "sha256": "f552cc4e1e1554f4ad274b7ce2efe6deae3be61b181a2bd1123250ed18804b5c",
+      "site_batch_records": 24
+    },
+    {
+      "id": "csbrain",
+      "family": "csbrain",
+      "file": "csbrain.json",
+      "sha256": "92e0b6ea0b2841f848a77c1d8bf411b780f7a3613c3340f02d6bc6ec1193bbc4",
+      "site_batch_records": 28
+    },
+    {
+      "id": "neurorvq",
+      "family": "neurorvq",
+      "file": "neurorvq.json",
+      "sha256": "44e9c6013a3edf5bf4a80bdac9a6e8d638e64f4a169d58327502090b0436a037",
+      "site_batch_records": 104
+    },
+    {
+      "id": "signaljepa",
+      "family": "signaljepa",
+      "file": "signaljepa.json",
+      "sha256": "f1bd2b4b6171049a8131f169bb97dfd2a35ea0ea3f07b183958e848dcf2aef03",
+      "site_batch_records": 20
+    },
+    {
+      "id": "diver",
+      "family": "diver",
+      "file": "diver.json",
+      "sha256": "771b71a25c5a32959d3d0b7b2dcee39f468794b90f59c50bb0c6a8deb3c48e10",
+      "site_batch_records": 30
+    },
+    {
+      "id": "steegformer",
+      "family": "steegformer",
+      "file": "steegformer.json",
+      "sha256": "4fabe3bcde716b751cdb95612407990784f6f4e511d9a031a87d5e35c3af4131",
+      "site_batch_records": 20
+    }
+  ],
+  "historical_records": 488,
+  "study_summary": {
+    "file": "six_study_native_summary.json",
+    "sha256": "37bc179f5c21dd4dee6f5d56c3bdac5e4f69c54e27e2a46186e45dad54840e2f",
+    "scope": "Six specified study paths. Methods, masks, native input geometry and intervention sites are in the manuscript and companion study source; not inferred from historical encoder checks."
+  },
+  "verification_scope": "Integrity, coverage, schema and stored assertions; no checkpoint download or model execution."
+}

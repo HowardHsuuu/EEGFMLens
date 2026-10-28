@@ -1,0 +1,334 @@
+{
+  "schema": "eegfmlens-checkpoint-report-v1",
+  "id": "bendr",
+  "family": "bendr",
+  "component": "ConvEncoderBENDR, pretrained convolutional encoder",
+  "evidence_layer": "historical checkpoint-backed synthetic integration",
+  "version_scope": "Recorded historical implementation, identified by source digests; not a fresh checkpoint run of the distributed package. Current source CI and six-study admissions are separate.",
+  "checkpoint": {
+    "label": "BENDR encoder mirrored file",
+    "sha256": "32c913b1778d8bdf7f08bbe8ef5e6bef2954087b482851816deefc4d0fcf84cb"
+  },
+  "implementation": {
+    "adapter_sha256": "4b46c15775de47947dca53d1920e6d36f64305d6ecf84c7e712c38af5389c4cb",
+    "native_component_source_sha256": "8fb8583ad623144ea55b30f3ff8d13906b1fcab7f8db9434ad5e517a0e3c0712"
+  },
+  "execution": {
+    "device": "cpu",
+    "dtype": "float32",
+    "mode": "eager eval",
+    "batch_sizes": [
+      1,
+      2
+    ],
+    "input_axes": [
+      "batch",
+      "channel",
+      "patch",
+      "sample"
+    ],
+    "input_shape_without_batch": [
+      20,
+      4,
+      256
+    ],
+    "sampling_rate_hz": 256,
+    "input_distribution": "torch.randn synthetic values; no participant input",
+    "initial_rng_seed": 4311,
+    "channels": [
+      "input-0",
+      "input-1",
+      "input-2",
+      "input-3",
+      "input-4",
+      "input-5",
+      "input-6",
+      "input-7",
+      "input-8",
+      "input-9",
+      "input-10",
+      "input-11",
+      "input-12",
+      "input-13",
+      "input-14",
+      "input-15",
+      "input-16",
+      "input-17",
+      "input-18",
+      "input-19"
+    ]
+  },
+  "oracle": {
+    "baseline": "Native execution through adapter.forward, compared with run_with_cache; shared input preparation, not an independent preparation oracle.",
+    "intervention": "Independent native forward hooks overwrite feature coordinates; no package intervention selector used to construct the expected native state.",
+    "output_comparison": {
+      "rtol": 0,
+      "atol": 0
+    },
+    "untouched_feature_comparison": {
+      "rtol": 0,
+      "atol": 0
+    },
+    "edited_feature_center_comparison": {
+      "rtol": 0,
+      "atol": 1e-06
+    },
+    "result_basis": "Completed runner assertions and retained per-site results. Separate native output arrays were not retained in these reports; exact comparisons are recorded assertions, not recomputed discrepancies.",
+    "whole_zero_and_identity": "Recorded exact own-state replacement and native all-zero hook comparisons, with finite outputs and cleanup."
+  },
+  "recorded_metadata": {
+    "torch_version": "2.14.0",
+    "strict_load": true,
+    "reordered_trial_recovery": true,
+    "feature_subspace_verified": true
+  },
+  "records": [
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_0.output",
+      "cache_shape": [
+        1,
+        342,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        342
+      ],
+      "output_change": 41.371315002441406,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_1.output",
+      "cache_shape": [
+        1,
+        171,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        171
+      ],
+      "output_change": 36.88656997680664,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_2.output",
+      "cache_shape": [
+        1,
+        86,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        86
+      ],
+      "output_change": 30.545564651489258,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_3.output",
+      "cache_shape": [
+        1,
+        43,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        43
+      ],
+      "output_change": 26.77240753173828,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_4.output",
+      "cache_shape": [
+        1,
+        22,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        22
+      ],
+      "output_change": 22.823410034179688,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 1,
+      "site": "encoder.Encoder_5.output",
+      "cache_shape": [
+        1,
+        11,
+        512
+      ],
+      "native_shape": [
+        1,
+        512,
+        11
+      ],
+      "output_change": 13.778632164001465,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_0.output",
+      "cache_shape": [
+        2,
+        342,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        342
+      ],
+      "output_change": 58.40964126586914,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_1.output",
+      "cache_shape": [
+        2,
+        171,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        171
+      ],
+      "output_change": 52.093353271484375,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_2.output",
+      "cache_shape": [
+        2,
+        86,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        86
+      ],
+      "output_change": 42.962154388427734,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_3.output",
+      "cache_shape": [
+        2,
+        43,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        43
+      ],
+      "output_change": 37.730194091796875,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_4.output",
+      "cache_shape": [
+        2,
+        22,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        22
+      ],
+      "output_change": 32.31045150756836,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    },
+    {
+      "batch_size": 2,
+      "site": "encoder.Encoder_5.output",
+      "cache_shape": [
+        2,
+        11,
+        512
+      ],
+      "native_shape": [
+        2,
+        512,
+        11
+      ],
+      "output_change": 19.21917152404785,
+      "native_feature_axis": 1,
+      "partial_feature_erasure": true,
+      "centered_feature_erasure": true,
+      "untouched_features_exact": true,
+      "unsupported_sensor_patch_rejected": true
+    }
+  ],
+  "site_batch_records": 12,
+  "result": "recorded checks passed",
+  "limits": [
+    "Fixed synthetic geometries and recorded native component only.",
+    "Does not establish task accuracy, physiological interpretation, every checkpoint variant or every runtime.",
+    "Hash identity and report validation do not independently rerun neural inference."
+  ]
+}

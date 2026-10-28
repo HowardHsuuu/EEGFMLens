@@ -1,0 +1,6 @@
+# Keep executable source and documentation consistent on every checkout.
+* text=auto eol=lf
+
+# This file carries an upstream license verbatim. Preserve its bytes and
+# intentional whitespace.
+LICENSES/*.txt -text -whitespace
