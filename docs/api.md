@@ -38,7 +38,13 @@ meaning you have verified. Custom adapters are not automatically certified model
 `lens.assert_model_unchanged()` checks that native parameter and buffer
 identities, storage pointers, mutation versions, dtypes and devices, plus the
 native module inventory, still match wrapper creation. It raises
-`ValidationError` on a change. Use it after custom native operations to avoid
+`ValidationError` when one of those properties changes. This is a structural
+and version check, not a comparison of tensor values. The method's name and
+"match wrapper creation" wording refer to those recorded properties only.
+Writes that bypass version tracking, such as `parameter.data.add_(1)`, can go undetected. A passing
+check therefore does not prove that parameter or buffer values are unchanged.
+Use separate value snapshots or hashes when numerical state integrity must be
+verified. Use this public method after custom native operations rather than
 calling the wrapper's private state method. External hook inventories and
 training mode are separate checks; EEGFMLens validates eval mode on each run.
 

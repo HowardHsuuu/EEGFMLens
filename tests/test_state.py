@@ -60,3 +60,18 @@ def test_configuration_mismatch_and_input_mutation_are_rejected():
     batch.data.fill_(float("nan"))
     with pytest.raises(ValidationError, match="Non-finite"):
         lens.run_with_cache(batch)
+
+
+@pytest.mark.parametrize("tensor_name", ["weight", "offset"])
+def test_model_state_check_does_not_compare_tensor_values(tensor_name):
+    """Version-bypassing writes require a separate numerical integrity check."""
+    model = nn.Linear(2, 2).eval()
+    model.register_buffer("offset", torch.zeros(1))
+    lens = EEGLens(model, Adapter([]))
+    tensor = getattr(model, tensor_name)
+    before = tensor.detach().clone()
+    version = tensor._version
+    tensor.data.add_(1)
+    assert not torch.equal(before, tensor)
+    assert tensor._version == version
+    assert lens.assert_model_unchanged() is None
